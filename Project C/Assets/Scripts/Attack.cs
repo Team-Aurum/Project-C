@@ -16,7 +16,7 @@ public struct Attack
     public int apCost;
     public int[][] buff;
     public int[][] debuff;
-    public Status[] status;
+    //public Status[] status;
     public int hpRegen;
     public int epRegen;
 

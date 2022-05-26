@@ -1,8 +1,5 @@
 {
     "name": "Diya",
-    "level": -1,
-    "currentHP": -1,
-    "currentEP": -1,
     "maxHP": [90, 9.19],
     "maxEP": [90, 9.19],
     "attack": [8, 0.73],
