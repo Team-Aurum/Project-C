@@ -880,7 +880,7 @@ GameObject:
   - component: {fileID: 100574592}
   - component: {fileID: 100574594}
   m_Layer: 5
-  m_Name: Portrait
+  m_Name: Portrait2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4949,7 +4949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &486471373
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6147,7 +6147,7 @@ GameObject:
   - component: {fileID: 629053410}
   - component: {fileID: 629053412}
   m_Layer: 5
-  m_Name: Portrait
+  m_Name: Portrait1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11256,7 +11256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1374557398
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11285,7 +11285,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -300, y: -341.63797}
+  m_AnchoredPosition: {x: -300, y: -371.6379}
   m_SizeDelta: {x: 172, y: 237}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1374557399
@@ -11309,7 +11309,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -11840,7 +11840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1437273118
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12108,7 +12108,7 @@ GameObject:
   - component: {fileID: 1460200723}
   - component: {fileID: 1460200725}
   m_Layer: 5
-  m_Name: Portrait
+  m_Name: Portrait4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12306,7 +12306,7 @@ GameObject:
   - component: {fileID: 1492906741}
   - component: {fileID: 1492906743}
   m_Layer: 5
-  m_Name: Portrait
+  m_Name: Portrait3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14090,7 +14090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1694317146
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16265,6 +16265,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eController: {fileID: 57563797}
   attackButton: {fileID: 698638291}
+  portrait1: {fileID: 629053410}
+  portrait2: {fileID: 100574592}
+  portrait3: {fileID: 1492906741}
+  portrait4: {fileID: 1460200723}
+  card1: {fileID: 1374557397}
+  card2: {fileID: 1437273117}
+  card3: {fileID: 486471372}
+  card4: {fileID: 1694317145}
 --- !u!1 &1873442465
 GameObject:
   m_ObjectHideFlags: 0

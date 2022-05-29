@@ -9,19 +9,19 @@ public class Ciaran : ICharacter
         this.currentHP = currentHP;
         this.currentEP = currentEP;
     }
-    public Sprite portrait{get;}
+    public Sprite portrait => Resources.Load<Sprite>("Textures/CiaranPortrait");
     public string name => "Ciaran";
     public int level{get; set;}
     public int currentHP{get; set;}
     public int currentEP{get; set;}
-    public int maxHP{get;}
-    public int maxEP{get;}
+    public int maxHP => Mathf.FloorToInt((float)(90 + level * 9.19));
+    public int maxEP => Mathf.FloorToInt((float)(90 + level * 9.19));
     public int attack => Mathf.FloorToInt((float)(8 + level * 0.73));
-    public int magic{get;}
-    public int speed{get;}
-    public int defense{get;}
-    public int resistance{get;}
-    public int[] resistances{get;}
+    public int magic => Mathf.FloorToInt((float)(8 + level * 0.73));
+    public int speed => Mathf.FloorToInt((float)(8 + level * 0.73));
+    public int defense => Mathf.FloorToInt((float)(8 + level * 0.73));
+    public int resistance => Mathf.FloorToInt((float)(8 + level * 0.73));
+    public int[] resistances => new int[] {2,3,0,1};
     public AttackTag[] attacks{get;}
 
     // // Start is called before the first frame update

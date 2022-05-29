@@ -58,14 +58,14 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ObjectMove.cs" />
     <Compile Include="Assets\Scripts\BattleInitializer.cs" />
+    <Compile Include="Assets\Scripts\BEffectCalculations.cs" />
+    <Compile Include="Assets\Scripts\ICharacter.cs" />
+    <Compile Include="Assets\Scripts\PController.cs" />
     <Compile Include="Assets\Scripts\AttackTag.cs" />
+    <Compile Include="Assets\Resources\characterData\Ciaran.cs" />
+    <Compile Include="Assets\Scripts\EController.cs" />
     <Compile Include="Assets\Scripts\GroundMove.cs" />
     <Compile Include="Assets\Scripts\Attack.cs" />
-    <Compile Include="Assets\Scripts\PController.cs" />
-    <Compile Include="Assets\Scripts\EController.cs" />
-    <Compile Include="Assets\Scripts\BEffectCalculations.cs" />
-    <Compile Include="Assets\Resources\characterData\Ciaran.cs" />
-    <Compile Include="Assets\Scripts\ICharacter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
