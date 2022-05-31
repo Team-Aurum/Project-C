@@ -8,6 +8,7 @@ public interface ICharacter
     int level{get; set;}
     int currentHP{get; set;}
     int currentEP{get; set;}
+    int currentBP{get; set;}
     int maxHP{get;}
     int maxEP{get;}
     int attack{get;}

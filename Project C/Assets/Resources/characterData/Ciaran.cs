@@ -8,12 +8,14 @@ public class Ciaran : ICharacter
         this.level = level;
         this.currentHP = currentHP;
         this.currentEP = currentEP;
+        this.currentBP = 0;
     }
     public Sprite portrait => Resources.Load<Sprite>("Textures/CiaranPortrait");
     public string name => "Ciaran";
     public int level{get; set;}
     public int currentHP{get; set;}
     public int currentEP{get; set;}
+    public int currentBP{get; set;}
     public int maxHP => Mathf.FloorToInt((float)(90 + level * 9.19));
     public int maxEP => Mathf.FloorToInt((float)(90 + level * 9.19));
     public int attack => Mathf.FloorToInt((float)(8 + level * 0.73));

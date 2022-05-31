@@ -10,6 +10,8 @@ public class PController : MonoBehaviour
     public Button attackButton;
     public Image portrait1, portrait2, portrait3, portrait4;
     public GameObject card1, card2, card3, card4;
+    public Text health1, health2, health3, health4, energy1, energy2, energy3, energy4;
+    public Image HPBar1, HPBar2, HPBar3, HPBar4, EPBar1, EPBar2, EPBar3, EPBar4;
     // Start is called before the first frame update
     void Start()
     {

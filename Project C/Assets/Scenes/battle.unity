@@ -799,7 +799,7 @@ GameObject:
   - component: {fileID: 97305011}
   - component: {fileID: 97305010}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Health1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2863,7 +2863,7 @@ GameObject:
   - component: {fileID: 271490686}
   - component: {fileID: 271490685}
   m_Layer: 5
-  m_Name: Energy
+  m_Name: Energy4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4382,7 +4382,7 @@ GameObject:
   - component: {fileID: 466042352}
   - component: {fileID: 466042351}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Health2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4540,7 +4540,7 @@ GameObject:
   - component: {fileID: 469994590}
   - component: {fileID: 469994589}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Health4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4949,7 +4949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &486471373
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7360,7 +7360,7 @@ GameObject:
   - component: {fileID: 875889021}
   - component: {fileID: 875889020}
   m_Layer: 5
-  m_Name: EP
+  m_Name: EP1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8110,7 +8110,7 @@ GameObject:
   - component: {fileID: 990930504}
   - component: {fileID: 990930503}
   m_Layer: 5
-  m_Name: Energy
+  m_Name: Energy2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8990,7 +8990,7 @@ GameObject:
   - component: {fileID: 1157362497}
   - component: {fileID: 1157362496}
   m_Layer: 5
-  m_Name: EP
+  m_Name: EP2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9067,7 +9067,7 @@ GameObject:
   - component: {fileID: 1158815105}
   - component: {fileID: 1158815104}
   m_Layer: 5
-  m_Name: HP
+  m_Name: HP1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11098,7 +11098,7 @@ GameObject:
   - component: {fileID: 1351185138}
   - component: {fileID: 1351185137}
   m_Layer: 5
-  m_Name: EP
+  m_Name: EP4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11256,7 +11256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1374557398
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11840,7 +11840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1437273118
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14090,7 +14090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1694317146
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15624,7 +15624,7 @@ GameObject:
   - component: {fileID: 1835698211}
   - component: {fileID: 1835698210}
   m_Layer: 5
-  m_Name: Energy
+  m_Name: Energy3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16071,7 +16071,7 @@ GameObject:
   - component: {fileID: 1858899396}
   - component: {fileID: 1858899395}
   m_Layer: 5
-  m_Name: HP
+  m_Name: HP2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16273,6 +16273,22 @@ MonoBehaviour:
   card2: {fileID: 1437273117}
   card3: {fileID: 486471372}
   card4: {fileID: 1694317145}
+  health1: {fileID: 0}
+  health2: {fileID: 0}
+  health3: {fileID: 0}
+  health4: {fileID: 0}
+  energy1: {fileID: 0}
+  energy2: {fileID: 0}
+  energy3: {fileID: 0}
+  energy4: {fileID: 0}
+  HPBar1: {fileID: 0}
+  HPBar2: {fileID: 0}
+  HPBar3: {fileID: 0}
+  HPBar4: {fileID: 0}
+  EPBar1: {fileID: 0}
+  EPBar2: {fileID: 0}
+  EPBar3: {fileID: 0}
+  EPBar4: {fileID: 0}
 --- !u!1 &1873442465
 GameObject:
   m_ObjectHideFlags: 0
@@ -16285,7 +16301,7 @@ GameObject:
   - component: {fileID: 1873442468}
   - component: {fileID: 1873442467}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Health3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17018,7 +17034,7 @@ GameObject:
   - component: {fileID: 1955490010}
   - component: {fileID: 1955490009}
   m_Layer: 5
-  m_Name: HP
+  m_Name: HP3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17785,7 +17801,7 @@ GameObject:
   - component: {fileID: 2078309951}
   - component: {fileID: 2078309950}
   m_Layer: 5
-  m_Name: Energy
+  m_Name: Energy1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18063,7 +18079,7 @@ GameObject:
   - component: {fileID: 2107522923}
   - component: {fileID: 2107522922}
   m_Layer: 5
-  m_Name: EP
+  m_Name: EP3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18368,7 +18384,7 @@ GameObject:
   - component: {fileID: 2134420728}
   - component: {fileID: 2134420727}
   m_Layer: 5
-  m_Name: HP
+  m_Name: HP4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
