@@ -16,11 +16,11 @@ public class BattleInitializer : MonoBehaviour
         List<ICharacter> tempEnemies = new List<ICharacter>();
         
         //The below is all test code
-        tempPlayers.Add(new Ciaran(20, 100, 100));
-        // tempPlayers.Add(new Ciaran(20, 100, 100));
-        // tempPlayers.Add(new Ciaran(20, 100, 100));
-        // tempPlayers.Add(new Ciaran(20, 100, 100));
-        tempEnemies.Add(new Ciaran(20, 100, 100));
+        tempPlayers.Add(new Ciaran(20, 273, 273, 0));
+        tempPlayers.Add(new Ciaran(20, 100, 10, 145));
+        // tempPlayers.Add(new Ciaran(20, 173, 0, 101));
+        tempPlayers.Add(new Ciaran(20, 165, 100, 78));
+        tempEnemies.Add(new Ciaran(20, 100, 100, 0));
 
         pController.InitPlayers(tempPlayers);
         eController.InitEnemies(tempEnemies);

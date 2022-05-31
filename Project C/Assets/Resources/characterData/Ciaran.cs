@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Ciaran : ICharacter
 {
-    public Ciaran(int level, int currentHP, int currentEP){
+    public Ciaran(int level, int currentHP, int currentEP, int currentBP){
         this.level = level;
         this.currentHP = currentHP;
         this.currentEP = currentEP;
-        this.currentBP = 0;
+        this.currentBP = currentBP;
     }
     public Sprite portrait => Resources.Load<Sprite>("Textures/CiaranPortrait");
     public string name => "Ciaran";

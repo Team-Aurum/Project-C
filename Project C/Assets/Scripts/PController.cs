@@ -11,7 +11,7 @@ public class PController : MonoBehaviour
     public Image portrait1, portrait2, portrait3, portrait4;
     public GameObject card1, card2, card3, card4;
     public Text health1, health2, health3, health4, energy1, energy2, energy3, energy4;
-    public Image HPBar1, HPBar2, HPBar3, HPBar4, EPBar1, EPBar2, EPBar3, EPBar4;
+    public Image HPBar1, HPBar2, HPBar3, HPBar4, EPBar1, EPBar2, EPBar3, EPBar4, BPBar1, BPBar2, BPBar3, BPBar4, OverBar1, OverBar2, OverBar3, OverBar4;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,18 +31,42 @@ public class PController : MonoBehaviour
         switch(players.Count){
             case 4:
                 portrait4.sprite = characters[3].portrait;
+                health4.text = characters[3].currentHP + "/" + characters[3].maxHP;
+                energy4.text = characters[3].currentEP + "/" + characters[3].maxEP;
+                HPBar4.fillAmount = (float)characters[3].currentHP/characters[3].maxHP;
+                EPBar4.fillAmount = (float)characters[3].currentEP/characters[3].maxEP;
+                BPBar4.fillAmount = (float)characters[3].currentBP/100;
+                OverBar4.fillAmount = (float)(characters[3].currentBP - 100)/100;
                 card4.SetActive(true);
                 goto case 3;
             case 3:
                 portrait3.sprite = characters[2].portrait;
+                health3.text = characters[2].currentHP + "/" + characters[2].maxHP;
+                energy3.text = characters[2].currentEP + "/" + characters[2].maxEP;
+                HPBar3.fillAmount = (float)characters[2].currentHP/characters[2].maxHP;
+                EPBar3.fillAmount = (float)characters[2].currentEP/characters[2].maxEP;
+                BPBar3.fillAmount = (float)characters[2].currentBP/100;
+                OverBar3.fillAmount = (float)(characters[2].currentBP - 100)/100;
                 card3.SetActive(true);
                 goto case 2;
             case 2:
                 portrait2.sprite = characters[1].portrait;
+                health2.text = characters[1].currentHP + "/" + characters[1].maxHP;
+                energy2.text = characters[1].currentEP + "/" + characters[1].maxEP;
+                HPBar2.fillAmount = (float)characters[1].currentHP/characters[1].maxHP;
+                EPBar2.fillAmount = (float)characters[1].currentEP/characters[1].maxEP;
+                BPBar2.fillAmount = (float)characters[1].currentBP/100;
+                OverBar2.fillAmount = (float)(characters[1].currentBP - 100)/100;
                 card2.SetActive(true);
                 goto case 1;
             case 1:
                 portrait1.sprite = characters[0].portrait;
+                health1.text = characters[0].currentHP + "/" + characters[0].maxHP;
+                energy1.text = characters[0].currentEP + "/" + characters[0].maxEP;
+                HPBar1.fillAmount = (float)characters[0].currentHP/characters[0].maxHP;
+                EPBar1.fillAmount = (float)characters[0].currentEP/characters[0].maxEP;
+                BPBar1.fillAmount = (float)characters[0].currentBP/100;
+                OverBar1.fillAmount = (float)(characters[0].currentBP - 100)/100;
                 card1.SetActive(true);
                 break;
             default:
