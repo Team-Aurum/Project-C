@@ -12,6 +12,7 @@ public class PController : MonoBehaviour
     public GameObject card1, card2, card3, card4;
     public Text health1, health2, health3, health4, energy1, energy2, energy3, energy4;
     public Image HPBar1, HPBar2, HPBar3, HPBar4, EPBar1, EPBar2, EPBar3, EPBar4, BPBar1, BPBar2, BPBar3, BPBar4, OverBar1, OverBar2, OverBar3, OverBar4;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class PController : MonoBehaviour
         
     }
 
+    // Sets all UI-specific elements as well as setting the variable List<ICharacter> characters
     public void InitPlayers(List<ICharacter> players){
         Debug.Log("Setting Player Data");
         characters = players;
@@ -104,5 +106,9 @@ public class PController : MonoBehaviour
         ", " + eController.characters[0].resistances[1] + 
         ", " + eController.characters[0].resistances[2] +
         ", " + eController.characters[0].resistances[3] + "]");
+    }
+
+    public void Attack(){
+        
     }
 }
