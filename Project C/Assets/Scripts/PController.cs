@@ -8,6 +8,7 @@ public class PController : MonoBehaviour
     public EController eController;
     public List<ICharacter> characters;
     public Button attackButton;
+    public GameObject testAnim;
     public Image portrait1, portrait2, portrait3, portrait4;
     public GameObject card1, card2, card3, card4;
     public Text health1, health2, health3, health4, energy1, energy2, energy3, energy4;
@@ -109,6 +110,6 @@ public class PController : MonoBehaviour
     }
 
     public void Attack(){
-        
+
     }
 }

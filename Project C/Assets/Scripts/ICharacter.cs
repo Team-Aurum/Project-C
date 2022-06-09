@@ -18,6 +18,7 @@ public interface ICharacter
     int resistance{get;}
     int[] resistances{get;}
     AttackTag[] attacks{get;}
+    IWeapon[] weapons{get;}
 
     string BasicDetails()
     {

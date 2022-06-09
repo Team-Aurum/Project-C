@@ -3,24 +3,9 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    Sprite portrait{get;}
-    string name{get;}
-    int level{get; set;}
-    int currentHP{get; set;}
-    int currentEP{get; set;}
-    int currentBP{get; set;}
-    int maxHP{get;}
-    int maxEP{get;}
-    int attack{get;}
-    int magic{get;}
-    int speed{get;}
-    int defense{get;}
-    int resistance{get;}
-    int[] resistances{get;}
-    AttackTag[] attacks{get;}
-
-    string BasicDetails()
-    {
-        return "Level " + level + " " + name;
-    }
+    string anim{get;}
+    int might{get;}
+    int weight{get;}
+    int hitCount{get;}
+    bool passive{get;}
 }

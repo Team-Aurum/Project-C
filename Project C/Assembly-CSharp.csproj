@@ -39,6 +39,7 @@
      <Compile Include="Assets\Scripts\ObjectMove.cs" />
      <Compile Include="Assets\Scripts\BattleInitializer.cs" />
      <Compile Include="Assets\Scripts\BEffectCalculations.cs" />
+     <Compile Include="Assets\Resources\weaponData\CircuitBlade.cs" />
      <Compile Include="Assets\Scripts\ICharacter.cs" />
      <Compile Include="Assets\Scripts\PController.cs" />
      <Compile Include="Assets\Scripts\AttackTag.cs" />

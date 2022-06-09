@@ -25,6 +25,7 @@ public class Ciaran : ICharacter
     public int resistance => Mathf.FloorToInt((float)(8 + level * 0.73));
     public int[] resistances => new int[] {2,3,0,1};
     public AttackTag[] attacks{get;}
+    public IWeapon[] weapons => new IWeapon[] {new CircuitBlade()};
 
     // // Start is called before the first frame update
     // void Start()
