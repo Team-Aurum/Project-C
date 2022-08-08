@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://charCard.tscn" type="PackedScene" id=1]
+[ext_resource path="res:// BottomBorder.tscn" type="PackedScene" id=2]
+[ext_resource path="res://SideBorder.tscn" type="PackedScene" id=3]
+[ext_resource path="res://TestButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://botTestButtonL.tscn" type="PackedScene" id=5]
+[ext_resource path="res://botTestButtonR.tscn" type="PackedScene" id=6]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureButton" parent="." instance=ExtResource( 4 )]
+anchor_right = 200.0
+margin_left = 860.0
+margin_top = 850.0
+margin_right = 1060.0
+margin_bottom = 950.0
+
+[node name="SideBorder" parent="." instance=ExtResource( 3 )]
+
+[node name="SideBorder2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1920, 0 )
+scale = Vector2( -1, 1 )
+
+[node name="BottomBorder" parent="." instance=ExtResource( 2 )]
+
+[node name="Char4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 520, 810 )
+
+[node name="Char3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 360, 810 )
+
+[node name="Char2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 200, 810 )
+
+[node name="Char1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 40, 810 )
+
+[node name="Button" parent="." instance=ExtResource( 5 )]
+margin_left = 860.0
+margin_top = 950.0
+margin_right = 1072.0
+margin_bottom = 1056.0
+
+[node name="TextureButton2" parent="." instance=ExtResource( 6 )]
+margin_left = 960.0
+margin_top = 950.0
+margin_right = 1060.0
+margin_bottom = 1050.0
