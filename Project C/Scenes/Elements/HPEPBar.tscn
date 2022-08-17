@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Theme.tres" type="Theme" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="background" type="Polygon2D" parent="."]
+color = Color( 0.12549, 0.12549, 0.12549, 1 )
+polygon = PoolVector2Array( 0, 0, 150, 0, 150, 20, 0, 20 )
+
+[node name="color" type="Polygon2D" parent="."]
+color = Color( 0.960784, 0.843137, 0.0784314, 1 )
+polygon = PoolVector2Array( 0, 0, 125, 0, 125, 20, 0, 20 )
+
+[node name="numberSpace" type="Polygon2D" parent="."]
+polygon = PoolVector2Array( 100, 0, 150, 0, 150, 20, 125, 20 )
+
+[node name="Label" type="Label" parent="numberSpace"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 118.0
+margin_top = -1.0
+margin_right = 149.0
+margin_bottom = 19.0
+theme = ExtResource( 1 )
+text = "999"
+align = 2
+
+[node name="outline" type="Line2D" parent="."]
+points = PoolVector2Array( 0, 0, 150, 0, 150, 20, 0, 20, 0, 0 )
+width = 1.0
+default_color = Color( 0, 0, 0, 1 )

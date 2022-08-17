@@ -1,0 +1,110 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Audio/NjordNightFirst.wav" type="AudioStream" id=1]
+[ext_resource path="res://Audio/NjordNightLoop.wav" type="AudioStream" id=2]
+[ext_resource path="res://Scripts/Audio1.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/TechMenuLoad.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Elements/TechsMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Elements/APBar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Elements/TestButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Elements/botTestButtonR.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Elements/botTestButtonL.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Elements/BottomBorder.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Elements/SideBorder.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Elements/charCard.tscn" type="PackedScene" id=12]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="APBar" parent="." instance=ExtResource( 6 )]
+position = Vector2( 51, 0 )
+
+[node name="SideBorder" parent="." instance=ExtResource( 11 )]
+
+[node name="SideBorder2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1920, 0 )
+scale = Vector2( -1, 1 )
+
+[node name="BottomBorder" parent="." instance=ExtResource( 10 )]
+
+[node name="Enemy4" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1730, 810 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1570, 810 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1410, 810 )
+
+[node name="Enemy1" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1250, 810 )
+
+[node name="Player4" parent="." instance=ExtResource( 12 )]
+position = Vector2( 520, 810 )
+
+[node name="Player3" parent="." instance=ExtResource( 12 )]
+position = Vector2( 360, 810 )
+
+[node name="Player2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 200, 810 )
+
+[node name="Player1" parent="." instance=ExtResource( 12 )]
+position = Vector2( 40, 810 )
+
+[node name="ControlPalette" type="Node2D" parent="."]
+position = Vector2( 40, 810 )
+
+[node name="AttackButton" parent="ControlPalette" instance=ExtResource( 7 )]
+anchor_right = 200.0
+margin_left = 820.0
+margin_top = 40.0
+margin_right = 1020.0
+margin_bottom = 140.0
+
+[node name="EscapeButton" parent="ControlPalette" instance=ExtResource( 9 )]
+margin_left = 820.0
+margin_top = 140.0
+margin_right = 1032.0
+margin_bottom = 246.0
+
+[node name="AnalyzeButton" parent="ControlPalette" instance=ExtResource( 8 )]
+margin_left = 920.0
+margin_top = 140.0
+margin_right = 1020.0
+margin_bottom = 240.0
+
+[node name="Audio1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+autoplay = true
+script = ExtResource( 3 )
+
+[node name="Audio2" type="AudioStreamPlayer" parent="Audio1"]
+stream = ExtResource( 2 )
+volume_db = -80.0
+autoplay = true
+
+[node name="TechMenu" parent="." instance=ExtResource( 5 )]
+visible = false
+position = Vector2( 785, 490 )
+
+[connection signal="pressed" from="Player4/AnimationGroup/TextureButton" to="." method="_on_Player4Button_pressed"]
+[connection signal="pressed" from="Player3/AnimationGroup/TextureButton" to="." method="_on_Player3Button_pressed"]
+[connection signal="pressed" from="Player2/AnimationGroup/TextureButton" to="." method="_on_Player2Button_pressed"]
+[connection signal="pressed" from="Player1/AnimationGroup/TextureButton" to="." method="_on_Player1Button_pressed"]
+[connection signal="finished" from="Audio1/Audio2" to="Audio1" method="_on_Audio2_finished"]
+[connection signal="pressed" from="TechMenu/Header/TextureButton" to="." method="_on_TechMenuExitButton_pressed"]
+
+[editable path="Player4"]
+[editable path="Player4/AnimationGroup/EPBar"]
+[editable path="Player4/AnimationGroup/HPBar"]
+[editable path="Player3"]
+[editable path="Player3/AnimationGroup/EPBar"]
+[editable path="Player3/AnimationGroup/HPBar"]
+[editable path="Player2"]
+[editable path="Player2/AnimationGroup/EPBar"]
+[editable path="Player2/AnimationGroup/HPBar"]
+[editable path="Player1"]
+[editable path="Player1/AnimationGroup/EPBar"]
+[editable path="Player1/AnimationGroup/HPBar"]
+[editable path="TechMenu"]
+[editable path="TechMenu/ScrollContainer/VBoxContainer/Option9"]
