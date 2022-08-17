@@ -1,0 +1,51 @@
+[gd_scene format=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0.870588, 0.909804, 0.945098, 0.521569 )
+polygon = PoolVector2Array( 0, 0, 20, 0, 20, 620, 0, 600 )
+
+[node name="APFill" type="Polygon2D" parent="Polygon2D"]
+color = Color( 0.807843, 0.607843, 0.890196, 1 )
+polygon = PoolVector2Array( 0, 0, 20, 0, 20, 170, 0, 150 )
+
+[node name="Outline" type="Line2D" parent="Polygon2D"]
+points = PoolVector2Array( 0, 0, 20, 0, 20, 620, 0, 600, 0, 0 )
+width = 2.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="Line1" type="Line2D" parent="Polygon2D"]
+points = PoolVector2Array( 0, 75, 20, 95 )
+width = 2.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="Line2" type="Line2D" parent="Polygon2D"]
+points = PoolVector2Array( 0, 150, 20, 170 )
+width = 2.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="Line3" type="Line2D" parent="Polygon2D"]
+points = PoolVector2Array( 0, 225, 20, 245 )
+width = 2.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="Line4" type="Line2D" parent="Polygon2D"]
+points = PoolVector2Array( 0, 300, 20, 320 )
+width = 2.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="Line5" type="Line2D" parent="Polygon2D"]
+points = PoolVector2Array( 0, 375, 20, 395 )
+width = 2.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="Line6" type="Line2D" parent="Polygon2D"]
+points = PoolVector2Array( 0, 450, 20, 470 )
+width = 2.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="Line7" type="Line2D" parent="Polygon2D"]
+points = PoolVector2Array( 0, 525, 20, 545 )
+width = 2.0
+default_color = Color( 0, 0, 0, 1 )
