@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Character",
+"language": "GDScript",
+"path": "res://Scripts/Battle/Generics/Character.gd"
+}, {
+"base": "Character",
+"class": "Frederick",
+"language": "GDScript",
+"path": "res://Scripts/Battle/CharacterData/Frederick.gd"
+} ]
+_global_script_class_icons={
+"Character": "",
+"Frederick": ""
+}
+
 [application]
 
 config/name="Project C"
