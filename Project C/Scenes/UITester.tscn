@@ -27,28 +27,36 @@ scale = Vector2( -1, 1 )
 
 [node name="BottomBorder" parent="." instance=ExtResource( 10 )]
 
-[node name="Enemy4" parent="." instance=ExtResource( 12 )]
+[node name="Enemy1" parent="." instance=ExtResource( 12 )]
+visible = false
 position = Vector2( 1730, 810 )
 
-[node name="Enemy3" parent="." instance=ExtResource( 12 )]
+[node name="Enemy2" parent="." instance=ExtResource( 12 )]
+visible = false
 position = Vector2( 1570, 810 )
 
-[node name="Enemy2" parent="." instance=ExtResource( 12 )]
+[node name="Enemy3" parent="." instance=ExtResource( 12 )]
+visible = false
 position = Vector2( 1410, 810 )
 
-[node name="Enemy1" parent="." instance=ExtResource( 12 )]
+[node name="Enemy4" parent="." instance=ExtResource( 12 )]
+visible = false
 position = Vector2( 1250, 810 )
 
 [node name="Player4" parent="." instance=ExtResource( 12 )]
+visible = false
 position = Vector2( 520, 810 )
 
 [node name="Player3" parent="." instance=ExtResource( 12 )]
+visible = false
 position = Vector2( 360, 810 )
 
 [node name="Player2" parent="." instance=ExtResource( 12 )]
+visible = false
 position = Vector2( 200, 810 )
 
 [node name="Player1" parent="." instance=ExtResource( 12 )]
+visible = false
 position = Vector2( 40, 810 )
 
 [node name="ControlPalette" type="Node2D" parent="."]

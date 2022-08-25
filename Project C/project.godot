@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "Frederick",
 "language": "GDScript",
 "path": "res://Scripts/Battle/CharacterData/Frederick.gd"
+}, {
+"base": "Character",
+"class": "Zurine",
+"language": "GDScript",
+"path": "res://Scripts/Battle/CharacterData/Zurine.gd"
 } ]
 _global_script_class_icons={
 "Character": "",
-"Frederick": ""
+"Frederick": "",
+"Zurine": ""
 }
 
 [application]

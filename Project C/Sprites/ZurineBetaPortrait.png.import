@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FrederickBeta.png-eddf9f6890dec753971bd3129099fd13.stex"
+path="res://.import/ZurineBetaPortrait.png-e08e1853f6008be78e2b36feacbb2233.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/FrederickBeta.png"
-dest_files=[ "res://.import/FrederickBeta.png-eddf9f6890dec753971bd3129099fd13.stex" ]
+source_file="res://Sprites/ZurineBetaPortrait.png"
+dest_files=[ "res://.import/ZurineBetaPortrait.png-e08e1853f6008be78e2b36feacbb2233.stex" ]
 
 [params]
 
