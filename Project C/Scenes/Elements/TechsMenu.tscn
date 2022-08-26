@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Fonts/DebugMode.tres" type="DynamicFont" id=2]
@@ -11,11 +11,8 @@
 [ext_resource path="res://Sprites/UIElements/projCRightArrow.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/UIElements/projCRightArrowOnClick.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/UIElements/projCRightArrowHover.png" type="Texture" id=11]
-[ext_resource path="res://Scenes/Elements/TechMenuOption.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Scripts/Battle/TechMenuLoad.gd" type="Script" id=13]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 13 )
 
 [node name="Background" type="Polygon2D" parent="."]
 color = Color( 0.603922, 0.603922, 0.603922, 0.352941 )
@@ -81,84 +78,4 @@ follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_bottom = 700.0
 custom_constants/separation = 50
-
-[node name="Option1" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_right = 0.0
-margin_bottom = 0.0
-
-[node name="Option2" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 50.0
-margin_right = 0.0
-margin_bottom = 50.0
-
-[node name="Option3" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 100.0
-margin_right = 0.0
-margin_bottom = 100.0
-
-[node name="Option4" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 150.0
-margin_right = 0.0
-margin_bottom = 150.0
-
-[node name="Option5" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 200.0
-margin_right = 0.0
-margin_bottom = 200.0
-
-[node name="Option6" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 250.0
-margin_right = 0.0
-margin_bottom = 250.0
-
-[node name="Option7" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 300.0
-margin_right = 0.0
-margin_bottom = 300.0
-
-[node name="Option8" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 350.0
-margin_right = 0.0
-margin_bottom = 350.0
-
-[node name="Option9" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 400.0
-margin_right = 0.0
-margin_bottom = 400.0
-
-[node name="Label" parent="ScrollContainer/VBoxContainer/Option9/MainBody" index="2"]
-text = "Oi cunt"
-
-[node name="Option10" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 450.0
-margin_right = 0.0
-margin_bottom = 450.0
-
-[node name="Option11" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 500.0
-margin_right = 0.0
-margin_bottom = 500.0
-
-[node name="Option12" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 550.0
-margin_right = 0.0
-margin_bottom = 550.0
-
-[node name="Option13" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 600.0
-margin_right = 0.0
-margin_bottom = 600.0
-
-[node name="Option14" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 650.0
-margin_right = 0.0
-margin_bottom = 650.0
-
-[node name="Option15" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 700.0
-margin_right = 0.0
-margin_bottom = 700.0
-
-[editable path="ScrollContainer/VBoxContainer/Option9"]

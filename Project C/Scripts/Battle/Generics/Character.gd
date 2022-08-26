@@ -9,11 +9,11 @@ var HPNum:Label; var EPNum:Label;
 var rawMaxHP:Array; var rawMaxEP: Array;
 var maxHP:float; var currentHP:float; var maxEP:float; var currentEP:float;
 var level:int;
-var StatusEffects:Array;
+var statusEffects:Array;
 var rawAttack:Array; var rawMagic:Array; var rawSpeed:Array; var rawDefense:Array; var rawResistance:Array;
 var attack:int; var magic:int; var speed:int; var defense:int; var resistance:int;
-var Resistances:Array;
-var Attacks:Array;
+var resistances:Array;
+var attacks:Dictionary;
 
 func _init(c=Node2D, p=Texture, s=Sprite, hp=Polygon2D, ep=Polygon2D, hpn=Label, epn=Label, l=1):
 	card = c;
@@ -48,6 +48,21 @@ func applyCardDetails():
 	EPNum.text = String(currentEP);
 	
 	card.visible = true;
+
+func getTechTags():
+	var result = [];
+	for key in attacks:
+		var temp = [];
+		var a = attacks.get(key);
+		temp.append(a.id);
+		temp.append(a.type);
+		temp.append(a.name);
+		result.append(temp);
+	return result;
+
+func getColors(id=10000):
+	var attack = attacks.get(id);
+	return attack.getColors();
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

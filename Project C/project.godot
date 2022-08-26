@@ -19,6 +19,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Battle/CharacterData/Frederick.gd"
 }, {
+"base": "Tech",
+"class": "FrederickTech1",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/FrederickTech1.gd"
+}, {
+"base": "Tech",
+"class": "FrederickTech2",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/FrederickTech2.gd"
+}, {
+"base": "Node",
+"class": "Tech",
+"language": "GDScript",
+"path": "res://Scripts/Battle/Generics/Tech.gd"
+}, {
 "base": "Character",
 "class": "Zurine",
 "language": "GDScript",
@@ -27,6 +42,9 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Character": "",
 "Frederick": "",
+"FrederickTech1": "",
+"FrederickTech2": "",
+"Tech": "",
 "Zurine": ""
 }
 

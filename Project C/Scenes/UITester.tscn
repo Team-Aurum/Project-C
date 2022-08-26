@@ -98,13 +98,13 @@ position = Vector2( 785, 490 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/AttackPhase = ExtResource( 13 )
 
-[connection signal="pressed" from="Player4/AnimationGroup/TextureButton" to="TechMenu" method="_on_Player4Button_pressed"]
-[connection signal="pressed" from="Player3/AnimationGroup/TextureButton" to="TechMenu" method="_on_Player3Button_pressed"]
-[connection signal="pressed" from="Player2/AnimationGroup/TextureButton" to="TechMenu" method="_on_Player2Button_pressed"]
-[connection signal="pressed" from="Player1/AnimationGroup/TextureButton" to="TechMenu" method="_on_Player1Button_pressed"]
+[connection signal="pressed" from="Player4/AnimationGroup/TextureButton" to="." method="_on_Player4Button_pressed"]
+[connection signal="pressed" from="Player3/AnimationGroup/TextureButton" to="." method="_on_Player3Button_pressed"]
+[connection signal="pressed" from="Player2/AnimationGroup/TextureButton" to="." method="_on_Player2Button_pressed"]
+[connection signal="pressed" from="Player1/AnimationGroup/TextureButton" to="." method="_on_Player1Button_pressed"]
 [connection signal="pressed" from="ControlPalette/AttackButton" to="." method="_on_AttackButton_pressed"]
 [connection signal="finished" from="Audio1/Audio2" to="Audio1" method="_on_Audio2_finished"]
-[connection signal="pressed" from="TechMenu/Header/TextureButton" to="TechMenu" method="_on_TechMenuExitButton_pressed"]
+[connection signal="pressed" from="TechMenu/Header/TextureButton" to="." method="_on_TechMenuExitButton_pressed"]
 
 [editable path="Player4"]
 [editable path="Player4/AnimationGroup/EPBar"]
@@ -119,4 +119,3 @@ anims/AttackPhase = ExtResource( 13 )
 [editable path="Player1/AnimationGroup/EPBar"]
 [editable path="Player1/AnimationGroup/HPBar"]
 [editable path="TechMenu"]
-[editable path="TechMenu/ScrollContainer/VBoxContainer/Option9"]

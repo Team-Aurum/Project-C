@@ -6,6 +6,7 @@ var p = load("res://Sprites/FrederickBetaPortrait.png");
 
 func _init(c=Node2D, s=Sprite, hp=Polygon2D, ep=Polygon2D, hpn=Label, epn=Label, l=1).(c, p, s, hp, ep, hpn, epn, l):
 	loadStats();
+	loadTechs();
 	calcStats();
 	currentHP = -1; #Temp override to see max HP values
 	currentEP = -1;
@@ -36,6 +37,10 @@ func loadStats():
 	rawSpeed = [3, 0.27];
 	rawDefense = [10, 0.9];
 	rawResistance = [8, 0.73];
+
+func loadTechs():
+	attacks[12001] = FrederickTech1.new();
+	attacks[12002] = FrederickTech2.new();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
