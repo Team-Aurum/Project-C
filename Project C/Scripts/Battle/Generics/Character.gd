@@ -24,7 +24,7 @@ func _init(c=Node2D, p=Texture, s=Sprite, hp=Polygon2D, ep=Polygon2D, hpn=Label,
 	HPNum = hpn;
 	EPNum = epn;
 	level = l;
-	
+
 func calcStats():
 	maxHP = round(rawMaxHP[0] + rawMaxHP[1] * (level-1));
 	maxEP = round(rawMaxEP[0] + rawMaxEP[1] * (level-1));
@@ -35,6 +35,10 @@ func calcStats():
 	resistance = round(rawResistance[0] + rawResistance[1] * (level-1));
 
 func applyCardDetails():
+	if currentHP == -1:
+		currentHP = maxHP;
+	if currentEP == -1:
+		currentEP = maxEP;
 	sprite.texture = portrait;
 	var hpFill = 120 * (currentHP/maxHP);
 	HPBar.polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];

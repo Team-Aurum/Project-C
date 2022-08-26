@@ -7,8 +7,8 @@ var p = load("res://Sprites/FrederickBetaPortrait.png");
 func _init(c=Node2D, s=Sprite, hp=Polygon2D, ep=Polygon2D, hpn=Label, epn=Label, l=1).(c, p, s, hp, ep, hpn, epn, l):
 	loadStats();
 	calcStats();
-	currentHP = 192;
-	currentEP = 382;
+	currentHP = -1; #Temp override to see max HP values
+	currentEP = -1;
 	applyCardDetails();
 	statPrintout();
 	#maxHP = 100.0;
@@ -35,7 +35,7 @@ func loadStats():
 	rawMagic = [4, 0.36];
 	rawSpeed = [3, 0.27];
 	rawDefense = [10, 0.9];
-	rawResistance = [8, 0.73]
+	rawResistance = [8, 0.73];
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
