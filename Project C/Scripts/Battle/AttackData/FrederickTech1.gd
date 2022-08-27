@@ -21,7 +21,7 @@ func _init():
 	epRegen = 0;
 
 func getColors():
-	return [Color("#c2d0e5"), Color("#58b0f6")];
+	return [Color("#7c8491"), Color("#58b0f6")]; #Physical/Ice
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

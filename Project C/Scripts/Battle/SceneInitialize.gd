@@ -44,7 +44,7 @@ func set_TechButton_details(p=0):
 		match(d[1]): #Assigning colors. WIP.
 			0:
 				var colors;
-				match(p): #Getting colors directly from a function that is unique to each tech
+				match(p): #Getting colors directly from a function that is unique to each tech using its id
 					1:
 						colors = play1.getColors(d[0]);
 					2:
