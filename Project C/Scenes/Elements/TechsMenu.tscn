@@ -43,14 +43,14 @@ theme = ExtResource( 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "Techs"
 
-[node name="TextureButton" type="TextureButton" parent="Header"]
+[node name="ExitButton" type="TextureButton" parent="Header"]
 margin_right = 40.0
 margin_bottom = 40.0
 texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 4 )
 texture_hover = ExtResource( 5 )
 
-[node name="TextureButton2" type="TextureButton" parent="."]
+[node name="RButton" type="TextureButton" parent="."]
 margin_left = 175.0
 margin_top = 460.0
 margin_right = 275.0
@@ -59,7 +59,7 @@ texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 11 )
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="LButton" type="TextureButton" parent="."]
 margin_left = 75.0
 margin_top = 460.0
 margin_right = 175.0

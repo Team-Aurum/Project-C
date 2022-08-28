@@ -6,6 +6,7 @@ var p = load("res://Sprites/ZurineBetaPortrait.png");
 
 func _init(c=Node2D, s=Sprite, hp=Polygon2D, ep=Polygon2D, hpn=Label, epn=Label, l=1).(c, p, s, hp, ep, hpn, epn, l):
 	loadStats();
+	loadTechs();
 	calcStats();
 	currentHP = -1; #Temp override to see max HP values
 	currentEP = -1;
@@ -34,6 +35,12 @@ func loadStats():
 	rawSpeed = [4, 0.36];
 	rawDefense = [6, 0.55];
 	rawResistance = [4, 0.36];
+
+func loadTechs():
+	magicTechs[27001] = ZSute.new();
+	magicTechs[27002] = ZIzo.new();
+	magicTechs[27003] = ZTxima.new();
+	magicTechs[27004] = ZHaize.new();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

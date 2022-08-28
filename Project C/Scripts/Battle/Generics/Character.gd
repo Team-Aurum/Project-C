@@ -13,7 +13,7 @@ var statusEffects:Array;
 var rawAttack:Array; var rawMagic:Array; var rawSpeed:Array; var rawDefense:Array; var rawResistance:Array;
 var attack:int; var magic:int; var speed:int; var defense:int; var resistance:int;
 var resistances:Array;
-var attacks:Dictionary;
+var techs:Dictionary; var magicTechs:Dictionary;
 
 func _init(c=Node2D, p=Texture, s=Sprite, hp=Polygon2D, ep=Polygon2D, hpn=Label, epn=Label, l=1):
 	card = c;
@@ -49,20 +49,37 @@ func applyCardDetails():
 	
 	card.visible = true;
 
-func getTechTags():
+func getTags(cm=-1):
 	var result = [];
-	for key in attacks:
-		var temp = [];
-		var a = attacks.get(key);
-		temp.append(a.id);
-		temp.append(a.type);
-		temp.append(a.name);
-		result.append(temp);
+	match(cm):
+		0:
+			for key in techs:
+				var temp = [];
+				var a = techs.get(key);
+				temp.append(a.id);
+				temp.append(a.type);
+				temp.append(a.name);
+				result.append(temp);
+		1:
+			for key in magicTechs:
+				var temp = [];
+				var a = magicTechs.get(key);
+				temp.append(a.id);
+				temp.append(a.type);
+				temp.append(a.name);
+				result.append(temp);
+		_:
+			pass
 	return result;
 
 func getColors(id=10000):
-	var attack = attacks.get(id);
-	return attack.getColors();
+	var attacks: Dictionary;
+	for key in techs:
+		attacks[key] = techs[key];
+	for key in magicTechs:
+		attacks[key] = magicTechs[key];
+	var tech = attacks.get(id);
+	return tech.getColors();
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

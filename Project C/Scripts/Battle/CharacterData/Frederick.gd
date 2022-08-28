@@ -39,8 +39,9 @@ func loadStats():
 	rawResistance = [8, 0.73];
 
 func loadTechs():
-	attacks[12001] = FrederickTech1.new();
-	attacks[12002] = FrederickTech2.new();
+	techs[12001] = FrederickTech1.new();
+	techs[12002] = FrederickTech2.new();
+	magicTechs[29001] = Izo.new();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

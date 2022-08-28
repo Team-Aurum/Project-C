@@ -104,7 +104,9 @@ anims/AttackPhase = ExtResource( 13 )
 [connection signal="pressed" from="Player1/AnimationGroup/TextureButton" to="." method="_on_Player1Button_pressed"]
 [connection signal="pressed" from="ControlPalette/AttackButton" to="." method="_on_AttackButton_pressed"]
 [connection signal="finished" from="Audio1/Audio2" to="Audio1" method="_on_Audio2_finished"]
-[connection signal="pressed" from="TechMenu/Header/TextureButton" to="." method="_on_TechMenuExitButton_pressed"]
+[connection signal="pressed" from="TechMenu/Header/ExitButton" to="." method="_on_TechMenuExitButton_pressed"]
+[connection signal="pressed" from="TechMenu/RButton" to="." method="_on_RButton_pressed"]
+[connection signal="pressed" from="TechMenu/LButton" to="." method="_on_LButton_pressed"]
 
 [editable path="Player4"]
 [editable path="Player4/AnimationGroup/EPBar"]
