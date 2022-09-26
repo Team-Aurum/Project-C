@@ -4,7 +4,7 @@ class_name Zurine
 
 var p = load("res://Sprites/ZurineBetaPortrait.png");
 
-func _init(c=Node2D, s=Sprite, hp=Polygon2D, ep=Polygon2D, hpn=Label, epn=Label, l=1).(c, p, s, hp, ep, hpn, epn, l):
+func _init(c=Node2D, l=1).(c, p, l):
 	loadStats();
 	loadTechs();
 	calcStats();

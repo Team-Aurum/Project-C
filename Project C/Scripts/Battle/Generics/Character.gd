@@ -15,14 +15,14 @@ var attack:int; var magic:int; var speed:int; var defense:int; var resistance:in
 var resistances:Array;
 var techs:Dictionary; var magicTechs:Dictionary;
 
-func _init(c=Node2D, p=Texture, s=Sprite, hp=Polygon2D, ep=Polygon2D, hpn=Label, epn=Label, l=1):
+func _init(c=Node2D, p=Texture, l=1):
 	card = c;
 	portrait = p;
-	sprite = s;
-	HPBar = hp;
-	EPBar = ep;
-	HPNum = hpn;
-	EPNum = epn;
+	sprite = c.get_node("AnimationGroup/Portrait");
+	HPBar = c.get_node("AnimationGroup/HPBar/color");
+	EPBar = c.get_node("AnimationGroup/EPBar/color");
+	HPNum = c.get_node("AnimationGroup/HPBar/NumberSpace/Label");
+	EPNum = c.get_node("AnimationGroup/HPBar/NumberSpace/Label");
 	level = l;
 
 func calcStats():

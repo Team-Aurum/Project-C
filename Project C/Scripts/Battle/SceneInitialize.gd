@@ -8,12 +8,16 @@ var currentMenu: int = 0; var currentPlayer: int;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	play1 = Frederick.new($Player1, $Player1/AnimationGroup/Portrait, $Player1/AnimationGroup/HPBar/color, $Player1/AnimationGroup/EPBar/color, $Player1/AnimationGroup/HPBar/NumberSpace/Label, $Player1/AnimationGroup/EPBar/NumberSpace/Label, 100);
-	play2 = Zurine.new($Player2, $Player2/AnimationGroup/Portrait, $Player2/AnimationGroup/HPBar/color, $Player2/AnimationGroup/EPBar/color, $Player2/AnimationGroup/HPBar/NumberSpace/Label, $Player2/AnimationGroup/EPBar/NumberSpace/Label, 100);
-	enemy1 = Zurine.new($Enemy1, $Enemy1/AnimationGroup/Portrait, $Enemy1/AnimationGroup/HPBar/color, $Enemy1/AnimationGroup/EPBar/color, $Enemy1/AnimationGroup/HPBar/NumberSpace/Label, $Enemy1/AnimationGroup/EPBar/NumberSpace/Label, 20);
+	OS.window_size = Vector2(1920, 1080);
+	#TODO: make this declaration a little shorter ya?
+	play1 = Frederick.new($Player1, 100);
+	play2 = Zurine.new($Player2, 100);
+	#play3 = Zurine.new($Player3, 100);
+	#play4 = Frederick.new($Player4, 100);
+	enemy1 = Zurine.new($Enemy1, 20);
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
-#	pas
+#	pass
 
 func _on_AttackButton_pressed():
 	print("Attacking");
@@ -83,7 +87,7 @@ func set_TechButton_details(p=0):
 				node.get_node("MainBody/ElementColor2").color = Color("#e6f658");
 			4: #Wind
 				node.get_node("MainBody/ElementColor1").color = Color("#58f69d");
-				node.get_node("MainBody/ElementColor2").color = Color("#58b0f6");
+				node.get_node("MainBody/ElementColor2").color = Color("#58f69d");
 			5: #Phys/Special
 				node.get_node("MainBody/ElementColor1").color = Color("#7c8491");
 				node.get_node("MainBody/ElementColor2").color = Color("#7c8491");
@@ -99,6 +103,9 @@ func set_TechButton_details(p=0):
 			9: #Burst Tech
 				node.get_node("MainBody/ElementColor1").color = Color("#ce9be3");
 				node.get_node("MainBody/ElementColor2").color = Color("#ce9be3");
+			_: #Default Fallback
+				node.get_node("MainBody/ElementColor1").color = Color("#FF00FF");
+				node.get_node("MainBody/ElementColor2").color = Color("#FF00FF");
 		node.get_node("MainBody/Label").text = d[2];
 		$TechMenu/ScrollContainer/VBoxContainer.add_child(node);
 

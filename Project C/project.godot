@@ -88,7 +88,6 @@ config/icon="res://Sprites/icon.png"
 
 window/size/width=1920
 window/size/height=1080
-window/size/fullscreen=true
 window/dpi/allow_hidpi=true
 
 [global]

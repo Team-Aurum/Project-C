@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Audio/NjordNightFirst.wav" type="AudioStream" id=1]
 [ext_resource path="res://Audio/NjordNightLoop.wav" type="AudioStream" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Scenes/Elements/SideBorder.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Elements/charCard.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Animations/AttackPhase.tres" type="Animation" id=13]
+[ext_resource path="res://Audio/Actual Battle This Time V3 Loop.ogg" type="AudioStream" id=14]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 4 )
@@ -82,11 +83,15 @@ margin_top = 140.0
 margin_right = 1020.0
 margin_bottom = 240.0
 
-[node name="Audio1" type="AudioStreamPlayer" parent="."]
+[node name="NormalLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+autoplay = true
+
+[node name="LoopWithIntro" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
 script = ExtResource( 3 )
 
-[node name="Audio2" type="AudioStreamPlayer" parent="Audio1"]
+[node name="Audio2" type="AudioStreamPlayer" parent="LoopWithIntro"]
 stream = ExtResource( 2 )
 volume_db = -80.0
 autoplay = true
@@ -103,7 +108,7 @@ anims/AttackPhase = ExtResource( 13 )
 [connection signal="pressed" from="Player2/AnimationGroup/TextureButton" to="." method="_on_Player2Button_pressed"]
 [connection signal="pressed" from="Player1/AnimationGroup/TextureButton" to="." method="_on_Player1Button_pressed"]
 [connection signal="pressed" from="ControlPalette/AttackButton" to="." method="_on_AttackButton_pressed"]
-[connection signal="finished" from="Audio1/Audio2" to="Audio1" method="_on_Audio2_finished"]
+[connection signal="finished" from="LoopWithIntro/Audio2" to="LoopWithIntro" method="_on_Audio2_finished"]
 [connection signal="pressed" from="TechMenu/Header/ExitButton" to="." method="_on_TechMenuExitButton_pressed"]
 [connection signal="pressed" from="TechMenu/RButton" to="." method="_on_RButton_pressed"]
 [connection signal="pressed" from="TechMenu/LButton" to="." method="_on_LButton_pressed"]
@@ -111,13 +116,33 @@ anims/AttackPhase = ExtResource( 13 )
 [editable path="Player4"]
 [editable path="Player4/AnimationGroup/EPBar"]
 [editable path="Player4/AnimationGroup/HPBar"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/atkIcon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/magIcon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/spdIcon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/defIcon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/resIcon"]
 [editable path="Player3"]
 [editable path="Player3/AnimationGroup/EPBar"]
 [editable path="Player3/AnimationGroup/HPBar"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/atkIcon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/magIcon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/spdIcon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/defIcon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/resIcon"]
 [editable path="Player2"]
 [editable path="Player2/AnimationGroup/EPBar"]
 [editable path="Player2/AnimationGroup/HPBar"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/atkIcon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/magIcon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/spdIcon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/defIcon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/resIcon"]
 [editable path="Player1"]
 [editable path="Player1/AnimationGroup/EPBar"]
 [editable path="Player1/AnimationGroup/HPBar"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/atkIcon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/magIcon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/spdIcon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/defIcon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/resIcon"]
 [editable path="TechMenu"]
