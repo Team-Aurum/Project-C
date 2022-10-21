@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Audio/NjordNightFirst.wav" type="AudioStream" id=1]
 [ext_resource path="res://Audio/NjordNightLoop.wav" type="AudioStream" id=2]
@@ -13,7 +13,10 @@
 [ext_resource path="res://Scenes/Elements/SideBorder.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Elements/charCard.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Animations/AttackPhase.tres" type="Animation" id=13]
-[ext_resource path="res://Audio/Actual Battle This Time V3 Loop.ogg" type="AudioStream" id=14]
+[ext_resource path="res://Audio/Loop Test 2.ogg" type="AudioStream" id=14]
+[ext_resource path="res://Scenes/IntroLong.gd" type="Script" id=15]
+[ext_resource path="res://Audio/MakotoThemeIntro.ogg" type="AudioStream" id=16]
+[ext_resource path="res://Audio/MakotoThemeLoop.ogg" type="AudioStream" id=17]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 4 )
@@ -85,7 +88,6 @@ margin_bottom = 240.0
 
 [node name="NormalLoop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
-autoplay = true
 
 [node name="LoopWithIntro" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
@@ -103,6 +105,15 @@ position = Vector2( 785, 490 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/AttackPhase = ExtResource( 13 )
 
+[node name="IntroLong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+autoplay = true
+script = ExtResource( 15 )
+
+[node name="Loop" type="AudioStreamPlayer" parent="IntroLong"]
+stream = ExtResource( 17 )
+volume_db = -80.0
+
 [connection signal="pressed" from="Player4/AnimationGroup/TextureButton" to="." method="_on_Player4Button_pressed"]
 [connection signal="pressed" from="Player3/AnimationGroup/TextureButton" to="." method="_on_Player3Button_pressed"]
 [connection signal="pressed" from="Player2/AnimationGroup/TextureButton" to="." method="_on_Player2Button_pressed"]
@@ -112,6 +123,7 @@ anims/AttackPhase = ExtResource( 13 )
 [connection signal="pressed" from="TechMenu/Header/ExitButton" to="." method="_on_TechMenuExitButton_pressed"]
 [connection signal="pressed" from="TechMenu/RButton" to="." method="_on_RButton_pressed"]
 [connection signal="pressed" from="TechMenu/LButton" to="." method="_on_LButton_pressed"]
+[connection signal="finished" from="IntroLong" to="IntroLong" method="_on_IntroLong_finished"]
 
 [editable path="Player4"]
 [editable path="Player4/AnimationGroup/EPBar"]

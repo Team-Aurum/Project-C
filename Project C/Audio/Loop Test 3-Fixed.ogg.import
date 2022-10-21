@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Loop Test 3-Fixed.ogg-056b524212b14a0052748ee8fcf72401.oggstr"
+
+[deps]
+
+source_file="res://Audio/Loop Test 3-Fixed.ogg"
+dest_files=[ "res://.import/Loop Test 3-Fixed.ogg-056b524212b14a0052748ee8fcf72401.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
