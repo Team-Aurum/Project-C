@@ -19,6 +19,9 @@ func _init(c=Node2D, l=1).(c, p, l):
 func _ready():
 	pass # Replace with function body.
 
+func getName():
+	return "Frederick";
+
 func statPrintout():
 	print("Frederick Stats");
 	print("Max HP: " + String(maxHP));
@@ -41,6 +44,7 @@ func loadStats():
 func loadTechs():
 	techs[12001] = FrederickTech1.new();
 	techs[12002] = FrederickTech2.new();
+	techs[12003] = DummyPhysTech.new();
 	magicTechs[29001] = Izo.new();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

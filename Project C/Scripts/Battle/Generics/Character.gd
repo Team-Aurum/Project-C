@@ -49,6 +49,9 @@ func applyCardDetails():
 	
 	card.visible = true;
 
+func getName():
+	return "NULL";
+
 func getTags(cm=-1):
 	var result = [];
 	match(cm):

@@ -1,13 +1,13 @@
 extends Node2D
 
-var play1: Character; var play2: Character; var play3: Character; var play4: Character;
+var play1: Character; var play2: Character; var play3: Character; var play4: Character; var playerList: Dictionary;
 var enemy1: Character; var enemy2: Character; var enemy3: Character; var enemy4: Character;
 
 var techOptions: Array;
 var currentMenu: int = 0; var currentPlayer: int;
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready(): # Lots of this is still like test code and stuff, will have to eventually change it. With the playerList that should make it easier I think
 	OS.window_size = Vector2(1920, 1080);
 	#TODO: make this declaration a little shorter ya?
 	play1 = Frederick.new($Player1, 100);
@@ -15,6 +15,8 @@ func _ready():
 	#play3 = Zurine.new($Player3, 100);
 	#play4 = Frederick.new($Player4, 100);
 	enemy1 = Zurine.new($Enemy1, 20);
+	playerList[1] = play1;
+	playerList[2] = play2;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -47,7 +49,7 @@ func display_TechMenu(p=0):
 func set_TechButton_details(p=0):
 	var data; var i = 0;
 	var scene = load("res://Scenes/Elements/TechMenuOption.tscn");
-	match(p): #Get the required information for each player's techs
+	match(p): #Get the required information for each player's techs. May change this later to just an arraylist accessor instead of a match statement
 		1:
 			data = play1.getTags(currentMenu);
 		2:
@@ -107,7 +109,26 @@ func set_TechButton_details(p=0):
 				node.get_node("MainBody/ElementColor1").color = Color("#FF00FF");
 				node.get_node("MainBody/ElementColor2").color = Color("#FF00FF");
 		node.get_node("MainBody/Label").text = d[2];
+		node.get_node("TextureButton").connect("pressed", self, "_executeTech", [d[0]]);
 		$TechMenu/ScrollContainer/VBoxContainer.add_child(node);
+
+func _executeTech(id):
+	var executingPlayer = playerList[currentPlayer];
+	var baseAttack = executingPlayer.attack;
+	var baseMagic = executingPlayer.magic;
+	var baseDamage; var currentTech;
+	match(id/10000):
+		1:
+			currentTech = executingPlayer.techs[id];
+		2:
+			currentTech = executingPlayer.magicTechs[id];
+		3:
+			pass
+	if(currentTech.type == 0): baseDamage = (baseAttack + baseMagic)/2 + currentTech.power;
+	elif(currentTech.type == 5): baseDamage = baseAttack + currentTech.power;
+	else: baseDamage = baseMagic + currentTech.power;
+	$Dialog/Label.text = currentTech.name + " Base Damage: " + str(baseDamage);
+	print(currentTech.name + " Base Damage: " + str(baseDamage));
 
 func _on_Player1Button_pressed():
 	$"Player1/AnimationPlayer".play("ShiftUp");

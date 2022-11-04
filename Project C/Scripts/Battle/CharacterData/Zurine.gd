@@ -17,6 +17,9 @@ func _init(c=Node2D, l=1).(c, p, l):
 func _ready():
 	pass # Replace with function body.
 
+func getName():
+	return "Zurine";
+
 func statPrintout():
 	print("Zurine Stats");
 	print("Max HP: " + String(maxHP));

@@ -4,7 +4,7 @@ class_name Tech
 
 var id:int;
 var type:int;
-var attackName:String;
+#var attackName:String;
 var power:int;
 var resistance:Array;
 var anim; #Implementation currently unknown
@@ -24,9 +24,6 @@ func _init():
 
 func getColors():
 	return [Color("#FF00FF"), Color("#FF00FF")];
-
-func calcBaseDamage():
-	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
