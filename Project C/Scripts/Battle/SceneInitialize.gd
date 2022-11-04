@@ -117,6 +117,7 @@ func _executeTech(id):
 	var baseAttack = executingPlayer.attack;
 	var baseMagic = executingPlayer.magic;
 	var baseDamage; var currentTech;
+	
 	match(id/10000):
 		1:
 			currentTech = executingPlayer.techs[id];
@@ -124,11 +125,53 @@ func _executeTech(id):
 			currentTech = executingPlayer.magicTechs[id];
 		3:
 			pass
-	if(currentTech.type == 0): baseDamage = (baseAttack + baseMagic)/2 + currentTech.power;
-	elif(currentTech.type == 5): baseDamage = baseAttack + currentTech.power;
+	
+	var damageType = currentTech.type;
+	if(damageType == 0): baseDamage = (baseAttack + baseMagic)/2 + currentTech.power;
+	elif(damageType == 5): baseDamage = baseAttack + currentTech.power;
 	else: baseDamage = baseMagic + currentTech.power;
+	$Dialog.visible = true;
 	$Dialog/Label.text = currentTech.name + " Base Damage: " + str(baseDamage);
 	print(currentTech.name + " Base Damage: " + str(baseDamage));
+	if(currentTech.target[0] == 1 || currentTech.target[0] == 2):
+		_calcFinalDamage(baseDamage, damageType, -1);
+	else:
+		if(currentTech.target[1] == 0):
+			pass
+		elif(currentTech.target[1] == 1):
+			$Dialog/Label.text = "Choose a target";
+			$Player1/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player1Button_pressed");
+			$Player2/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player2Button_pressed");
+			$Player3/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player3Button_pressed");
+			$Player4/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player4Button_pressed");
+		
+			$Enemy1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy1]);
+			$Enemy2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy2]);
+			$Enemy3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy3]);
+			$Enemy4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy4]);
+		
+			$TechMenu/Header/ExitButton.disconnect("pressed", self, "_on_TechMenuExitButton_pressed");
+			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction");
+
+func _calcFinalDamage(baseDamage, damageType, target):
+	print(str(baseDamage) + " Base damage of type " + str(damageType) + " on " + target.getName());
+	_cancelAction();
+	_on_TechMenuExitButton_pressed();
+
+func _cancelAction():
+	$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player1Button_pressed");
+	$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player2Button_pressed");
+	$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player3Button_pressed");
+	$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player4Button_pressed");
+	
+	$Enemy1/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+	$Enemy2/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+	$Enemy3/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+	$Enemy4/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+	
+	$TechMenu/Header/ExitButton.disconnect("pressed", self, "_cancelAction");
+	$TechMenu/Header/ExitButton.connect("pressed", self, "_on_TechMenuExitButton_pressed");
+	$Dialog.visible = false;
 
 func _on_Player1Button_pressed():
 	$"Player1/AnimationPlayer".play("ShiftUp");

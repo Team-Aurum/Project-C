@@ -11,7 +11,7 @@ func _init():
 	anim = [0,0]; #Temporary
 	sound = null; #Temporary
 	hitNum = 1;
-	target = [1, 1];
+	target = [0, 1];
 	epCost = 50;
 	hpCost = 0;
 	buff = [[4, 1, [1, 0]]];
