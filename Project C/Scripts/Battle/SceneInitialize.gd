@@ -228,17 +228,17 @@ func calcHybridDamage(baseDamage: int, target, attack, targetedRes: int) -> int:
 		0:
 			rawDamage = calcResistanceEffects(0, baseDamage);
 		1:
-			rawDamage = baseDamage - target.defense;
+			rawDamage = baseDamage - int(target.defense/attack.resistance.size());
 		2:
-			rawDamage = calcResistanceEffects(target.resistances[0], baseDamage - target.resistance);
+			rawDamage = calcResistanceEffects(target.resistances[0], baseDamage - int(target.resistance/attack.resistance.size()));
 		3:
-			rawDamage = calcResistanceEffects(target.resistances[1], baseDamage - target.resistance);
+			rawDamage = calcResistanceEffects(target.resistances[1], baseDamage - int(target.resistance/attack.resistance.size()));
 		4:
-			rawDamage = calcResistanceEffects(target.resistances[2], baseDamage - target.resistance);
+			rawDamage = calcResistanceEffects(target.resistances[2], baseDamage - int(target.resistance/attack.resistance.size()));
 		5:
-			rawDamage = calcResistanceEffects(target.resistances[3], baseDamage - target.resistance);
+			rawDamage = calcResistanceEffects(target.resistances[3], baseDamage - int(target.resistance/attack.resistance.size()));
 		6:
-			rawDamage = baseDamage - target.resistance;
+			rawDamage = baseDamage - int(target.resistance/attack.resistance.size());
 		7:
 			rawDamage = 0;
 		8:
