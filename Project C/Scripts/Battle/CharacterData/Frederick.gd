@@ -40,6 +40,7 @@ func loadStats():
 	rawSpeed = [3, 0.27];
 	rawDefense = [10, 0.9];
 	rawResistance = [8, 0.73];
+	resistances = [0, 2, 1, 3];
 
 func loadTechs():
 	techs[12001] = FrederickTech1.new();

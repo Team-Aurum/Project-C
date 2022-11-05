@@ -22,7 +22,7 @@ func _init(c=Node2D, p=Texture, l=1):
 	HPBar = c.get_node("AnimationGroup/HPBar/color");
 	EPBar = c.get_node("AnimationGroup/EPBar/color");
 	HPNum = c.get_node("AnimationGroup/HPBar/NumberSpace/Label");
-	EPNum = c.get_node("AnimationGroup/HPBar/NumberSpace/Label");
+	EPNum = c.get_node("AnimationGroup/EPBar/NumberSpace/Label");
 	level = l;
 
 func calcStats():

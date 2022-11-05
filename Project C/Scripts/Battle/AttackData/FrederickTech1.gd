@@ -7,7 +7,7 @@ func _init():
 	type = 0;
 	name = "Glimmer Slash";
 	power = 30;
-	resistance = [1, 4]; #Might be redundant
+	resistance = [1, 3]; #Might be redundant
 	anim = [0,0]; #Temporary
 	sound = null; #Temporary
 	hitNum = 1;

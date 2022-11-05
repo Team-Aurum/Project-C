@@ -1,7 +1,7 @@
 extends Node2D
 
 var play1: Character; var play2: Character; var play3: Character; var play4: Character; var playerList: Dictionary;
-var enemy1: Character; var enemy2: Character; var enemy3: Character; var enemy4: Character;
+var enemy1: Character; var enemy2: Character; var enemy3: Character; var enemy4: Character; var enemyList: Dictionary;
 
 var techOptions: Array;
 var currentMenu: int = 0; var currentPlayer: int;
@@ -19,6 +19,7 @@ func _ready():
 	enemy1 = Zurine.new($Enemy1, 20);
 	playerList[1] = play1;
 	playerList[2] = play2;
+	enemyList[1] = enemy1;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -146,6 +147,12 @@ func _executeTech(id):
 			currentTech = executingPlayer.magicTechs[id];
 		3:
 			pass
+	executingPlayer.currentEP -= currentTech.epCost;
+	if(executingPlayer.currentEP < 0):
+		executingPlayer.currentEP += currentTech.epCost;
+		$Dialog.visible = true;
+		$Dialog/Label.text = "Not enough EP";
+		return false;
 	
 	var damageType = currentTech.type;
 	
@@ -160,7 +167,7 @@ func _executeTech(id):
 	# First element of the target array determines single-target, aoe, or universal
 	print(currentTech.name + " Base Damage: " + str(baseDamage));
 	if(currentTech.target[0] == 1 || currentTech.target[0] == 2):
-		_calcFinalDamage(baseDamage, damageType, -1);
+		_calcFinalDamage(baseDamage, damageType, -1, currentTech);
 	else:
 		# Second element of the target array determines enemy or self targetting
 		if(currentTech.target[1] == 0):
@@ -175,19 +182,89 @@ func _executeTech(id):
 			$Player3/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player3Button_pressed");
 			$Player4/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player4Button_pressed");
 		
-			$Enemy1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy1]);
-			$Enemy2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy2]);
-			$Enemy3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy3]);
-			$Enemy4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy4]);
+			$Enemy1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy1, currentTech]);
+			$Enemy2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy2, currentTech]);
+			$Enemy3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy3, currentTech]);
+			$Enemy4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy4, currentTech]);
 		
 			$TechMenu/Header/ExitButton.disconnect("pressed", self, "_on_TechMenuExitButton_pressed");
 			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction");
 
 # TODO: Not finished yet, does the final damage calculations considering damage reduction
-func _calcFinalDamage(baseDamage, damageType, target):
+func _calcFinalDamage(baseDamage, damageType, target, attack):
 	print(str(baseDamage) + " Base damage of type " + str(damageType) + " on " + target.getName());
+	var rawDamage = 0;
+	match(damageType):
+		0: # Hybrid
+			for i in attack.resistance.size():
+				rawDamage += calcHybridDamage(int(baseDamage/attack.resistance.size()), target, attack, attack.resistance[i]);
+		1: # Fire
+			rawDamage = calcResistanceEffects(target.resistances[0], baseDamage - target.resistance);
+		2: # Ice
+			rawDamage = calcResistanceEffects(target.resistances[1], baseDamage - target.resistance);
+		3: # Elec
+			rawDamage = calcResistanceEffects(target.resistances[2], baseDamage - target.resistance);
+		4: # Wind
+			rawDamage = calcResistanceEffects(target.resistances[3], baseDamage - target.resistance);
+		5: # Physical
+			rawDamage = baseDamage - target.defense;
+		9:
+			pass
+		_:
+			pass
+	print("Final damage: " + str(rawDamage));
+	print("Target HP before damage: " + str(target.currentHP));
+	target.currentHP -= rawDamage;
+	if(target.currentHP < 0): target.currentHP = 0;
+	print("Target Current HP: " + str(target.currentHP));
+	_updateCharCards();
 	_cancelAction();
 	_on_TechMenuExitButton_pressed();
+
+# TODO: Not finished yet, specific helper method for handling hybrid damage
+func calcHybridDamage(baseDamage: int, target, attack, targetedRes: int) -> int:
+	var rawDamage: int;
+	match(targetedRes):
+		0:
+			rawDamage = calcResistanceEffects(0, baseDamage);
+		1:
+			rawDamage = baseDamage - target.defense;
+		2:
+			rawDamage = calcResistanceEffects(target.resistances[0], baseDamage - target.resistance);
+		3:
+			rawDamage = calcResistanceEffects(target.resistances[1], baseDamage - target.resistance);
+		4:
+			rawDamage = calcResistanceEffects(target.resistances[2], baseDamage - target.resistance);
+		5:
+			rawDamage = calcResistanceEffects(target.resistances[3], baseDamage - target.resistance);
+		6:
+			rawDamage = baseDamage - target.resistance;
+		7:
+			rawDamage = 0;
+		8:
+			rawDamage = -1;
+		_:
+			rawDamage = 0;
+	print("Part damage: " + str(rawDamage));
+	return rawDamage;
+
+# TODO: counts multiplicative shenanigans for elemental resistances
+func calcResistanceEffects(resNum: int, baseDamage: int) -> int:
+	match(resNum):
+		0:
+			return int(baseDamage * 1.5);
+		1:
+			return baseDamage;
+		2:
+			return int(baseDamage * 0.5);
+		3:
+			return 0;
+		4:
+			return -1;
+		5:
+			return -1;
+		_:
+			return 0;
 
 # Cancels the current action by resetting all listeners
 # _callcFinalDamage() calls this as part of its routine to reset the game back to its base state
@@ -205,6 +282,26 @@ func _cancelAction():
 	$TechMenu/Header/ExitButton.disconnect("pressed", self, "_cancelAction");
 	$TechMenu/Header/ExitButton.connect("pressed", self, "_on_TechMenuExitButton_pressed");
 	$Dialog.visible = false;
+
+# Updates visual elements
+func _updateCharCards():
+	for ch in playerList:
+		var c = playerList[ch];
+		var hpFill = 120 * (c.currentHP/c.maxHP);
+		c.HPBar.polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
+		c.HPNum.text = String(c.currentHP);
+		var epFill = 120 * (c.currentEP/c.maxEP);
+		c.EPBar.polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
+		c.EPNum.text = String(c.currentEP);
+	for ch in enemyList:
+		var c = enemyList[ch];
+		var hpFill = 120 * (c.currentHP/c.maxHP);
+		c.HPBar.polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
+		c.HPNum.text = String(c.currentHP);
+		var epFill = 120 * (c.currentEP/c.maxEP);
+		c.EPBar.polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
+		c.EPNum.text = String(c.currentEP);
+	pass
 
 # Listener for button on Player1. Shifts Player1 card up and displays their tech menu
 func _on_Player1Button_pressed():
@@ -246,6 +343,7 @@ func _on_Player4Button_pressed():
 func _on_TechMenuExitButton_pressed():
 	$TechMenu.visible = false;
 	$ControlPalette.visible = true;
+	$Dialog.visible = false;
 	$"Player1/AnimationPlayer".play("ShiftDown");
 	$"Player2/AnimationPlayer".play("ShiftDown");
 	$"Player3/AnimationPlayer".play("ShiftDown");

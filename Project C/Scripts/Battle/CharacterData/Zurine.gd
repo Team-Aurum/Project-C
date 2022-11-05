@@ -38,6 +38,7 @@ func loadStats():
 	rawSpeed = [4, 0.36];
 	rawDefense = [6, 0.55];
 	rawResistance = [4, 0.36];
+	resistances = [1, 0, 2, 3];
 
 func loadTechs():
 	magicTechs[27001] = ZSute.new();
