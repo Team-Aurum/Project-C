@@ -10,44 +10,54 @@ texture = ExtResource( 3 )
 
 [node name="Debuffs" type="Node2D" parent="."]
 
-[node name="DebuffArrow" type="Sprite" parent="Debuffs"]
+[node name="DebuffArrow0" type="Sprite" parent="Debuffs"]
+visible = false
 position = Vector2( 3.5, -15 )
 texture = ExtResource( 1 )
 
-[node name="DebuffArrow2" type="Sprite" parent="Debuffs"]
+[node name="DebuffArrow1" type="Sprite" parent="Debuffs"]
+visible = false
 position = Vector2( 3.5, -27 )
 texture = ExtResource( 1 )
 
-[node name="DebuffArrow3" type="Sprite" parent="Debuffs"]
+[node name="DebuffArrow2" type="Sprite" parent="Debuffs"]
+visible = false
 position = Vector2( 3.5, -39 )
 texture = ExtResource( 1 )
 
-[node name="DebuffArrow4" type="Sprite" parent="Debuffs"]
+[node name="DebuffArrow3" type="Sprite" parent="Debuffs"]
+visible = false
 position = Vector2( 3.5, -51 )
 texture = ExtResource( 1 )
 
-[node name="DebuffArrow5" type="Sprite" parent="Debuffs"]
+[node name="DebuffArrow4" type="Sprite" parent="Debuffs"]
+visible = false
 position = Vector2( 3.5, -63 )
 texture = ExtResource( 1 )
 
 [node name="Buffs" type="Node2D" parent="."]
 
-[node name="BuffArrow" type="Sprite" parent="Buffs"]
+[node name="BuffArrow0" type="Sprite" parent="Buffs"]
+visible = false
 position = Vector2( -3.5, -15 )
 texture = ExtResource( 2 )
 
-[node name="BuffArrow2" type="Sprite" parent="Buffs"]
+[node name="BuffArrow1" type="Sprite" parent="Buffs"]
+visible = false
 position = Vector2( -3.5, -27 )
 texture = ExtResource( 2 )
 
-[node name="BuffArrow3" type="Sprite" parent="Buffs"]
+[node name="BuffArrow2" type="Sprite" parent="Buffs"]
+visible = false
 position = Vector2( -3.5, -39 )
 texture = ExtResource( 2 )
 
-[node name="BuffArrow4" type="Sprite" parent="Buffs"]
+[node name="BuffArrow3" type="Sprite" parent="Buffs"]
+visible = false
 position = Vector2( -3.5, -51 )
 texture = ExtResource( 2 )
 
-[node name="BuffArrow5" type="Sprite" parent="Buffs"]
+[node name="BuffArrow4" type="Sprite" parent="Buffs"]
+visible = false
 position = Vector2( -3.5, -63 )
 texture = ExtResource( 2 )

@@ -14,7 +14,7 @@ func _init():
 	target = [0, 1];
 	epCost = 50;
 	hpCost = 0;
-	buff = [[4, 1, [1, 0]]];
+	buff = [[3, 1, [0, 0]]];
 	debuff = [];
 	status = [];
 	hpRegen = 0;

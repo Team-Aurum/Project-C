@@ -157,7 +157,6 @@ func _executeTech(id):
 	var damageType = currentTech.type;
 	
 	# Does baseDamage calculations based on damage type
-	# TODO: Hybrid damage averages attack and magic values (may change this later depending on balancing)
 	# Also TODO: The base "else" case here is to do magic damage. Maybe change for error catching?
 	if(damageType == 0): baseDamage = (baseAttack + baseMagic)/2 + currentTech.power;
 	elif(damageType == 5): baseDamage = baseAttack + currentTech.power;
@@ -192,6 +191,78 @@ func _executeTech(id):
 
 # TODO: Not finished yet, does the final damage calculations considering damage reduction
 func _calcFinalDamage(baseDamage, damageType, target, attack):
+	if(attack.buff.size() != 0):
+		for b in attack.buff: # Applies buffs
+			match(b[2][1]): # Checking if self or enemy target
+				0:
+					match(b[2][0]): # Checking if single, all, or universal target
+						0:
+							if(b[1] == 0): # If the value is 0, clears all buffs
+								playerList[currentPlayer].buffs == [0,0,0,0,0];
+							else:
+								playerList[currentPlayer].buffs[b[0]] += b[1];
+								if(playerList[currentPlayer].buffs[b[0]] > 5):
+									playerList[currentPlayer].buffs[b[0]] = 5;
+						1:
+							if(b[1] == 0): # If the value is 0, clears all buffs
+								for p in playerList:
+									playerList[p].buffs = [0,0,0,0,0];
+							else:
+								for p in playerList:
+									playerList[p].buffs[b[0]] += b[1]
+									if(playerList[p].buffs[b[0]] > 5):
+										playerList[p].buffs[b[0]] = 5;
+						2:
+							if(b[1] == 0): # If the value is 0, clears all buffs
+								for p in playerList:
+									playerList[p].buffs = [0,0,0,0,0];
+								for e in enemyList:
+									enemyList[e].buffs = [0,0,0,0,0];
+							else:
+								for p in playerList:
+									playerList[p].buffs[b[0]] += b[1]
+									if(playerList[p].buffs[b[0]] > 5):
+										playerList[p].buffs[b[0]] = 5;
+								for e in enemyList:
+									enemyList[e].buffs[b[0]] += b[1]
+									if(enemyList[e].buffs[b[0]] > 5):
+										enemyList[e].buffs[b[0]] = 5;
+				1:
+					match(b[2][0]):
+						0:
+							if(b[1] == 0): # If the value is 0, clears all buffs
+								target.buffs == [0,0,0,0,0];
+							else:
+								target.buffs[b[0]] += b[1];
+								if(target.buffs[b[0]] > 5):
+									target.buffs[b[0]] = 5;
+						1:
+							if(b[1] == 0): # If the value is 0, clears all buffs
+								for e in enemyList:
+									enemyList[e].buffs = [0,0,0,0,0];
+							else:
+								for e in enemyList:
+									enemyList[e].buffs[b[0]] += b[1]
+									if(enemyList[e].buffs[b[0]] > 5):
+										enemyList[e].buffs[b[0]] = 5;
+						2:
+							if(b[1] == 0): # If the value is 0, clears all buffs
+								for p in playerList:
+									playerList[p].buffs = [0,0,0,0,0];
+								for e in enemyList:
+									enemyList[e].buffs = [0,0,0,0,0];
+							else:
+								for p in playerList:
+									playerList[p].buffs[b[0]] += b[1]
+									if(playerList[p].buffs[b[0]] > 5):
+										playerList[p].buffs[b[0]] = 5;
+								for e in enemyList:
+									enemyList[e].buffs[b[0]] += b[1]
+									if(enemyList[e].buffs[b[0]] > 5):
+										enemyList[e].buffs[b[0]] = 5;
+				_:
+					pass
+	
 	print(str(baseDamage) + " Base damage of type " + str(damageType) + " on " + target.getName());
 	var rawDamage = 0;
 	match(damageType):
@@ -217,11 +288,12 @@ func _calcFinalDamage(baseDamage, damageType, target, attack):
 	target.currentHP -= rawDamage;
 	if(target.currentHP < 0): target.currentHP = 0;
 	print("Target Current HP: " + str(target.currentHP));
+	print(playerList[currentPlayer].buffs);
 	_updateCharCards();
 	_cancelAction();
 	_on_TechMenuExitButton_pressed();
 
-# TODO: Not finished yet, specific helper method for handling hybrid damage
+# Specific helper method for handling hybrid damage
 func calcHybridDamage(baseDamage: int, target, attack, targetedRes: int) -> int:
 	var rawDamage: int;
 	match(targetedRes):
@@ -287,21 +359,82 @@ func _cancelAction():
 func _updateCharCards():
 	for ch in playerList:
 		var c = playerList[ch];
+		
+		# Fills the HP bar based on the ratio betwen currentHP and maxHP multiplied by 120 for the width of the bar in pixels
 		var hpFill = 120 * (c.currentHP/c.maxHP);
-		c.HPBar.polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
+		c.HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
 		c.HPNum.text = String(c.currentHP);
+		if(c.HPBar.get_node("reduceColor").polygon[1].x > hpFill): createHPBarAnimation(c, hpFill);
+		c.HPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
+		
+		# Fills the EP bar based on the ratio betwen currentEP and maxEP multiplied by 120 for the width of the bar in pixels
 		var epFill = 120 * (c.currentEP/c.maxEP);
-		c.EPBar.polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
+		c.EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
 		c.EPNum.text = String(c.currentEP);
+		if(c.EPBar.get_node("reduceColor").polygon[1].x > epFill): createEPBarAnimation(c, epFill);
+		c.EPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
+		
+		# Iterates through every arrow for every stat and checks visibility status
+		var bdBar = c.card.get_node("AnimationGroup/BuffDebuffBar");
+		for b in 5:
+			for e in 5:
+				if(e < c.buffs[b]):
+					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = true;
+				else:
+					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = false;
+	
 	for ch in enemyList:
 		var c = enemyList[ch];
+		
 		var hpFill = 120 * (c.currentHP/c.maxHP);
-		c.HPBar.polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
+		c.HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
 		c.HPNum.text = String(c.currentHP);
+		if(c.HPBar.get_node("reduceColor").polygon[1].x > hpFill): createHPBarAnimation(c, hpFill);
+		c.HPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
+		
 		var epFill = 120 * (c.currentEP/c.maxEP);
-		c.EPBar.polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
+		c.EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
 		c.EPNum.text = String(c.currentEP);
-	pass
+		if(c.EPBar.get_node("reduceColor").polygon[1].x > epFill): createEPBarAnimation(c, epFill);
+		c.EPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
+		
+		var bdBar = c.card.get_node("AnimationGroup/BuffDebuffBar");
+		for b in 5:
+			for e in 5:
+				if(e < c.buffs[b]):
+					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = true;
+				else:
+					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = false;
+
+# Constructs an animation for HP Bar reducing on the fly
+func createHPBarAnimation(c: Character, hpFill: float):
+	c.HPBar.get_node("reduceColor/AnimationPlayer").remove_animation("HPReduce");
+	var polygonPath = NodePath("polygon");
+	var animation = Animation.new();
+	var track_index = animation.add_track(Animation.TYPE_VALUE);
+	animation.track_set_path(track_index, NodePath(c.HPBar.get_node("reduceColor").get_path() as String + polygonPath.get_as_property_path()));
+	animation.track_insert_key(track_index, 0.0, c.HPBar.get_node("reduceColor").polygon);
+	animation.track_insert_key(track_index, 0.5, c.HPBar.get_node("reduceColor").polygon);
+	animation.track_insert_key(track_index, 1.0, c.HPBar.get_node("color").polygon);
+	animation.length = 2.0;
+
+	c.HPBar.get_node("reduceColor/AnimationPlayer").add_animation("HPReduce", animation);
+	c.HPBar.get_node("reduceColor/AnimationPlayer").play("HPReduce");
+
+# Constructs an animation for EP Bar reducing on the fly
+func createEPBarAnimation(c: Character, epFill: float):
+	c.EPBar.get_node("reduceColor/AnimationPlayer").remove_animation("EPReduce");
+	var polygonPath = NodePath("polygon");
+	var animation = Animation.new();
+	var track_index = animation.add_track(Animation.TYPE_VALUE);
+	animation.track_set_path(track_index, NodePath(c.EPBar.get_node("reduceColor").get_path() as String + polygonPath.get_as_property_path()));
+	animation.track_insert_key(track_index, 0.0, c.EPBar.get_node("reduceColor").polygon);
+	animation.track_insert_key(track_index, 0.5, c.EPBar.get_node("reduceColor").polygon);
+	animation.track_insert_key(track_index, 1.0, c.EPBar.get_node("color").polygon);
+	animation.length = 2.0;
+	
+	c.EPBar.get_node("reduceColor/AnimationPlayer").add_animation("EPReduce", animation);
+	c.EPBar.get_node("reduceColor/AnimationPlayer").play("EPReduce");
 
 # Listener for button on Player1. Shifts Player1 card up and displays their tech menu
 func _on_Player1Button_pressed():

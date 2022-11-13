@@ -5,7 +5,7 @@ class_name DummyPhysTech
 func _init():
 	id = 12003; #Might be redundant
 	type = 5;
-	name = "FOR TESTING ONLY";
+	name = "TEST ATK BUFF";
 	power = 50;
 	resistance = [1]; #Might be redundant
 	anim = [0,0]; #Temporary
@@ -14,7 +14,7 @@ func _init():
 	target = [0, 1];
 	epCost = 50;
 	hpCost = 0;
-	buff = [[4, 1, [1, 0]]];
+	buff = [[0, 1, [2, 0]]];
 	debuff = [];
 	status = [];
 	hpRegen = 0;

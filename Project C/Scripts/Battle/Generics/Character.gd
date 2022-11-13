@@ -4,11 +4,12 @@ class_name Character
 
 var card:Node2D;
 var portrait:Texture;
-var sprite:Sprite; var HPBar:Polygon2D; var EPBar:Polygon2D;
+var sprite:Sprite; var HPBar:Node2D; var EPBar:Node2D;
 var HPNum:Label; var EPNum:Label;
 var rawMaxHP:Array; var rawMaxEP: Array;
 var maxHP:float; var currentHP:float; var maxEP:float; var currentEP:float;
 var level:int;
+var buffs:Array; var debuffs:Array;
 var statusEffects:Array;
 var rawAttack:Array; var rawMagic:Array; var rawSpeed:Array; var rawDefense:Array; var rawResistance:Array;
 var attack:int; var magic:int; var speed:int; var defense:int; var resistance:int;
@@ -19,11 +20,13 @@ func _init(c=Node2D, p=Texture, l=1):
 	card = c;
 	portrait = p;
 	sprite = c.get_node("AnimationGroup/Portrait");
-	HPBar = c.get_node("AnimationGroup/HPBar/color");
-	EPBar = c.get_node("AnimationGroup/EPBar/color");
+	HPBar = c.get_node("AnimationGroup/HPBar");
+	EPBar = c.get_node("AnimationGroup/EPBar");
 	HPNum = c.get_node("AnimationGroup/HPBar/NumberSpace/Label");
 	EPNum = c.get_node("AnimationGroup/EPBar/NumberSpace/Label");
 	level = l;
+	buffs = [0,0,0,0,0];
+	debuffs = [0,0,0,0,0];
 
 func calcStats():
 	maxHP = round(rawMaxHP[0] + rawMaxHP[1] * (level-1));
@@ -41,10 +44,10 @@ func applyCardDetails():
 		currentEP = maxEP;
 	sprite.texture = portrait;
 	var hpFill = 120 * (currentHP/maxHP);
-	HPBar.polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
+	HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
 	HPNum.text = String(currentHP);
 	var epFill = 120 * (currentEP/maxEP);
-	EPBar.polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
+	EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
 	EPNum.text = String(currentEP);
 	
 	card.visible = true;
