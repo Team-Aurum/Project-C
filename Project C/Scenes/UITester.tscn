@@ -13,7 +13,7 @@
 [ext_resource path="res://Scenes/Elements/SideBorder.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Elements/charCard.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Animations/AttackPhase.tres" type="Animation" id=13]
-[ext_resource path="res://Audio/Loop Test 2.ogg" type="AudioStream" id=14]
+[ext_resource path="res://Audio/Ophelia Battle.ogg" type="AudioStream" id=14]
 [ext_resource path="res://Scenes/IntroLong.gd" type="Script" id=15]
 [ext_resource path="res://Audio/MakotoThemeIntro.ogg" type="AudioStream" id=16]
 [ext_resource path="res://Audio/MakotoThemeLoop.ogg" type="AudioStream" id=17]
@@ -96,6 +96,7 @@ margin_bottom = 240.0
 
 [node name="NormalLoop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
+autoplay = true
 
 [node name="LoopWithIntro" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
@@ -116,7 +117,6 @@ anims/TestAttack = SubResource( 1 )
 
 [node name="IntroLong" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
-autoplay = true
 script = ExtResource( 15 )
 
 [node name="Loop" type="AudioStreamPlayer" parent="IntroLong"]
