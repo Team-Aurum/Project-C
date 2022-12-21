@@ -6,6 +6,18 @@ var enemy1: Character; var enemy2: Character; var enemy3: Character; var enemy4:
 var techOptions: Array;
 var currentMenu: int = 0; var currentPlayer: int;
 
+var dwalla;
+var nwalla;
+var dlayer;
+var nlayer; 
+var nalayer;
+
+var dWallaFadeIn: bool = false; var dWallaFadeOut: bool = false;
+var nWallaFadeIn: bool = false; var nWallaFadeOut: bool = false;
+var nLayerFadeIn: bool = false; var nLayerFadeOut: bool = false;
+var dLayerFadeIn: bool = false; var dLayerFadeOut: bool = false;
+var naLayerFadeIn: bool = false; var naLayerFadeOut: bool = false;
+
 # Called when the node enters the scene tree for the first time.
 # TODO: Lots of this is still like test code and stuff, will have to eventually change it. 
 # With the playerList that should make it easier I think
@@ -20,10 +32,85 @@ func _ready():
 	playerList[1] = play1;
 	playerList[2] = play2;
 	enemyList[1] = enemy1;
+	dwalla = $DWalla;
+	nwalla = $NWalla;
+	nlayer = $NLayer;
+	dlayer = $DLayer;
+	nalayer = $NALayer;
+	
+	nwalla.set_volume_db(-80);
+	nlayer.set_volume_db(-80);
+	nlayer.get_node("Audio2").set_volume_db(-80);
+	nalayer.set_volume_db(-80);
+	nalayer.get_node("Audio2").set_volume_db(-80);
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	# buncha listeners and shit
+	if(dWallaFadeIn):
+		if(dwalla.get_volume_db() == 0): 
+			dWallaFadeIn = false;
+			print("DWalla Faded In");
+		if(dwalla.get_volume_db() < 0):
+			dwalla.set_volume_db(dwalla.get_volume_db() + 1);
+	if(dWallaFadeOut):
+		if(dwalla.get_volume_db() == -80): 
+			dWallaFadeOut = false;
+			print("DWalla Faded Out");
+		if(dwalla.get_volume_db() > -80):
+			dwalla.set_volume_db(dwalla.get_volume_db() - 1);
+	
+	if(nWallaFadeIn):
+		if(nwalla.get_volume_db() == 0): 
+			nWallaFadeIn = false;
+			print("NWalla Faded In");
+		if(nwalla.get_volume_db() < 0):
+			nwalla.set_volume_db(nwalla.get_volume_db() + 1);
+	if(nWallaFadeOut):
+		if(nwalla.get_volume_db() == -80): 
+			nWallaFadeOut = false;
+			print("NWalla Faded Out");
+		if(nwalla.get_volume_db() > -80):
+			nwalla.set_volume_db(nwalla.get_volume_db() - 1);
+	
+	if(dLayerFadeIn):
+		if(dlayer.get_node("Audio2").get_volume_db() == 0): 
+			dLayerFadeIn = false;
+			print("DLayer Faded In");
+		if(dlayer.get_node("Audio2").get_volume_db() < 0):
+			dlayer.get_node("Audio2").set_volume_db(dlayer.get_node("Audio2").get_volume_db() + 1);
+	if(dLayerFadeOut):
+		if(dlayer.get_node("Audio2").get_volume_db() == -80): 
+			dLayerFadeOut = false;
+			print("DLayer Faded Out");
+		if(dlayer.get_node("Audio2").get_volume_db() > -80):
+			dlayer.get_node("Audio2").set_volume_db(dlayer.get_node("Audio2").get_volume_db() - 1);
+	
+	if(nLayerFadeIn):
+		if(nlayer.get_node("Audio2").get_volume_db() == 0): 
+			nLayerFadeIn = false;
+			print("NLayer Faded In");
+		if(nlayer.get_node("Audio2").get_volume_db() < 0):
+			nlayer.get_node("Audio2").set_volume_db(nlayer.get_node("Audio2").get_volume_db() + 1);
+	if(nLayerFadeOut):
+		if(nlayer.get_node("Audio2").get_volume_db() == -80): 
+			nLayerFadeOut = false;
+			print("NLayer Faded Out");
+		if(nlayer.get_node("Audio2").get_volume_db() > -80):
+			nlayer.get_node("Audio2").set_volume_db(nlayer.get_node("Audio2").get_volume_db() - 1);
+	
+	if(naLayerFadeIn):
+		if(nalayer.get_node("Audio2").get_volume_db() == 0): 
+			naLayerFadeIn = false;
+			print("NALayer Faded In");
+		if(nalayer.get_node("Audio2").get_volume_db() < 0):
+			nalayer.get_node("Audio2").set_volume_db(nalayer.get_node("Audio2").get_volume_db() + 1);
+	if(naLayerFadeOut):
+		if(nalayer.get_node("Audio2").get_volume_db() == -80): 
+			naLayerFadeOut = false;
+			print("NALayer Faded Out");
+		if(nalayer.get_node("Audio2").get_volume_db() > -80):
+			nalayer.get_node("Audio2").set_volume_db(nalayer.get_node("Audio2").get_volume_db() - 1);
 
 # TODO: Not done yet. Starts attack phase
 func _on_AttackButton_pressed():
@@ -496,3 +583,47 @@ func _on_LButton_pressed():
 	if currentMenu < 0:
 		currentMenu = 2;
 	display_TechMenu(currentPlayer);
+
+func _on_DayAr_pressed():
+	print("dayAr pressed");
+	dWallaFadeIn = true;
+	nWallaFadeOut = true;
+	dLayerFadeIn = true;
+	nLayerFadeOut = true;
+	naLayerFadeOut = true;
+
+
+func _on_NightAr_pressed():
+	print("nightAr pressed");
+	dWallaFadeOut = true;
+	nWallaFadeIn = true;
+	dLayerFadeIn = true;
+	nLayerFadeIn = true;
+	naLayerFadeOut = true;
+
+
+func _on_Day_pressed():
+	print("day pressed");
+	dWallaFadeIn = true;
+	nWallaFadeOut = true;
+	dLayerFadeOut = true;
+	nLayerFadeOut = true;
+	naLayerFadeOut = true;
+
+
+func _on_Night_pressed():
+	print("night pressed");
+	dWallaFadeOut = true;
+	nWallaFadeIn = true;
+	dLayerFadeOut = true;
+	nLayerFadeIn = true;
+	naLayerFadeOut = true;
+
+
+func _on_Hell_pressed():
+	print("hell pressed");
+	dWallaFadeOut = true;
+	nWallaFadeOut = true;
+	dLayerFadeOut = true;
+	nLayerFadeOut = true;
+	naLayerFadeIn = true;

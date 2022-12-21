@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/NHarbor(N)Intro.ogg-9fccf0283ace4eeb9531dab8673ea324.oggstr"
+
+[deps]
+
+source_file="res://Audio/NHarbor(N)Intro.ogg"
+dest_files=[ "res://.import/NHarbor(N)Intro.ogg-9fccf0283ace4eeb9531dab8673ea324.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -15,7 +15,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if(get_playback_position() > 1 && first):
+	if(get_playback_position() > 1 && first && get_volume_db() == 0):
 		get_node("Audio2").set_volume_db(0);
 		set_volume_db(-80);
 		print(volume_db);
