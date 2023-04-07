@@ -5,7 +5,7 @@ class_name Tech
 var id:int;
 var type:int;
 #var attackName:String;
-var power:int;
+var power:float;
 var resistance:Array;
 var anim; #Implementation currently unknown
 var sound; #Implementation currently unknown

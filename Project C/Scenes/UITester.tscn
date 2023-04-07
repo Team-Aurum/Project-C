@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Audio/NHarbor(D).ogg" type="AudioStream" id=1]
 [ext_resource path="res://Audio/NHarbor(D)Intro.ogg" type="AudioStream" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://Audio/NHarbor(NA).ogg" type="AudioStream" id=21]
 [ext_resource path="res://Audio/NHarbor(NA)Intro.ogg" type="AudioStream" id=22]
 [ext_resource path="res://Audio/DWalla.ogg" type="AudioStream" id=23]
+[ext_resource path="res://Audio/Actual Battle This Time V3 Loop.ogg" type="AudioStream" id=24]
 
 [sub_resource type="Animation" id=1]
 resource_name = "TestAttack"
@@ -117,15 +118,12 @@ anims/TestAttack = SubResource( 1 )
 
 [node name="NWalla" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
-autoplay = true
 
 [node name="DWalla" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 23 )
-autoplay = true
 
 [node name="DLayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
-autoplay = true
 script = ExtResource( 3 )
 
 [node name="Audio2" type="AudioStreamPlayer" parent="DLayer"]
@@ -135,7 +133,6 @@ autoplay = true
 
 [node name="NLayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 19 )
-autoplay = true
 script = ExtResource( 3 )
 
 [node name="Audio2" type="AudioStreamPlayer" parent="NLayer"]
@@ -145,7 +142,6 @@ autoplay = true
 
 [node name="NALayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 22 )
-autoplay = true
 script = ExtResource( 3 )
 
 [node name="Audio2" type="AudioStreamPlayer" parent="NALayer"]
@@ -195,6 +191,10 @@ margin_right = 1020.0
 margin_bottom = 599.0
 rect_pivot_offset = Vector2( -175, 119 )
 text = "A Hell of Your Own Making"
+
+[node name="Loop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )
+autoplay = true
 
 [connection signal="pressed" from="Player4/AnimationGroup/TextureButton" to="." method="_on_Player4Button_pressed"]
 [connection signal="pressed" from="Player3/AnimationGroup/TextureButton" to="." method="_on_Player3Button_pressed"]

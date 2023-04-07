@@ -26,11 +26,13 @@ func _ready():
 	#TODO: make this declaration a little shorter ya?
 	play1 = Frederick.new($Player1, 100);
 	play2 = Zurine.new($Player2, 100);
-	#play3 = Zurine.new($Player3, 100);
+	play3 = Oskar.new($Player3, 100);
 	#play4 = Frederick.new($Player4, 100);
 	enemy1 = Zurine.new($Enemy1, 20);
+	
 	playerList[1] = play1;
 	playerList[2] = play2;
+	playerList[3] = play3;
 	enemyList[1] = enemy1;
 	dwalla = $DWalla;
 	nwalla = $NWalla;
@@ -223,7 +225,7 @@ func _executeTech(id):
 	var executingPlayer = playerList[currentPlayer];
 	var baseAttack = executingPlayer.attack;
 	var baseMagic = executingPlayer.magic;
-	var baseDamage; var currentTech;
+	var baseDamage: int; var currentTech;
 	
 	# Determines whether the given tech is in the techs or magicTechs array
 	# The first digit of an ID determines whether it's a tech or magic, so id/10000 pulls off just that digit
@@ -233,7 +235,7 @@ func _executeTech(id):
 		2:
 			currentTech = executingPlayer.magicTechs[id];
 		3:
-			pass
+			return false;
 	executingPlayer.currentEP -= currentTech.epCost;
 	if(executingPlayer.currentEP < 0):
 		executingPlayer.currentEP += currentTech.epCost;
@@ -247,6 +249,7 @@ func _executeTech(id):
 	# Also TODO: The base "else" case here is to do magic damage. Maybe change for error catching?
 	if(damageType == 0): baseDamage = (baseAttack + baseMagic)/2 + currentTech.power;
 	elif(damageType == 5): baseDamage = baseAttack + currentTech.power;
+	elif(damageType == 6): baseDamage = round(baseMagic * currentTech.power);
 	else: baseDamage = baseMagic + currentTech.power;
 	
 	# Sets the dialog text if a target is needed or, if an aoe skill, immediately begins calculating damage
@@ -257,10 +260,25 @@ func _executeTech(id):
 	else:
 		# Second element of the target array determines enemy or self targetting
 		if(currentTech.target[1] == 0):
-			pass
+			$Dialog.visible = true;
+			$Dialog/Label.text = "Choose an ally";
+			
+			#Connecting/disconnecting listeners
+			$Player1/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player1Button_pressed");
+			$Player2/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player2Button_pressed");
+			$Player3/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player3Button_pressed");
+			$Player4/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player4Button_pressed");
+			
+			$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play1, currentTech]);
+			$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play2, currentTech]);
+			$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play3, currentTech]);
+			$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play4, currentTech]);
+			
+			$TechMenu/Header/ExitButton.disconnect("pressed", self, "_on_TechMenuExitButton_pressed");
+			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction", [0]);
 		elif(currentTech.target[1] == 1):
 			$Dialog.visible = true;
-			$Dialog/Label.text = "Choose a target";
+			$Dialog/Label.text = "Choose an enemy";
 			
 			# Connecting/disconnecting listeners
 			$Player1/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player1Button_pressed");
@@ -274,7 +292,7 @@ func _executeTech(id):
 			$Enemy4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy4, currentTech]);
 		
 			$TechMenu/Header/ExitButton.disconnect("pressed", self, "_on_TechMenuExitButton_pressed");
-			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction");
+			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction", [1]);
 
 # TODO: Not finished yet, does the final damage calculations considering damage reduction
 func _calcFinalDamage(baseDamage, damageType, target, attack):
@@ -352,6 +370,7 @@ func _calcFinalDamage(baseDamage, damageType, target, attack):
 	
 	print(str(baseDamage) + " Base damage of type " + str(damageType) + " on " + target.getName());
 	var rawDamage = 0;
+	var healPercent = 0.0;
 	match(damageType):
 		0: # Hybrid
 			for i in attack.resistance.size():
@@ -366,18 +385,26 @@ func _calcFinalDamage(baseDamage, damageType, target, attack):
 			rawDamage = calcResistanceEffects(target.resistances[3], baseDamage - target.resistance);
 		5: # Physical
 			rawDamage = baseDamage - target.defense;
+		6: # Heal
+			healPercent = baseDamage * 0.01;
 		9:
 			pass
 		_:
 			pass
-	print("Final damage: " + str(rawDamage));
-	print("Target HP before damage: " + str(target.currentHP));
-	target.currentHP -= rawDamage;
-	if(target.currentHP < 0): target.currentHP = 0;
-	print("Target Current HP: " + str(target.currentHP));
-	print(playerList[currentPlayer].buffs);
+	if(damageType != 6):
+		print("Final damage: " + str(rawDamage));
+		print("Target HP before damage: " + str(target.currentHP));
+		target.currentHP -= rawDamage;
+		if(target.currentHP < 0): target.currentHP = 0;
+		print("Target Current HP: " + str(target.currentHP));
+		print(playerList[currentPlayer].buffs);	
+	elif(damageType == 6):
+		print("Final heal amount: " + String(target.maxHP * healPercent));
+		target.currentHP += (target.maxHP * healPercent);
+		if(target.currentHP > target.maxHP): target.currentHP = target.maxHP;
+		print("Heal Percent: " + String(healPercent*100) + "%");
 	_updateCharCards();
-	_cancelAction();
+	_cancelAction(attack.target[1]);
 	_on_TechMenuExitButton_pressed();
 
 # Specific helper method for handling hybrid damage
@@ -427,17 +454,27 @@ func calcResistanceEffects(resNum: int, baseDamage: int) -> int:
 
 # Cancels the current action by resetting all listeners
 # _callcFinalDamage() calls this as part of its routine to reset the game back to its base state
-func _cancelAction():
-	$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player1Button_pressed");
-	$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player2Button_pressed");
-	$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player3Button_pressed");
-	$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player4Button_pressed");
-	
-	$Enemy1/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
-	$Enemy2/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
-	$Enemy3/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
-	$Enemy4/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
-	
+func _cancelAction(mode: int):
+	if(mode == 0):
+		$Player1/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+		$Player2/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+		$Player3/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+		$Player4/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+		
+		$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player1Button_pressed");
+		$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player2Button_pressed");
+		$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player3Button_pressed");
+		$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player4Button_pressed");
+	elif(mode == 1):
+		$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player1Button_pressed");
+		$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player2Button_pressed");
+		$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player3Button_pressed");
+		$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player4Button_pressed");
+		
+		$Enemy1/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+		$Enemy2/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+		$Enemy3/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+		$Enemy4/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
 	$TechMenu/Header/ExitButton.disconnect("pressed", self, "_cancelAction");
 	$TechMenu/Header/ExitButton.connect("pressed", self, "_on_TechMenuExitButton_pressed");
 	$Dialog.visible = false;
@@ -494,6 +531,7 @@ func _updateCharCards():
 					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = false;
 
 # Constructs an animation for HP Bar reducing on the fly
+# TODO(?): Make a slowly increasing animation as well
 func createHPBarAnimation(c: Character, hpFill: float):
 	c.HPBar.get_node("reduceColor/AnimationPlayer").remove_animation("HPReduce");
 	var polygonPath = NodePath("polygon");

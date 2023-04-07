@@ -1,15 +1,15 @@
 extends Character
 
-class_name Frederick
+class_name Oskar
 
-var p = load("res://Sprites/FrederickBetaPortrait.png");
+var p = load("res://Sprites/OskarBetaPortrait.png");
 
 func _init(c=Node2D, l=1).(c, p, l):
 	loadStats();
 	loadTechs();
 	calcStats();
-	currentHP = 100;
-	currentEP = -1; # Temp override to see max HP values
+	currentHP = -1; #Temp override to see max HP values
+	currentEP = -1;
 	applyCardDetails();
 	statPrintout();
 	#maxHP = 100.0;
@@ -20,10 +20,10 @@ func _ready():
 	pass # Replace with function body.
 
 func getName():
-	return "Frederick";
+	return "Oskar";
 
 func statPrintout():
-	print("Frederick Stats");
+	print("Oskar Stats");
 	print("Max HP: " + String(maxHP));
 	print("Max EP: " + String(maxEP));
 	print("Attack: " + String(attack));
@@ -33,20 +33,17 @@ func statPrintout():
 	print("Resistance: " + String(resistance));
 
 func loadStats():
-	rawMaxHP = [90, 9.18];
-	rawMaxEP = [50, 4.55];
-	rawAttack = [5, 0.46];
-	rawMagic = [4, 0.36];
-	rawSpeed = [3, 0.27];
-	rawDefense = [10, 0.9];
+	rawMaxHP = [70, 6.36];
+	rawMaxEP = [90, 9.18];
+	rawAttack = [4, 0.36];
+	rawMagic = [10, 0.9];
+	rawSpeed = [7, 0.64];
+	rawDefense = [5, 0.46];
 	rawResistance = [8, 0.73];
-	resistances = [0, 2, 1, 3];
+	resistances = [1, 3, 0, 2];
 
 func loadTechs():
-	techs[12001] = FrederickTech1.new();
-	techs[12002] = FrederickTech2.new();
-	techs[12003] = DummyPhysTech.new();
-	magicTechs[29001] = Izo.new();
+	magicTechs[29025] = Datu.new();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

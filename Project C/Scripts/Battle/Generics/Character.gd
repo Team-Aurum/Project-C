@@ -45,9 +45,11 @@ func applyCardDetails():
 	sprite.texture = portrait;
 	var hpFill = 120 * (currentHP/maxHP);
 	HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
+	HPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
 	HPNum.text = String(currentHP);
 	var epFill = 120 * (currentEP/maxEP);
 	EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
+	EPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
 	EPNum.text = String(currentEP);
 	
 	card.visible = true;

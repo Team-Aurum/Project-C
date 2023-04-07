@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/Battle/Generics/Character.gd"
 }, {
 "base": "Tech",
+"class": "Datu",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Datu.gd"
+}, {
+"base": "Tech",
 "class": "DummyPhysTech",
 "language": "GDScript",
 "path": "res://Scripts/Battle/AttackData/DummyPhysTech.gd"
@@ -38,6 +43,11 @@ _global_script_classes=[ {
 "class": "Izo",
 "language": "GDScript",
 "path": "res://Scripts/Battle/AttackData/Izo.gd"
+}, {
+"base": "Character",
+"class": "Oskar",
+"language": "GDScript",
+"path": "res://Scripts/Battle/CharacterData/Oskar.gd"
 }, {
 "base": "Node",
 "class": "Tech",
@@ -71,11 +81,13 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Character": "",
+"Datu": "",
 "DummyPhysTech": "",
 "Frederick": "",
 "FrederickTech1": "",
 "FrederickTech2": "",
 "Izo": "",
+"Oskar": "",
 "Tech": "",
 "ZHaize": "",
 "ZIzo": "",
