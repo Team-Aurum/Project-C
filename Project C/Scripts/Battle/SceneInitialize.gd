@@ -400,7 +400,7 @@ func _calcFinalDamage(baseDamage, damageType, target, attack):
 		print(playerList[currentPlayer].buffs);	
 	elif(damageType == 6):
 		print("Final heal amount: " + String(target.maxHP * healPercent));
-		target.currentHP += (target.maxHP * healPercent);
+		target.currentHP += int(round(target.maxHP * healPercent));
 		if(target.currentHP > target.maxHP): target.currentHP = target.maxHP;
 		print("Heal Percent: " + String(healPercent*100) + "%");
 	_updateCharCards();
