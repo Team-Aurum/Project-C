@@ -27,12 +27,13 @@ func _ready():
 	play1 = Frederick.new($Player1, 100);
 	play2 = Zurine.new($Player2, 100);
 	play3 = Oskar.new($Player3, 100);
-	#play4 = Frederick.new($Player4, 100);
+	play4 = Makoto.new($Player4, 100);
 	enemy1 = Zurine.new($Enemy1, 20);
 	
 	playerList[1] = play1;
 	playerList[2] = play2;
 	playerList[3] = play3;
+	playerList[4] = play4;
 	enemyList[1] = enemy1;
 	dwalla = $DWalla;
 	nwalla = $NWalla;

@@ -45,6 +45,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/Battle/AttackData/Izo.gd"
 }, {
 "base": "Character",
+"class": "Makoto",
+"language": "GDScript",
+"path": "res://Scripts/Battle/CharacterData/Makoto.gd"
+}, {
+"base": "Character",
 "class": "Oskar",
 "language": "GDScript",
 "path": "res://Scripts/Battle/CharacterData/Oskar.gd"
@@ -87,6 +92,7 @@ _global_script_class_icons={
 "FrederickTech1": "",
 "FrederickTech2": "",
 "Izo": "",
+"Makoto": "",
 "Oskar": "",
 "Tech": "",
 "ZHaize": "",

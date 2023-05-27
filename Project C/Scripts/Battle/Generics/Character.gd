@@ -29,13 +29,13 @@ func _init(c=Node2D, p=Texture, l=1):
 	debuffs = [0,0,0,0,0];
 
 func calcStats():
-	maxHP = round(rawMaxHP[0] + rawMaxHP[1] * (level-1));
-	maxEP = round(rawMaxEP[0] + rawMaxEP[1] * (level-1));
-	attack = round(rawAttack[0] + rawAttack[1] * (level-1));
-	magic = round(rawMagic[0] + rawMagic[1] * (level-1));
-	speed = round(rawSpeed[0] + rawSpeed[1] * (level-1));
-	defense = round(rawDefense[0] + rawDefense[1] * (level-1));
-	resistance = round(rawResistance[0] + rawResistance[1] * (level-1));
+	maxHP = ceil(rawMaxHP[0] + rawMaxHP[1] * (level-1));
+	maxEP = ceil(rawMaxEP[0] + rawMaxEP[1] * (level-1));
+	attack = ceil(rawAttack[0] + rawAttack[1] * (level-1));
+	magic = ceil(rawMagic[0] + rawMagic[1] * (level-1));
+	speed = ceil(rawSpeed[0] + rawSpeed[1] * (level-1));
+	defense = ceil(rawDefense[0] + rawDefense[1] * (level-1));
+	resistance = ceil(rawResistance[0] + rawResistance[1] * (level-1));
 
 func applyCardDetails():
 	if currentHP == -1:
