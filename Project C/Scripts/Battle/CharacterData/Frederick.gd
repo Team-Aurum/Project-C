@@ -45,8 +45,20 @@ func loadStats():
 func loadTechs():
 	techs[12001] = FrederickTech1.new();
 	techs[12002] = FrederickTech2.new();
-	techs[12003] = DummyPhysTech.new();
-	magicTechs[29001] = Izo.new();
+	techs[12003] = FrederickTech3.new();
+	#techs[12003] = DummyPhysTech.new();
+	magicTechs[29002] = Izo.new();
+	magicTechs[29003] = Txima.new();
+	magicTechs[29006] = Izodia.new();
+	magicTechs[29007] = Tximadia.new();
+	magicTechs[29025] = Datu.new();
+	magicTechs[29026] = Datudia.new();
+	magicTechs[29027] = Datiena.new();
+
+	#magicTechs[29102] = Gizo.new();
+	#magicTechs[29103] = Gutxima.new();
+	#magicTechs[29106] = Gizodia.new();
+	#magicTechs[29107] = Gutximadia.new();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

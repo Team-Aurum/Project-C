@@ -1,11 +1,11 @@
 extends Tech
 
-class_name Izo
+class_name Txima
 
 func _init():
-	id = 29001; #Might be redundant
-	type = 2;
-	name = "Izo";
+	id = 29003; #Might be redundant
+	type = 3;
+	name = "Txima";
 	power = 20;
 	resistance = [4]; #Might be redundant
 	anim = [0,0]; #Temporary

@@ -29,12 +29,16 @@ func _ready():
 	play3 = Oskar.new($Player3, 100);
 	play4 = Makoto.new($Player4, 100);
 	enemy1 = Zurine.new($Enemy1, 20);
+	enemy2 = Makoto.new($Enemy2, 50);
+	enemy3 = Oskar.new($Enemy3, 40);
 	
 	playerList[1] = play1;
 	playerList[2] = play2;
 	playerList[3] = play3;
 	playerList[4] = play4;
 	enemyList[1] = enemy1;
+	enemyList[2] = enemy2;
+	enemyList[3] = enemy3;
 	dwalla = $DWalla;
 	nwalla = $NWalla;
 	nlayer = $NLayer;
@@ -257,7 +261,7 @@ func _executeTech(id):
 	# First element of the target array determines single-target, aoe, or universal
 	print(currentTech.name + " Base Damage: " + str(baseDamage));
 	if(currentTech.target[0] == 1 || currentTech.target[0] == 2):
-		_calcFinalDamage(baseDamage, damageType, -1, currentTech);
+		_calcFinalDamage(baseDamage, damageType, -1, currentTech, false);
 	else:
 		# Second element of the target array determines enemy or self targetting
 		if(currentTech.target[1] == 0):
@@ -270,10 +274,10 @@ func _executeTech(id):
 			$Player3/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player3Button_pressed");
 			$Player4/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player4Button_pressed");
 			
-			$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play1, currentTech]);
-			$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play2, currentTech]);
-			$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play3, currentTech]);
-			$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play4, currentTech]);
+			$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play1, currentTech, false]);
+			$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play2, currentTech, false]);
+			$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play3, currentTech, false]);
+			$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play4, currentTech, false]);
 			
 			$TechMenu/Header/ExitButton.disconnect("pressed", self, "_on_TechMenuExitButton_pressed");
 			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction", [0]);
@@ -287,16 +291,17 @@ func _executeTech(id):
 			$Player3/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player3Button_pressed");
 			$Player4/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player4Button_pressed");
 		
-			$Enemy1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy1, currentTech]);
-			$Enemy2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy2, currentTech]);
-			$Enemy3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy3, currentTech]);
-			$Enemy4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy4, currentTech]);
+			$Enemy1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy1, currentTech, false]);
+			$Enemy2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy2, currentTech, false]);
+			$Enemy3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy3, currentTech, false]);
+			$Enemy4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy4, currentTech, false]);
 		
 			$TechMenu/Header/ExitButton.disconnect("pressed", self, "_on_TechMenuExitButton_pressed");
 			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction", [1]);
 
 # TODO: Not finished yet, does the final damage calculations considering damage reduction
-func _calcFinalDamage(baseDamage, damageType, target, attack):
+func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool):
+	var currentHP; var currentEP;
 	if(attack.buff.size() != 0):
 		for b in attack.buff: # Applies buffs
 			match(b[2][1]): # Checking if self or enemy target
@@ -369,44 +374,52 @@ func _calcFinalDamage(baseDamage, damageType, target, attack):
 				_:
 					pass
 	
-	print(str(baseDamage) + " Base damage of type " + str(damageType) + " on " + target.getName());
-	var rawDamage = 0;
-	var healPercent = 0.0;
-	match(damageType):
-		0: # Hybrid
-			for i in attack.resistance.size():
-				rawDamage += calcHybridDamage(int(baseDamage/attack.resistance.size()), target, attack, attack.resistance[i]);
-		1: # Fire
-			rawDamage = calcResistanceEffects(target.resistances[0], baseDamage - target.resistance);
-		2: # Ice
-			rawDamage = calcResistanceEffects(target.resistances[1], baseDamage - target.resistance);
-		3: # Elec
-			rawDamage = calcResistanceEffects(target.resistances[2], baseDamage - target.resistance);
-		4: # Wind
-			rawDamage = calcResistanceEffects(target.resistances[3], baseDamage - target.resistance);
-		5: # Physical
-			rawDamage = baseDamage - target.defense;
-		6: # Heal
-			healPercent = baseDamage * 0.01;
-		9:
-			pass
-		_:
-			pass
-	if(damageType != 6):
-		print("Final damage: " + str(rawDamage));
-		print("Target HP before damage: " + str(target.currentHP));
-		target.currentHP -= rawDamage;
-		if(target.currentHP < 0): target.currentHP = 0;
-		print("Target Current HP: " + str(target.currentHP));
-		print(playerList[currentPlayer].buffs);	
-	elif(damageType == 6):
-		print("Final heal amount: " + String(target.maxHP * healPercent));
-		target.currentHP += int(round(target.maxHP * healPercent));
-		if(target.currentHP > target.maxHP): target.currentHP = target.maxHP;
-		print("Heal Percent: " + String(healPercent*100) + "%");
-	_updateCharCards();
-	_cancelAction(attack.target[1]);
-	_on_TechMenuExitButton_pressed();
+	if(typeof(target) == TYPE_INT):
+		print("How to loop this...");
+		for enemy in enemyList:
+			_calcFinalDamage(baseDamage, damageType, enemyList[enemy], attack, true);
+	else:
+		currentHP = target.currentHP;
+		currentEP = target.currentEP;
+		print(str(baseDamage) + " Base damage of type " + str(damageType) + " on " + target.getName());
+		var rawDamage = 0;
+		var healPercent = 0.0;
+		match(damageType):
+			0: # Hybrid
+				for i in attack.resistance.size():
+					rawDamage += calcHybridDamage(int(baseDamage/attack.resistance.size()), target, attack, attack.resistance[i]);
+			1: # Fire
+				rawDamage = calcResistanceEffects(target.resistances[0], baseDamage - target.resistance);
+			2: # Ice
+				rawDamage = calcResistanceEffects(target.resistances[1], baseDamage - target.resistance);
+			3: # Elec
+				rawDamage = calcResistanceEffects(target.resistances[2], baseDamage - target.resistance);
+			4: # Wind
+				rawDamage = calcResistanceEffects(target.resistances[3], baseDamage - target.resistance);
+			5: # Physical
+				rawDamage = baseDamage - target.defense;
+			6: # Heal
+				healPercent = baseDamage * 0.01;
+			9:
+				pass
+			_:
+				pass
+		if(damageType != 6):
+			print("Final damage: " + str(rawDamage));
+			print("Target HP before damage: " + str(target.currentHP));
+			target.currentHP -= rawDamage;
+			if(target.currentHP < 0): target.currentHP = 0;
+			print("Target Current HP: " + str(target.currentHP));
+			print(playerList[currentPlayer].buffs);	
+		elif(damageType == 6):
+			print("Final heal amount: " + String(target.maxHP * healPercent));
+			target.currentHP += int(round(target.maxHP * healPercent));
+			if(target.currentHP > target.maxHP): target.currentHP = target.maxHP;
+			print("Heal Percent: " + String(healPercent*100) + "%");
+		_updateCharCards(currentHP != target.currentHP, currentEP != target.currentEP);
+	if(!recurse):
+		_cancelAction(attack.target[1]);
+		_on_TechMenuExitButton_pressed();
 
 # Specific helper method for handling hybrid damage
 func calcHybridDamage(baseDamage: int, target, attack, targetedRes: int) -> int:
@@ -481,7 +494,8 @@ func _cancelAction(mode: int):
 	$Dialog.visible = false;
 
 # Updates visual elements
-func _updateCharCards():
+# TODO: Re-code literally all of this it's so bad
+func _updateCharCards(hpChanged: bool, epChanged: bool):
 	for ch in playerList:
 		var c = playerList[ch];
 		
@@ -534,7 +548,7 @@ func _updateCharCards():
 # Constructs an animation for HP Bar reducing on the fly
 # TODO(?): Make a slowly increasing animation as well
 func createHPBarAnimation(c: Character, hpFill: float):
-	c.HPBar.get_node("reduceColor/AnimationPlayer").remove_animation("HPReduce");
+	#c.HPBar.get_node("reduceColor/AnimationPlayer").remove_animation("HPReduce");
 	var polygonPath = NodePath("polygon");
 	var animation = Animation.new();
 	var track_index = animation.add_track(Animation.TYPE_VALUE);
