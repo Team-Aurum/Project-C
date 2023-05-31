@@ -31,6 +31,7 @@ func _ready():
 	enemy1 = Zurine.new($Enemy1, 20);
 	enemy2 = Makoto.new($Enemy2, 50);
 	enemy3 = Oskar.new($Enemy3, 40);
+	enemy4 = Makoto.new($Enemy4, 70);
 	
 	print(play1.EPBar.get_node("reduceColor").polygon[1].x)
 	print(play2.EPBar.get_node("reduceColor").polygon[1].x)
@@ -44,6 +45,7 @@ func _ready():
 	enemyList[1] = enemy1;
 	enemyList[2] = enemy2;
 	enemyList[3] = enemy3;
+	enemyList[4] = enemy4;
 	dwalla = $DWalla;
 	nwalla = $NWalla;
 	nlayer = $NLayer;
@@ -135,6 +137,7 @@ func display_TechMenu(p=0):
 	$ControlPalette.visible = false;
 	for n in $TechMenu/ScrollContainer/VBoxContainer.get_children():
 		$TechMenu/ScrollContainer/VBoxContainer.remove_child(n);
+		n.free();
 	match(currentMenu):
 		0:
 			$TechMenu/Header/Label.text = "Techs";
@@ -306,9 +309,14 @@ func _executeTech(id):
 			$TechMenu/Header/ExitButton.disconnect("pressed", self, "_on_TechMenuExitButton_pressed");
 			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction", [1]);
 
-# TODO: Not finished yet, does the final damage calculations considering damage reduction
+# Old: Not finished yet, does the final damage calculations considering damage reduction
+# TODO: Finish the status effect application logic
 func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool, casterCurrentEP):
-	var currentHP; var currentEP; var buffsChanged: bool;
+	var currentHP; var currentEP; var buffsChanged: bool; var statusChanged: bool;
+	
+	buffsChanged = false; statusChanged = false;
+		
+	# Sets buffs
 	if(attack.buff.size() != 0):
 		buffsChanged = true;
 		for b in attack.buff: # Applies buffs
@@ -381,7 +389,8 @@ func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool, cas
 										enemyList[e].buffs[b[0]] = 5;
 				_:
 					pass
-	
+		
+	# Damage shenanigans
 	if(typeof(target) == TYPE_INT):
 		print("How to loop this...");
 		for enemy in enemyList:
@@ -425,12 +434,66 @@ func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool, cas
 			target.currentHP += int(round(target.maxHP * healPercent));
 			if(target.currentHP > target.maxHP): target.currentHP = target.maxHP;
 			print("Heal Percent: " + String(healPercent*100) + "%");
-		_updateCharCards(target, currentHP != target.currentHP, currentEP != target.currentEP, buffsChanged);
+		_updateCharCards(target, currentHP != target.currentHP, currentEP != target.currentEP, buffsChanged, statusChanged);
+	
+	# Status Effect Evaluation (always happens after damage)
+	if(attack.status.size() != 0 && !recurse):
+		statusChanged = true;
+		match(attack.status[2][0]):
+			0: # Single-target
+				_applyStatusEffects(target, attack);
+				_updateCharCards(target, false, false, buffsChanged, statusChanged);
+			1: # All-target
+				pass;
+			2: # Universal-Target (Enemy only usually)
+				pass;
+			_:
+				pass;
+		
 	if(!recurse):
 		# This one sets the caster's EP values
-		_updateCharCards(playerList[currentPlayer], false, casterCurrentEP != playerList[currentPlayer].currentEP, buffsChanged);
+		_updateCharCards(playerList[currentPlayer], false, casterCurrentEP != playerList[currentPlayer].currentEP, buffsChanged, statusChanged);
 		_cancelAction(attack.target[1]);
 		_on_TechMenuExitButton_pressed();
+
+# Helper method for applying status effects
+# TODO: Add all other status effects
+func _applyStatusEffects(target, attack):
+	# Does the status effect land?
+	if((randi() % 101) <= attack.status[1]):
+		# Loading the correct Status Effect object
+		var status;
+		match(attack.status[0]):
+			19001: # Rage
+				status = Rage.new(attack.status[3]);
+			_:
+				pass;
+		
+		# Targeting type
+		match(attack.status[2][1]):
+			0: # Self
+				# If it already exists
+				for existingStatus in playerList[currentPlayer].statusEffects:
+					if(status.toString() == existingStatus.toString()):
+						print("Overwriting status turn count!");
+						existingStatus.stackTurnNum = status.stackTurnNum;
+						return false;
+				
+				playerList[currentPlayer].statusEffects.append(status);
+				print("Added Status Effect: " + status.toString() + " to " + playerList[currentPlayer].getName());
+			1: # Enemy
+				# If it already exists
+				for existingStatus in target.statusEffects:
+					if(status.toString() == existingStatus.toString()):
+						print("Overwriting status turn count!");
+						existingStatus.stackTurnNum = status.stackTurnNum;
+						return false;
+				
+				target.statusEffects.append(status);
+				print("Added Status Effect: " + status.toString() + " to " + target.getName());
+	else:
+		# TODO: Later on, should show some sort of visual to indicate that the status effect missed?
+		pass;
 
 # Specific helper method for handling hybrid damage
 func calcHybridDamage(baseDamage: int, target, attack, targetedRes: int) -> int:
@@ -508,7 +571,7 @@ func _cancelAction(mode: int):
 # Old: Re-code literally all of this it's so bad
 # Update: it's done. it's beautiful. I also hate it. bye.
 # Update Update: There's still a couple glitches, but overall it works properly
-func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bool):
+func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bool, statusChanged: bool):
 	if(hpChanged):
 		var hpFill = 120 * (target.currentHP/target.maxHP);
 		target.HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill, 0), Vector2(hpFill, 20), Vector2(0, 20)];
@@ -532,6 +595,17 @@ func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bo
 					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = true;
 				else:
 					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = false;
+	if(statusChanged):
+		var statusEffectGrid = target.card.get_node("AnimationGroup/StatusEffects");
+		var statuses = statusEffectGrid.get_children();
+		for n in statusEffectGrid.get_children():
+			statusEffectGrid.remove_child(n);
+			n.free();
+		
+		for status in target.statusEffects:
+			var statusEffectNode = load("res://Scenes/Elements/StatusIcon.tscn").instance();
+			statusEffectNode.texture = status.icon;
+			statusEffectGrid.add_child(statusEffectNode);
 
 # Constructs an animation for HP Bar reducing on the fly
 # TODO(?): Make a slowly increasing animation as well

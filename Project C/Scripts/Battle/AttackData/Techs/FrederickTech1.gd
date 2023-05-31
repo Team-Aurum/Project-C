@@ -16,7 +16,7 @@ func _init():
 	hpCost = 0;
 	buff = [];
 	debuff = [];
-	status = [[5, 100, [0, 1]]];
+	status = [19001, 100, [0, 1], 3];
 	hpRegen = 0;
 	epRegen = 0;
 
