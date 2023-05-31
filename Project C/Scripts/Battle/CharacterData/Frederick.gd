@@ -46,6 +46,7 @@ func loadTechs():
 	techs[12001] = FrederickTech1.new();
 	techs[12002] = FrederickTech2.new();
 	techs[12003] = FrederickTech3.new();
+	techs[12004] = FrederickTech4.new();
 	#techs[12003] = DummyPhysTech.new();
 	magicTechs[29002] = Izo.new();
 	magicTechs[29003] = Txima.new();

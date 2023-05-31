@@ -32,6 +32,11 @@ func _ready():
 	enemy2 = Makoto.new($Enemy2, 50);
 	enemy3 = Oskar.new($Enemy3, 40);
 	
+	print(play1.EPBar.get_node("reduceColor").polygon[1].x)
+	print(play2.EPBar.get_node("reduceColor").polygon[1].x)
+	print(play3.EPBar.get_node("reduceColor").polygon[1].x)
+	print(play4.EPBar.get_node("reduceColor").polygon[1].x)
+	
 	playerList[1] = play1;
 	playerList[2] = play2;
 	playerList[3] = play3;
@@ -231,6 +236,7 @@ func _executeTech(id):
 	var baseAttack = executingPlayer.attack;
 	var baseMagic = executingPlayer.magic;
 	var baseDamage: int; var currentTech;
+	var currentEP;
 	
 	# Determines whether the given tech is in the techs or magicTechs array
 	# The first digit of an ID determines whether it's a tech or magic, so id/10000 pulls off just that digit
@@ -241,6 +247,7 @@ func _executeTech(id):
 			currentTech = executingPlayer.magicTechs[id];
 		3:
 			return false;
+	currentEP = executingPlayer.currentEP;
 	executingPlayer.currentEP -= currentTech.epCost;
 	if(executingPlayer.currentEP < 0):
 		executingPlayer.currentEP += currentTech.epCost;
@@ -261,7 +268,7 @@ func _executeTech(id):
 	# First element of the target array determines single-target, aoe, or universal
 	print(currentTech.name + " Base Damage: " + str(baseDamage));
 	if(currentTech.target[0] == 1 || currentTech.target[0] == 2):
-		_calcFinalDamage(baseDamage, damageType, -1, currentTech, false);
+		_calcFinalDamage(baseDamage, damageType, -1, currentTech, false, currentEP);
 	else:
 		# Second element of the target array determines enemy or self targetting
 		if(currentTech.target[1] == 0):
@@ -274,10 +281,10 @@ func _executeTech(id):
 			$Player3/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player3Button_pressed");
 			$Player4/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player4Button_pressed");
 			
-			$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play1, currentTech, false]);
-			$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play2, currentTech, false]);
-			$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play3, currentTech, false]);
-			$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play4, currentTech, false]);
+			$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play1, currentTech, false, currentEP]);
+			$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play2, currentTech, false, currentEP]);
+			$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play3, currentTech, false, currentEP]);
+			$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play4, currentTech, false, currentEP]);
 			
 			$TechMenu/Header/ExitButton.disconnect("pressed", self, "_on_TechMenuExitButton_pressed");
 			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction", [0]);
@@ -291,18 +298,19 @@ func _executeTech(id):
 			$Player3/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player3Button_pressed");
 			$Player4/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player4Button_pressed");
 		
-			$Enemy1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy1, currentTech, false]);
-			$Enemy2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy2, currentTech, false]);
-			$Enemy3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy3, currentTech, false]);
-			$Enemy4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy4, currentTech, false]);
+			$Enemy1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy1, currentTech, false, currentEP]);
+			$Enemy2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy2, currentTech, false, currentEP]);
+			$Enemy3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy3, currentTech, false, currentEP]);
+			$Enemy4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy4, currentTech, false, currentEP]);
 		
 			$TechMenu/Header/ExitButton.disconnect("pressed", self, "_on_TechMenuExitButton_pressed");
 			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction", [1]);
 
 # TODO: Not finished yet, does the final damage calculations considering damage reduction
-func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool):
-	var currentHP; var currentEP;
+func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool, casterCurrentEP):
+	var currentHP; var currentEP; var buffsChanged: bool;
 	if(attack.buff.size() != 0):
+		buffsChanged = true;
 		for b in attack.buff: # Applies buffs
 			match(b[2][1]): # Checking if self or enemy target
 				0:
@@ -377,7 +385,7 @@ func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool):
 	if(typeof(target) == TYPE_INT):
 		print("How to loop this...");
 		for enemy in enemyList:
-			_calcFinalDamage(baseDamage, damageType, enemyList[enemy], attack, true);
+			_calcFinalDamage(baseDamage, damageType, enemyList[enemy], attack, true, casterCurrentEP);
 	else:
 		currentHP = target.currentHP;
 		currentEP = target.currentEP;
@@ -404,6 +412,7 @@ func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool):
 				pass
 			_:
 				pass
+		# Somewhere in here, extra effects should be evaluated
 		if(damageType != 6):
 			print("Final damage: " + str(rawDamage));
 			print("Target HP before damage: " + str(target.currentHP));
@@ -416,8 +425,10 @@ func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool):
 			target.currentHP += int(round(target.maxHP * healPercent));
 			if(target.currentHP > target.maxHP): target.currentHP = target.maxHP;
 			print("Heal Percent: " + String(healPercent*100) + "%");
-		_updateCharCards(currentHP != target.currentHP, currentEP != target.currentEP);
+		_updateCharCards(target, currentHP != target.currentHP, currentEP != target.currentEP, buffsChanged);
 	if(!recurse):
+		# This one sets the caster's EP values
+		_updateCharCards(playerList[currentPlayer], false, casterCurrentEP != playerList[currentPlayer].currentEP, buffsChanged);
 		_cancelAction(attack.target[1]);
 		_on_TechMenuExitButton_pressed();
 
@@ -494,53 +505,30 @@ func _cancelAction(mode: int):
 	$Dialog.visible = false;
 
 # Updates visual elements
-# TODO: Re-code literally all of this it's so bad
-func _updateCharCards(hpChanged: bool, epChanged: bool):
-	for ch in playerList:
-		var c = playerList[ch];
-		
-		# Fills the HP bar based on the ratio betwen currentHP and maxHP multiplied by 120 for the width of the bar in pixels
-		var hpFill = 120 * (c.currentHP/c.maxHP);
-		c.HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
-		c.HPNum.text = String(c.currentHP);
-		if(c.HPBar.get_node("reduceColor").polygon[1].x > hpFill): createHPBarAnimation(c, hpFill);
-		c.HPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
-		
-		# Fills the EP bar based on the ratio betwen currentEP and maxEP multiplied by 120 for the width of the bar in pixels
-		var epFill = 120 * (c.currentEP/c.maxEP);
-		c.EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
-		c.EPNum.text = String(c.currentEP);
-		if(c.EPBar.get_node("reduceColor").polygon[1].x > epFill): createEPBarAnimation(c, epFill);
-		c.EPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
-		
-		# Iterates through every arrow for every stat and checks visibility status
-		var bdBar = c.card.get_node("AnimationGroup/BuffDebuffBar");
+# Old: Re-code literally all of this it's so bad
+# Update: it's done. it's beautiful. I also hate it. bye.
+# Update Update: There's still a couple glitches, but overall it works properly
+func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bool):
+	if(hpChanged):
+		var hpFill = 120 * (target.currentHP/target.maxHP);
+		target.HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill, 0), Vector2(hpFill, 20), Vector2(0, 20)];
+		target.HPNum.text = String(target.currentHP);
+		if(target.HPBar.get_node("reduceColor").polygon[1].x > hpFill): createHPBarAnimation(target, hpFill);
+		target.HPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
+	if(epChanged):
+		var epFill = 120 * (target.currentEP/target.maxEP);
+		target.EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill, 0), Vector2(epFill, 20), Vector2(0, 20)];
+		target.EPNum.text = String(target.currentEP);
+		print(target.EPBar.get_node("reduceColor").polygon[1].x);
+		print(target.EPBar.get_node("color").polygon[1].x);
+		print(epFill);
+		if(target.EPBar.get_node("reduceColor").polygon[1].x > epFill): createEPBarAnimation(target, epFill);
+		target.EPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
+	if(buffsChanged):
+		var bdBar = target.card.get_node("AnimationGroup/BuffDebuffBar");
 		for b in 5:
 			for e in 5:
-				if(e < c.buffs[b]):
-					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = true;
-				else:
-					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = false;
-	
-	for ch in enemyList:
-		var c = enemyList[ch];
-		
-		var hpFill = 120 * (c.currentHP/c.maxHP);
-		c.HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
-		c.HPNum.text = String(c.currentHP);
-		if(c.HPBar.get_node("reduceColor").polygon[1].x > hpFill): createHPBarAnimation(c, hpFill);
-		c.HPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
-		
-		var epFill = 120 * (c.currentEP/c.maxEP);
-		c.EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
-		c.EPNum.text = String(c.currentEP);
-		if(c.EPBar.get_node("reduceColor").polygon[1].x > epFill): createEPBarAnimation(c, epFill);
-		c.EPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
-		
-		var bdBar = c.card.get_node("AnimationGroup/BuffDebuffBar");
-		for b in 5:
-			for e in 5:
-				if(e < c.buffs[b]):
+				if(e < target.buffs[b]):
 					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = true;
 				else:
 					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = false;

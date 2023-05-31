@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Sprites/icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Elements/HPEPBar.tscn" type="PackedScene" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://Sprites/UIElements/magIcon.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/UIElements/spdIcon.png" type="Texture" id=11]
 [ext_resource path="res://Sprites/UIElements/atkIcon.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/UIElements/infoIcon.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/UIElements/infoIconHoverOnClick.png" type="Texture" id=14]
 
 [node name="Node2D" type="Node2D"]
 
@@ -106,11 +108,21 @@ width = 1.0
 default_color = Color( 0, 0, 0, 1 )
 
 [node name="TextureButton" type="TextureButton" parent="AnimationGroup"]
-margin_right = 150.0
-margin_bottom = 240.0
+margin_top = 20.0
+margin_right = 40.0
+margin_bottom = 40.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 4 )
 texture_hover = ExtResource( 4 )
+
+[node name="InfoButton" type="TextureButton" parent="AnimationGroup"]
+margin_left = 95.0
+margin_top = 220.0
+margin_right = 150.0
+margin_bottom = 240.0
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 14 )
+texture_hover = ExtResource( 14 )
 
 [editable path="AnimationGroup/EPBar"]
 [editable path="AnimationGroup/HPBar"]
