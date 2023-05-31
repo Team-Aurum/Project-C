@@ -14,10 +14,125 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Battle/Generics/Character.gd"
 }, {
+"base": "Tech",
+"class": "Datiena",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/Datiena.gd"
+}, {
+"base": "Tech",
+"class": "Datu",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/Datu.gd"
+}, {
+"base": "Tech",
+"class": "Datudia",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/Datudia.gd"
+}, {
+"base": "Tech",
+"class": "DummyPhysTech",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Techs/DummyPhysTech.gd"
+}, {
 "base": "Character",
 "class": "Frederick",
 "language": "GDScript",
 "path": "res://Scripts/Battle/CharacterData/Frederick.gd"
+}, {
+"base": "Tech",
+"class": "FrederickTech1",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Techs/FrederickTech1.gd"
+}, {
+"base": "Tech",
+"class": "FrederickTech2",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Techs/FrederickTech2.gd"
+}, {
+"base": "Tech",
+"class": "FrederickTech3",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Techs/FrederickTech3.gd"
+}, {
+"base": "Tech",
+"class": "FrederickTech4",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Techs/FrederickTech4.gd"
+}, {
+"base": "Tech",
+"class": "Haize",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/Haize.gd"
+}, {
+"base": "Tech",
+"class": "Izo",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/Izo.gd"
+}, {
+"base": "Tech",
+"class": "Izodia",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/Izodia.gd"
+}, {
+"base": "Character",
+"class": "Makoto",
+"language": "GDScript",
+"path": "res://Scripts/Battle/CharacterData/Makoto.gd"
+}, {
+"base": "Character",
+"class": "Oskar",
+"language": "GDScript",
+"path": "res://Scripts/Battle/CharacterData/Oskar.gd"
+}, {
+"base": "StatusEffect",
+"class": "Rage",
+"language": "GDScript",
+"path": "res://Scripts/Battle/StatusEffectData/Rage.gd"
+}, {
+"base": "Node",
+"class": "StatusEffect",
+"language": "GDScript",
+"path": "res://Scripts/Battle/Generics/StatusEffect.gd"
+}, {
+"base": "Tech",
+"class": "Sute",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/Sute.gd"
+}, {
+"base": "Node",
+"class": "Tech",
+"language": "GDScript",
+"path": "res://Scripts/Battle/Generics/Tech.gd"
+}, {
+"base": "Tech",
+"class": "Txima",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/Txima.gd"
+}, {
+"base": "Tech",
+"class": "Tximadia",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/Tximadia.gd"
+}, {
+"base": "Tech",
+"class": "ZHaize",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/ZHaize.gd"
+}, {
+"base": "Tech",
+"class": "ZIzo",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/ZIzo.gd"
+}, {
+"base": "Tech",
+"class": "ZSute",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/ZSute.gd"
+}, {
+"base": "Tech",
+"class": "ZTxima",
+"language": "GDScript",
+"path": "res://Scripts/Battle/AttackData/Magic/ZTxima.gd"
 }, {
 "base": "Character",
 "class": "Zurine",
@@ -26,7 +141,30 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Character": "",
+"Datiena": "",
+"Datu": "",
+"Datudia": "",
+"DummyPhysTech": "",
 "Frederick": "",
+"FrederickTech1": "",
+"FrederickTech2": "",
+"FrederickTech3": "",
+"FrederickTech4": "",
+"Haize": "",
+"Izo": "",
+"Izodia": "",
+"Makoto": "",
+"Oskar": "",
+"Rage": "",
+"StatusEffect": "",
+"Sute": "",
+"Tech": "",
+"Txima": "",
+"Tximadia": "",
+"ZHaize": "",
+"ZIzo": "",
+"ZSute": "",
+"ZTxima": "",
 "Zurine": ""
 }
 
@@ -40,13 +178,13 @@ config/icon="res://Sprites/icon.png"
 
 window/size/width=1920
 window/size/height=1080
-window/size/fullscreen=true
 window/dpi/allow_hidpi=true
 
 [global]
 
 window=false
 full=false
+view=false
 
 [physics]
 

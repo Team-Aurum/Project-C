@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Ophelia Battle.ogg-19d0cb67abdd03e64fd55b0973e73e1f.oggstr"
+
+[deps]
+
+source_file="res://Audio/Ophelia Battle.ogg"
+dest_files=[ "res://.import/Ophelia Battle.ogg-19d0cb67abdd03e64fd55b0973e73e1f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

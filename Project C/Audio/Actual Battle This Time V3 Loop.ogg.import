@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Actual Battle This Time V3 Loop.ogg-9a0803c4a8245919e41135eae8a9b791.oggstr"
+
+[deps]
+
+source_file="res://Audio/Actual Battle This Time V3 Loop.ogg"
+dest_files=[ "res://.import/Actual Battle This Time V3 Loop.ogg-9a0803c4a8245919e41135eae8a9b791.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

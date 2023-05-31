@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=26 format=2]
 
-[ext_resource path="res://Audio/NjordNightFirst.wav" type="AudioStream" id=1]
-[ext_resource path="res://Audio/NjordNightLoop.wav" type="AudioStream" id=2]
+[ext_resource path="res://Audio/NHarbor(D).ogg" type="AudioStream" id=1]
+[ext_resource path="res://Audio/NHarbor(D)Intro.ogg" type="AudioStream" id=2]
 [ext_resource path="res://Scripts/Battle/Audio1.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/Battle/SceneInitialize.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Elements/TechsMenu.tscn" type="PackedScene" id=5]
@@ -13,9 +13,27 @@
 [ext_resource path="res://Scenes/Elements/SideBorder.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Elements/charCard.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Animations/AttackPhase.tres" type="Animation" id=13]
+[ext_resource path="res://Audio/NWalla.ogg" type="AudioStream" id=14]
+[ext_resource path="res://Scenes/IntroLong.gd" type="Script" id=15]
+[ext_resource path="res://Audio/MakotoThemeIntro.ogg" type="AudioStream" id=16]
+[ext_resource path="res://Audio/MakotoThemeLoop.ogg" type="AudioStream" id=17]
+[ext_resource path="res://Scenes/Elements/Dialog.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Audio/NHarbor(N)Intro.ogg" type="AudioStream" id=19]
+[ext_resource path="res://Audio/NHarbor(N).ogg" type="AudioStream" id=20]
+[ext_resource path="res://Audio/NHarbor(NA).ogg" type="AudioStream" id=21]
+[ext_resource path="res://Audio/NHarbor(NA)Intro.ogg" type="AudioStream" id=22]
+[ext_resource path="res://Audio/DWalla.ogg" type="AudioStream" id=23]
+[ext_resource path="res://Audio/Actual Battle This Time V3 Loop.ogg" type="AudioStream" id=24]
+
+[sub_resource type="Animation" id=1]
+resource_name = "TestAttack"
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 4 )
+
+[node name="Dialog" parent="." instance=ExtResource( 18 )]
+visible = false
+position = Vector2( 210, 25 )
 
 [node name="APBar" parent="." instance=ExtResource( 6 )]
 position = Vector2( 51, 0 )
@@ -82,41 +100,190 @@ margin_top = 140.0
 margin_right = 1020.0
 margin_bottom = 240.0
 
-[node name="Audio1" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
-script = ExtResource( 3 )
-
-[node name="Audio2" type="AudioStreamPlayer" parent="Audio1"]
-stream = ExtResource( 2 )
-volume_db = -80.0
-autoplay = true
-
 [node name="TechMenu" parent="." instance=ExtResource( 5 )]
 visible = false
 position = Vector2( 785, 490 )
 
+[node name="IntroLong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+script = ExtResource( 15 )
+
+[node name="Loop" type="AudioStreamPlayer" parent="IntroLong"]
+stream = ExtResource( 17 )
+volume_db = -80.0
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/AttackPhase = ExtResource( 13 )
+anims/TestAttack = SubResource( 1 )
 
-[connection signal="pressed" from="Player4/AnimationGroup/TextureButton" to="TechMenu" method="_on_Player4Button_pressed"]
-[connection signal="pressed" from="Player3/AnimationGroup/TextureButton" to="TechMenu" method="_on_Player3Button_pressed"]
-[connection signal="pressed" from="Player2/AnimationGroup/TextureButton" to="TechMenu" method="_on_Player2Button_pressed"]
-[connection signal="pressed" from="Player1/AnimationGroup/TextureButton" to="TechMenu" method="_on_Player1Button_pressed"]
+[node name="NWalla" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="DWalla" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
+
+[node name="DLayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="Audio2" type="AudioStreamPlayer" parent="DLayer"]
+stream = ExtResource( 1 )
+volume_db = -80.0
+autoplay = true
+
+[node name="NLayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+script = ExtResource( 3 )
+
+[node name="Audio2" type="AudioStreamPlayer" parent="NLayer"]
+stream = ExtResource( 20 )
+volume_db = -80.0
+autoplay = true
+
+[node name="NALayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
+script = ExtResource( 3 )
+
+[node name="Audio2" type="AudioStreamPlayer" parent="NALayer"]
+stream = ExtResource( 21 )
+volume_db = -80.0
+autoplay = true
+
+[node name="MDebugButtons" type="Node2D" parent="."]
+visible = false
+
+[node name="DayAr" type="Button" parent="MDebugButtons"]
+margin_left = 559.0
+margin_top = 266.0
+margin_right = 716.0
+margin_bottom = 413.0
+rect_pivot_offset = Vector2( -175, 119 )
+text = "Day Mode"
+
+[node name="NightAr" type="Button" parent="MDebugButtons"]
+margin_left = 744.0
+margin_top = 273.0
+margin_right = 901.0
+margin_bottom = 420.0
+rect_pivot_offset = Vector2( -175, 119 )
+text = "Night Mode"
+
+[node name="Day" type="Button" parent="MDebugButtons"]
+margin_left = 952.0
+margin_top = 262.0
+margin_right = 1109.0
+margin_bottom = 409.0
+rect_pivot_offset = Vector2( -175, 119 )
+text = "Day Mode (No Arthur)"
+
+[node name="Night" type="Button" parent="MDebugButtons"]
+margin_left = 1147.0
+margin_top = 268.0
+margin_right = 1307.0
+margin_bottom = 415.0
+rect_pivot_offset = Vector2( -175, 119 )
+text = "Night Mode (No Arthur)"
+
+[node name="Hell" type="Button" parent="MDebugButtons"]
+margin_left = 839.0
+margin_top = 452.0
+margin_right = 1020.0
+margin_bottom = 599.0
+rect_pivot_offset = Vector2( -175, 119 )
+text = "A Hell of Your Own Making"
+
+[node name="Loop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )
+autoplay = true
+
+[connection signal="pressed" from="Player4/AnimationGroup/TextureButton" to="." method="_on_Player4Button_pressed"]
+[connection signal="pressed" from="Player3/AnimationGroup/TextureButton" to="." method="_on_Player3Button_pressed"]
+[connection signal="pressed" from="Player2/AnimationGroup/TextureButton" to="." method="_on_Player2Button_pressed"]
+[connection signal="pressed" from="Player1/AnimationGroup/TextureButton" to="." method="_on_Player1Button_pressed"]
 [connection signal="pressed" from="ControlPalette/AttackButton" to="." method="_on_AttackButton_pressed"]
-[connection signal="finished" from="Audio1/Audio2" to="Audio1" method="_on_Audio2_finished"]
-[connection signal="pressed" from="TechMenu/Header/TextureButton" to="TechMenu" method="_on_TechMenuExitButton_pressed"]
+[connection signal="pressed" from="TechMenu/Header/ExitButton" to="." method="_on_TechMenuExitButton_pressed"]
+[connection signal="pressed" from="TechMenu/RButton" to="." method="_on_RButton_pressed"]
+[connection signal="pressed" from="TechMenu/LButton" to="." method="_on_LButton_pressed"]
+[connection signal="finished" from="IntroLong" to="IntroLong" method="_on_IntroLong_finished"]
+[connection signal="finished" from="DLayer/Audio2" to="DLayer" method="_on_Audio2_finished"]
+[connection signal="finished" from="NLayer/Audio2" to="NLayer" method="_on_Audio2_finished"]
+[connection signal="finished" from="NALayer/Audio2" to="NALayer" method="_on_Audio2_finished"]
+[connection signal="pressed" from="MDebugButtons/DayAr" to="." method="_on_DayAr_pressed"]
+[connection signal="pressed" from="MDebugButtons/NightAr" to="." method="_on_NightAr_pressed"]
+[connection signal="pressed" from="MDebugButtons/Day" to="." method="_on_Day_pressed"]
+[connection signal="pressed" from="MDebugButtons/Night" to="." method="_on_Night_pressed"]
+[connection signal="pressed" from="MDebugButtons/Hell" to="." method="_on_Hell_pressed"]
 
+[editable path="Enemy1"]
+[editable path="Enemy1/AnimationGroup/EPBar"]
+[editable path="Enemy1/AnimationGroup/HPBar"]
+[editable path="Enemy1/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Enemy1/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Enemy1/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Enemy1/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Enemy1/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Enemy1/AnimationGroup/StatusEffects/StatusIcon"]
+[editable path="Enemy2"]
+[editable path="Enemy2/AnimationGroup/EPBar"]
+[editable path="Enemy2/AnimationGroup/HPBar"]
+[editable path="Enemy2/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Enemy2/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Enemy2/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Enemy2/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Enemy2/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Enemy2/AnimationGroup/StatusEffects/StatusIcon"]
+[editable path="Enemy3"]
+[editable path="Enemy3/AnimationGroup/EPBar"]
+[editable path="Enemy3/AnimationGroup/HPBar"]
+[editable path="Enemy3/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Enemy3/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Enemy3/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Enemy3/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Enemy3/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Enemy3/AnimationGroup/StatusEffects/StatusIcon"]
+[editable path="Enemy4"]
+[editable path="Enemy4/AnimationGroup/EPBar"]
+[editable path="Enemy4/AnimationGroup/HPBar"]
+[editable path="Enemy4/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Enemy4/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Enemy4/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Enemy4/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Enemy4/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Enemy4/AnimationGroup/StatusEffects/StatusIcon"]
 [editable path="Player4"]
 [editable path="Player4/AnimationGroup/EPBar"]
 [editable path="Player4/AnimationGroup/HPBar"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Player4/AnimationGroup/StatusEffects/StatusIcon"]
 [editable path="Player3"]
 [editable path="Player3/AnimationGroup/EPBar"]
 [editable path="Player3/AnimationGroup/HPBar"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Player3/AnimationGroup/StatusEffects/StatusIcon"]
 [editable path="Player2"]
 [editable path="Player2/AnimationGroup/EPBar"]
 [editable path="Player2/AnimationGroup/HPBar"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Player2/AnimationGroup/StatusEffects/StatusIcon"]
 [editable path="Player1"]
 [editable path="Player1/AnimationGroup/EPBar"]
 [editable path="Player1/AnimationGroup/HPBar"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Player1/AnimationGroup/StatusEffects/StatusIcon"]
 [editable path="TechMenu"]
-[editable path="TechMenu/ScrollContainer/VBoxContainer/Option9"]
