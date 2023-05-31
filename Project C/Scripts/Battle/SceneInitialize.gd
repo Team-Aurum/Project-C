@@ -18,6 +18,9 @@ var nLayerFadeIn: bool = false; var nLayerFadeOut: bool = false;
 var dLayerFadeIn: bool = false; var dLayerFadeOut: bool = false;
 var naLayerFadeIn: bool = false; var naLayerFadeOut: bool = false;
 
+# TODO: When the time comes to implement Attack Phase, make sure you look back here to make sure you're evaluating status effects
+# Because it isn't happening rn lmao
+
 # Called when the node enters the scene tree for the first time.
 # TODO: Lots of this is still like test code and stuff, will have to eventually change it. 
 # With the playerList that should make it easier I think
