@@ -310,7 +310,8 @@ func _executeTech(id):
 			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction", [1]);
 
 # Old: Not finished yet, does the final damage calculations considering damage reduction
-# TODO: Finish the status effect application logic
+# Old: Finish the status effect application logic
+# TODO: Verify everything else??? I mean it looks fine right now lmao
 func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool, casterCurrentEP):
 	var currentHP; var currentEP; var buffsChanged: bool; var statusChanged: bool;
 	
@@ -439,16 +440,25 @@ func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool, cas
 	# Status Effect Evaluation (always happens after damage)
 	if(attack.status.size() != 0 && !recurse):
 		statusChanged = true;
-		match(attack.status[2][0]):
-			0: # Single-target
-				_applyStatusEffects(target, attack);
-				_updateCharCards(target, false, false, buffsChanged, statusChanged);
-			1: # All-target
-				pass;
-			2: # Universal-Target (Enemy only usually)
-				pass;
-			_:
-				pass;
+		for sEffect in attack.status:
+			match(sEffect[2][0]):
+				0: # Single-target
+					_applyStatusEffects(target, sEffect);
+					_updateCharCards(target, false, false, buffsChanged, statusChanged);
+				1: # All-target
+					if(sEffect[2][1] == 1):
+						for enemy in enemyList:
+							_applyStatusEffects(enemyList[enemy], sEffect);
+							_updateCharCards(enemyList[enemy], false, false, buffsChanged, statusChanged);
+					elif(sEffect[2][1] == 2):
+						for player in playerList:
+							_applyStatusEffects(playerList[player], sEffect);
+							_updateCharCards(playerList[player], false, false, buffsChanged, statusChanged);
+						pass;
+				2: # Universal-Target (Enemy only usually)
+					pass;
+				_:
+					pass;
 		
 	if(!recurse):
 		# This one sets the caster's EP values
@@ -458,19 +468,19 @@ func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool, cas
 
 # Helper method for applying status effects
 # TODO: Add all other status effects
-func _applyStatusEffects(target, attack):
+func _applyStatusEffects(target, sEffect):
 	# Does the status effect land?
-	if((randi() % 101) <= attack.status[1]):
+	if((randi() % 101) <= sEffect[1]):
 		# Loading the correct Status Effect object
 		var status;
-		match(attack.status[0]):
+		match(sEffect[0]):
 			19001: # Rage
-				status = Rage.new(attack.status[3]);
+				status = Rage.new(sEffect[3]);
 			_:
 				pass;
 		
 		# Targeting type
-		match(attack.status[2][1]):
+		match(sEffect[2][1]):
 			0: # Self
 				# If it already exists
 				for existingStatus in playerList[currentPlayer].statusEffects:
@@ -522,7 +532,7 @@ func calcHybridDamage(baseDamage: int, target, attack, targetedRes: int) -> int:
 	print("Part damage: " + str(rawDamage));
 	return rawDamage;
 
-# TODO: counts multiplicative shenanigans for elemental resistances
+# Counts multiplicative shenanigans for elemental resistances
 func calcResistanceEffects(resNum: int, baseDamage: int) -> int:
 	match(resNum):
 		0:
@@ -541,7 +551,7 @@ func calcResistanceEffects(resNum: int, baseDamage: int) -> int:
 			return 0;
 
 # Cancels the current action by resetting all listeners
-# _callcFinalDamage() calls this as part of its routine to reset the game back to its base state
+# _calcFinalDamage() calls this as part of its routine to reset the game back to its base state
 func _cancelAction(mode: int):
 	if(mode == 0):
 		$Player1/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
