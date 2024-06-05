@@ -118,9 +118,11 @@ anims/TestAttack = SubResource( 1 )
 
 [node name="NWalla" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
+autoplay = true
 
 [node name="DWalla" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 23 )
+autoplay = true
 
 [node name="DLayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
@@ -150,7 +152,6 @@ volume_db = -80.0
 autoplay = true
 
 [node name="MDebugButtons" type="Node2D" parent="."]
-visible = false
 
 [node name="DayAr" type="Button" parent="MDebugButtons"]
 margin_left = 559.0
@@ -194,7 +195,6 @@ text = "A Hell of Your Own Making"
 
 [node name="Loop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 24 )
-autoplay = true
 
 [connection signal="pressed" from="Player4/AnimationGroup/TextureButton" to="." method="_on_Player4Button_pressed"]
 [connection signal="pressed" from="Player3/AnimationGroup/TextureButton" to="." method="_on_Player3Button_pressed"]

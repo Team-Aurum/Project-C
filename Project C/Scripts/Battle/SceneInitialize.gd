@@ -52,6 +52,7 @@ func _ready():
 	dlayer = $DLayer;
 	nalayer = $NALayer;
 	
+	dwalla.set_volume_db(-80);
 	nwalla.set_volume_db(-80);
 	nlayer.set_volume_db(-80);
 	nlayer.get_node("Audio2").set_volume_db(-80);
