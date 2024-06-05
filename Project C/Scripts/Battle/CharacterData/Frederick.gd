@@ -4,7 +4,8 @@ class_name Frederick
 
 var p = load("res://Sprites/FrederickBetaPortrait.png");
 
-func _init(c=Node2D, l=1).(c, p, l):
+func _init(c=Node2D, l=1):
+	super(c, p, l)
 	loadStats();
 	loadTechs();
 	calcStats();
@@ -24,13 +25,13 @@ func getName():
 
 func statPrintout():
 	print("Frederick Stats");
-	print("Max HP: " + String(maxHP));
-	print("Max EP: " + String(maxEP));
-	print("Attack: " + String(attack));
-	print("Magic: " + String(magic));
-	print("Speed: " + String(speed));
-	print("Defense: " + String(defense));
-	print("Resistance: " + String(resistance));
+	print("Max HP: " + str(maxHP));
+	print("Max EP: " + str(maxEP));
+	print("Attack: " + str(attack));
+	print("Magic: " + str(magic));
+	print("Speed: " + str(speed));
+	print("Defense: " + str(defense));
+	print("Resistance: " + str(resistance));
 
 func loadStats():
 	rawMaxHP = [90, 9.18];

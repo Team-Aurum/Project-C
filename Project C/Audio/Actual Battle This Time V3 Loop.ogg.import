@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/Actual Battle This Time V3 Loop.ogg-9a0803c4a8245919e41135eae8a9b791.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bbh0xdmq0f4bx"
+path="res://.godot/imported/Actual Battle This Time V3 Loop.ogg-9a0803c4a8245919e41135eae8a9b791.oggvorbisstr"
 
 [deps]
 
 source_file="res://Audio/Actual Battle This Time V3 Loop.ogg"
-dest_files=[ "res://.import/Actual Battle This Time V3 Loop.ogg-9a0803c4a8245919e41135eae8a9b791.oggstr" ]
+dest_files=["res://.godot/imported/Actual Battle This Time V3 Loop.ogg-9a0803c4a8245919e41135eae8a9b791.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

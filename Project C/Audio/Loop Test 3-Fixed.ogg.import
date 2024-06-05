@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/Loop Test 3-Fixed.ogg-056b524212b14a0052748ee8fcf72401.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://7gvvyjbv5b0w"
+path="res://.godot/imported/Loop Test 3-Fixed.ogg-056b524212b14a0052748ee8fcf72401.oggvorbisstr"
 
 [deps]
 
 source_file="res://Audio/Loop Test 3-Fixed.ogg"
-dest_files=[ "res://.import/Loop Test 3-Fixed.ogg-056b524212b14a0052748ee8fcf72401.oggstr" ]
+dest_files=["res://.godot/imported/Loop Test 3-Fixed.ogg-056b524212b14a0052748ee8fcf72401.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

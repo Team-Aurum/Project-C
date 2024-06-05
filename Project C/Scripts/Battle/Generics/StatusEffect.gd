@@ -2,13 +2,13 @@ extends Node
 
 class_name StatusEffect
 
-var icon: Texture;
+var icon: Texture2D;
 var id: int;
 # var name: String;
 var type: int;
 var stackTurnNum: int;
 
-func _init(turnNum: int, p=Texture):
+func _init(turnNum: int, p=Texture2D):
 	stackTurnNum = turnNum;
 	icon = p;
 	if(icon == null):
@@ -22,7 +22,7 @@ func _ready():
 	pass # Replace with function body.
 
 func toString():
-	return "(" + name + " for " + String(stackTurnNum) + " turns)"
+	return "(" + name + " for " + str(stackTurnNum) + " turns)"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

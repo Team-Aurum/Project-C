@@ -1,0 +1,9 @@
+res://default_env.tres
+res://Scenes/Elements/charCard.tscn
+res://Scenes/UITester.tscn
+res://Scenes/Cutscene.tscn
+res://Theme.tres
+res://Scenes/Elements/TechsMenu.tscn
+res://TechMenuTheme.tres
+res://Scenes/Elements/TechMenuOption.tscn
+res://TechMenuOptionTheme.tres

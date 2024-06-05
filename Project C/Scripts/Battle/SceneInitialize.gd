@@ -22,7 +22,7 @@ var naLayerFadeIn: bool = false; var naLayerFadeOut: bool = false;
 # TODO: Lots of this is still like test code and stuff, will have to eventually change it. 
 # With the playerList that should make it easier I think
 func _ready(): 
-	OS.window_size = Vector2(1920, 1080);
+	get_window().size = Vector2(1920, 1080);
 	#TODO: make this declaration a little shorter ya?
 	play1 = Frederick.new($Player1, 100);
 	play2 = Zurine.new($Player2, 100);
@@ -178,7 +178,7 @@ func set_TechButton_details(p=0):
 	# Creates an instance of a TechMenuOption for each action that the player has in their tags
 	# Each instance is then added to the parent VBoxContainer 
 	for d in data:
-		var node = scene.instance();
+		var node = scene.instantiate();
 		
 		# Assigning colors
 		match(d[1]):
@@ -230,7 +230,7 @@ func set_TechButton_details(p=0):
 		
 		# Setting other details like text and associated action before adding node to the tree
 		node.get_node("MainBody/Label").text = d[2];
-		node.get_node("TextureButton").connect("pressed", self, "_executeTech", [d[0]]);
+		node.get_node("TextureButton").connect("pressed", Callable(self, "_executeTech").bind(d[0]));
 		$TechMenu/ScrollContainer/VBoxContainer.add_child(node);
 
 # Sets all details for calculating damage, and sets up dialog for target selection
@@ -280,35 +280,35 @@ func _executeTech(id):
 			$Dialog/Label.text = "Choose an ally";
 			
 			#Connecting/disconnecting listeners
-			$Player1/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player1Button_pressed");
-			$Player2/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player2Button_pressed");
-			$Player3/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player3Button_pressed");
-			$Player4/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player4Button_pressed");
+			$Player1/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player1Button_pressed"));
+			$Player2/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player2Button_pressed"));
+			$Player3/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player3Button_pressed"));
+			$Player4/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player4Button_pressed"));
 			
-			$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play1, currentTech, false, currentEP]);
-			$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play2, currentTech, false, currentEP]);
-			$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play3, currentTech, false, currentEP]);
-			$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, play4, currentTech, false, currentEP]);
+			$Player1/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, play1, currentTech, false, currentEP));
+			$Player2/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, play2, currentTech, false, currentEP));
+			$Player3/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, play3, currentTech, false, currentEP));
+			$Player4/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, play4, currentTech, false, currentEP));
 			
-			$TechMenu/Header/ExitButton.disconnect("pressed", self, "_on_TechMenuExitButton_pressed");
-			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction", [0]);
+			$TechMenu/Header/ExitButton.disconnect("pressed", Callable(self, "_on_TechMenuExitButton_pressed"));
+			$TechMenu/Header/ExitButton.connect("pressed", Callable(self, "_cancelAction").bind(0));
 		elif(currentTech.target[1] == 1):
 			$Dialog.visible = true;
 			$Dialog/Label.text = "Choose an enemy";
 			
 			# Connecting/disconnecting listeners
-			$Player1/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player1Button_pressed");
-			$Player2/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player2Button_pressed");
-			$Player3/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player3Button_pressed");
-			$Player4/AnimationGroup/TextureButton.disconnect("pressed", self, "_on_Player4Button_pressed");
+			$Player1/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player1Button_pressed"));
+			$Player2/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player2Button_pressed"));
+			$Player3/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player3Button_pressed"));
+			$Player4/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player4Button_pressed"));
 		
-			$Enemy1/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy1, currentTech, false, currentEP]);
-			$Enemy2/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy2, currentTech, false, currentEP]);
-			$Enemy3/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy3, currentTech, false, currentEP]);
-			$Enemy4/AnimationGroup/TextureButton.connect("pressed", self, "_calcFinalDamage", [baseDamage, damageType, enemy4, currentTech, false, currentEP]);
+			$Enemy1/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemy1, currentTech, false, currentEP));
+			$Enemy2/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemy2, currentTech, false, currentEP));
+			$Enemy3/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemy3, currentTech, false, currentEP));
+			$Enemy4/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemy4, currentTech, false, currentEP));
 		
-			$TechMenu/Header/ExitButton.disconnect("pressed", self, "_on_TechMenuExitButton_pressed");
-			$TechMenu/Header/ExitButton.connect("pressed", self, "_cancelAction", [1]);
+			$TechMenu/Header/ExitButton.disconnect("pressed", Callable(self, "_on_TechMenuExitButton_pressed"));
+			$TechMenu/Header/ExitButton.connect("pressed", Callable(self, "_cancelAction").bind(1));
 
 # Old: Not finished yet, does the final damage calculations considering damage reduction
 # Old: Finish the status effect application logic
@@ -432,10 +432,10 @@ func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool, cas
 			print("Target Current HP: " + str(target.currentHP));
 			print(playerList[currentPlayer].buffs);	
 		elif(damageType == 6):
-			print("Final heal amount: " + String(target.maxHP * healPercent));
+			print("Final heal amount: " + str(target.maxHP * healPercent));
 			target.currentHP += int(round(target.maxHP * healPercent));
 			if(target.currentHP > target.maxHP): target.currentHP = target.maxHP;
-			print("Heal Percent: " + String(healPercent*100) + "%");
+			print("Heal Percent: " + str(healPercent*100) + "%");
 		_updateCharCards(target, currentHP != target.currentHP, currentEP != target.currentEP, buffsChanged, statusChanged);
 	
 	# Status Effect Evaluation (always happens after damage)
@@ -555,27 +555,27 @@ func calcResistanceEffects(resNum: int, baseDamage: int) -> int:
 # _calcFinalDamage() calls this as part of its routine to reset the game back to its base state
 func _cancelAction(mode: int):
 	if(mode == 0):
-		$Player1/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
-		$Player2/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
-		$Player3/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
-		$Player4/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
+		$Player1/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
+		$Player2/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
+		$Player3/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
+		$Player4/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
 		
-		$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player1Button_pressed");
-		$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player2Button_pressed");
-		$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player3Button_pressed");
-		$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player4Button_pressed");
+		$Player1/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player1Button_pressed"));
+		$Player2/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player2Button_pressed"));
+		$Player3/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player3Button_pressed"));
+		$Player4/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player4Button_pressed"));
 	elif(mode == 1):
-		$Player1/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player1Button_pressed");
-		$Player2/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player2Button_pressed");
-		$Player3/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player3Button_pressed");
-		$Player4/AnimationGroup/TextureButton.connect("pressed", self, "_on_Player4Button_pressed");
+		$Player1/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player1Button_pressed"));
+		$Player2/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player2Button_pressed"));
+		$Player3/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player3Button_pressed"));
+		$Player4/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player4Button_pressed"));
 		
-		$Enemy1/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
-		$Enemy2/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
-		$Enemy3/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
-		$Enemy4/AnimationGroup/TextureButton.disconnect("pressed", self, "_calcFinalDamage");
-	$TechMenu/Header/ExitButton.disconnect("pressed", self, "_cancelAction");
-	$TechMenu/Header/ExitButton.connect("pressed", self, "_on_TechMenuExitButton_pressed");
+		$Enemy1/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
+		$Enemy2/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
+		$Enemy3/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
+		$Enemy4/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
+	$TechMenu/Header/ExitButton.disconnect("pressed", Callable(self, "_cancelAction"));
+	$TechMenu/Header/ExitButton.connect("pressed", Callable(self, "_on_TechMenuExitButton_pressed"));
 	$Dialog.visible = false;
 
 # Updates visual elements
@@ -586,13 +586,13 @@ func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bo
 	if(hpChanged):
 		var hpFill = 120 * (target.currentHP/target.maxHP);
 		target.HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill, 0), Vector2(hpFill, 20), Vector2(0, 20)];
-		target.HPNum.text = String(target.currentHP);
+		target.HPNum.text = str(target.currentHP);
 		if(target.HPBar.get_node("reduceColor").polygon[1].x > hpFill): createHPBarAnimation(target, hpFill);
 		target.HPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
 	if(epChanged):
 		var epFill = 120 * (target.currentEP/target.maxEP);
 		target.EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill, 0), Vector2(epFill, 20), Vector2(0, 20)];
-		target.EPNum.text = String(target.currentEP);
+		target.EPNum.text = str(target.currentEP);
 		print(target.EPBar.get_node("reduceColor").polygon[1].x);
 		print(target.EPBar.get_node("color").polygon[1].x);
 		print(epFill);
@@ -603,9 +603,9 @@ func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bo
 		for b in 5:
 			for e in 5:
 				if(e < target.buffs[b]):
-					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = true;
+					bdBar.get_node(str(b) + "Icon/Buffs/BuffArrow" + str(e)).visible = true;
 				else:
-					bdBar.get_node(String(b) + "Icon/Buffs/BuffArrow" + String(e)).visible = false;
+					bdBar.get_node(str(b) + "Icon/Buffs/BuffArrow" + str(e)).visible = false;
 	if(statusChanged):
 		var statusEffectGrid = target.card.get_node("AnimationGroup/StatusEffects");
 		var statuses = statusEffectGrid.get_children();
@@ -614,7 +614,7 @@ func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bo
 			n.free();
 		
 		for status in target.statusEffects:
-			var statusEffectNode = load("res://Scenes/Elements/StatusIcon.tscn").instance();
+			var statusEffectNode = load("res://Scenes/Elements/StatusIcon.tscn").instantiate();
 			statusEffectNode.texture = status.icon;
 			statusEffectGrid.add_child(statusEffectNode);
 
@@ -625,28 +625,28 @@ func createHPBarAnimation(c: Character, hpFill: float):
 	var polygonPath = NodePath("polygon");
 	var animation = Animation.new();
 	var track_index = animation.add_track(Animation.TYPE_VALUE);
-	animation.track_set_path(track_index, NodePath(c.HPBar.get_node("reduceColor").get_path() as String + polygonPath.get_as_property_path()));
+	animation.track_set_path(track_index, NodePath(c.HPBar.get_node("reduceColor").get_path() as String + str(polygonPath.get_as_property_path())));
 	animation.track_insert_key(track_index, 0.0, c.HPBar.get_node("reduceColor").polygon);
 	animation.track_insert_key(track_index, 0.5, c.HPBar.get_node("reduceColor").polygon);
 	animation.track_insert_key(track_index, 1.0, c.HPBar.get_node("color").polygon);
 	animation.length = 2.0;
 
-	c.HPBar.get_node("reduceColor/AnimationPlayer").add_animation("HPReduce", animation);
+	c.HPBar.get_node("reduceColor/AnimationPlayer").get_animation_library("").add_animation("HPReduce", animation);
 	c.HPBar.get_node("reduceColor/AnimationPlayer").play("HPReduce");
 
 # Constructs an animation for EP Bar reducing on the fly
 func createEPBarAnimation(c: Character, epFill: float):
-	c.EPBar.get_node("reduceColor/AnimationPlayer").remove_animation("EPReduce");
+	c.EPBar.get_node("reduceColor/AnimationPlayer").remove_animation_library("EPReduce");
 	var polygonPath = NodePath("polygon");
 	var animation = Animation.new();
 	var track_index = animation.add_track(Animation.TYPE_VALUE);
-	animation.track_set_path(track_index, NodePath(c.EPBar.get_node("reduceColor").get_path() as String + polygonPath.get_as_property_path()));
+	animation.track_set_path(track_index, NodePath(c.EPBar.get_node("reduceColor").get_path() as String + str(polygonPath.get_as_property_path())));
 	animation.track_insert_key(track_index, 0.0, c.EPBar.get_node("reduceColor").polygon);
 	animation.track_insert_key(track_index, 0.5, c.EPBar.get_node("reduceColor").polygon);
 	animation.track_insert_key(track_index, 1.0, c.EPBar.get_node("color").polygon);
 	animation.length = 2.0;
 	
-	c.EPBar.get_node("reduceColor/AnimationPlayer").add_animation("EPReduce", animation);
+	c.EPBar.get_node("reduceColor/AnimationPlayer").get_animation_library("").add_animation("EPReduce", animation);
 	c.EPBar.get_node("reduceColor/AnimationPlayer").play("EPReduce");
 
 # Listener for button on Player1. Shifts Player1 card up and displays their tech menu

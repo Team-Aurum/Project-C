@@ -1,81 +1,79 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://6eklp7yvpl1q"]
 
-[ext_resource path="res://Theme.tres" type="Theme" id=1]
-[ext_resource path="res://Fonts/DebugMode.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Sprites/UIElements/TechMenuExitButton.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/UIElements/TechMenuExitButtonOnClick.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/UIElements/TechMenuExitButtonHover.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/UIElements/projCLeftArrowHover.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/UIElements/projCLeftArrowOnClick.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/UIElements/projCLeftArrow.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/UIElements/projCRightArrow.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/UIElements/projCRightArrowOnClick.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/UIElements/projCRightArrowHover.png" type="Texture" id=11]
+[ext_resource type="Theme" uid="uid://pac0uwg5444e" path="res://TechMenuTheme.tres" id="1_gy2y6"]
+[ext_resource type="Texture2D" uid="uid://b7e31u4y2gk8o" path="res://Sprites/UIElements/TechMenuExitButton.png" id="3"]
+[ext_resource type="Theme" uid="uid://c632qli3mpdha" path="res://UITextTheme.tres" id="3_0qfa3"]
+[ext_resource type="Texture2D" uid="uid://cx2v31dtsohgk" path="res://Sprites/UIElements/TechMenuExitButtonOnClick.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://cqvwxljgtl0n1" path="res://Sprites/UIElements/TechMenuExitButtonHover.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://ify1yjncakhp" path="res://Sprites/UIElements/projCLeftArrowHover.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://dd2t6wxjkpp0a" path="res://Sprites/UIElements/projCLeftArrowOnClick.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://h2njo1i7niqe" path="res://Sprites/UIElements/projCLeftArrow.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://d0f48nrlvfng0" path="res://Sprites/UIElements/projCRightArrow.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://c2hcs0xvxo45l" path="res://Sprites/UIElements/projCRightArrowOnClick.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://cemwib6m67kwm" path="res://Sprites/UIElements/projCRightArrowHover.png" id="11"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Background" type="Polygon2D" parent="."]
-color = Color( 0.603922, 0.603922, 0.603922, 0.352941 )
-polygon = PoolVector2Array( 0, 0, 350, 0, 350, 460, 0, 460 )
+color = Color(0.603922, 0.603922, 0.603922, 0.352941)
+polygon = PackedVector2Array(0, 0, 350, 0, 350, 460, 0, 460)
 
 [node name="Header" type="Polygon2D" parent="."]
-color = Color( 0.807843, 0.607843, 0.890196, 0.741176 )
-polygon = PoolVector2Array( 100, 0, 350, 0, 350, 50, 50, 50 )
+color = Color(0.807843, 0.607843, 0.890196, 0.741176)
+polygon = PackedVector2Array(100, 0, 350, 0, 350, 50, 50, 50)
 
 [node name="Label2" type="Label" parent="Header"]
-modulate = Color( 0.603922, 0.356863, 0.701961, 1 )
-margin_left = 229.0
-margin_top = 3.0
-margin_right = 359.0
-margin_bottom = 60.0
-rect_pivot_offset = Vector2( -837, 29 )
-theme = ExtResource( 1 )
-custom_fonts/font = ExtResource( 2 )
+modulate = Color(0.603922, 0.356863, 0.701961, 1)
+offset_left = 229.0
+offset_top = 3.0
+offset_right = 359.0
+offset_bottom = 60.0
+pivot_offset = Vector2(-837, 29)
+theme = ExtResource("1_gy2y6")
 text = "Techs"
 
 [node name="Label" type="Label" parent="Header"]
-margin_left = 226.0
-margin_top = 3.0
-margin_right = 356.0
-margin_bottom = 60.0
-rect_pivot_offset = Vector2( -837, 29 )
-theme = ExtResource( 1 )
-custom_fonts/font = ExtResource( 2 )
+offset_left = 226.0
+offset_top = 3.0
+offset_right = 356.0
+offset_bottom = 60.0
+pivot_offset = Vector2(-837, 29)
+theme = ExtResource("1_gy2y6")
 text = "Techs"
 
 [node name="ExitButton" type="TextureButton" parent="Header"]
-margin_right = 40.0
-margin_bottom = 40.0
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 4 )
-texture_hover = ExtResource( 5 )
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("3")
+texture_pressed = ExtResource("4")
+texture_hover = ExtResource("5")
 
 [node name="RButton" type="TextureButton" parent="."]
-margin_left = 175.0
-margin_top = 460.0
-margin_right = 275.0
-margin_bottom = 560.0
-texture_normal = ExtResource( 9 )
-texture_pressed = ExtResource( 10 )
-texture_hover = ExtResource( 11 )
+offset_left = 175.0
+offset_top = 460.0
+offset_right = 275.0
+offset_bottom = 560.0
+texture_normal = ExtResource("9")
+texture_pressed = ExtResource("10")
+texture_hover = ExtResource("11")
 
 [node name="LButton" type="TextureButton" parent="."]
-margin_left = 75.0
-margin_top = 460.0
-margin_right = 175.0
-margin_bottom = 560.0
-texture_normal = ExtResource( 8 )
-texture_pressed = ExtResource( 7 )
-texture_hover = ExtResource( 6 )
+offset_left = 75.0
+offset_top = 460.0
+offset_right = 175.0
+offset_bottom = 560.0
+texture_normal = ExtResource("8")
+texture_pressed = ExtResource("7")
+texture_hover = ExtResource("6")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_left = 10.0
-margin_top = 60.0
-margin_right = 350.0
-margin_bottom = 460.0
-theme = ExtResource( 1 )
+offset_left = 10.0
+offset_top = 60.0
+offset_right = 350.0
+offset_bottom = 460.0
+theme = ExtResource("3_0qfa3")
 follow_focus = true
-scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-custom_constants/separation = 50
+layout_mode = 2
+theme_override_constants/separation = 50

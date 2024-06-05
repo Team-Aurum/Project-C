@@ -3,8 +3,8 @@ extends Node
 class_name Character
 
 var card:Node2D;
-var portrait:Texture;
-var sprite:Sprite; var HPBar:Node2D; var EPBar:Node2D;
+var portrait:Texture2D;
+var sprite:Sprite2D; var HPBar:Node2D; var EPBar:Node2D;
 var HPNum:Label; var EPNum:Label;
 var rawMaxHP:Array; var rawMaxEP: Array;
 var maxHP:float; var currentHP:float; var maxEP:float; var currentEP:float;
@@ -16,7 +16,7 @@ var attack:int; var magic:int; var speed:int; var defense:int; var resistance:in
 var resistances:Array;
 var techs:Dictionary; var magicTechs:Dictionary;
 
-func _init(c=Node2D, p=Texture, l=1):
+func _init(c=Node2D, p=Texture2D, l=1):
 	card = c;
 	portrait = p;
 	sprite = c.get_node("AnimationGroup/Portrait");
@@ -46,11 +46,11 @@ func applyCardDetails():
 	var hpFill = 120 * (currentHP/maxHP);
 	HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
 	HPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
-	HPNum.text = String(currentHP);
+	HPNum.text = str(currentHP);
 	var epFill = 120 * (currentEP/maxEP);
 	EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
 	EPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
-	EPNum.text = String(currentEP);
+	EPNum.text = str(currentEP);
 	
 	card.visible = true;
 
