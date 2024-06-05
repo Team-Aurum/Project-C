@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bquomikbpvxa7"]
+
+[ext_resource type="FontFile" uid="uid://bw04073gwdkni" path="res://Fonts/SebastianGothicNbp-wvVw.ttf" id="1_nt4xt"]
+
+[resource]
+default_font = ExtResource("1_nt4xt")
+default_font_size = 33

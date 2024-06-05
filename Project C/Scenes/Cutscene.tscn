@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://drp3m0ylgmu8f"]
+[gd_scene load_steps=8 format=3 uid="uid://drp3m0ylgmu8f"]
 
 [ext_resource type="Texture2D" uid="uid://b67elaocbeha6" path="res://Sprites/Backgrounds/001.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://o5dxp2ireyr0" path="res://Sprites/Portraits/001/Norm_001.png" id="2"]
-[ext_resource type="Shader" path="res://Scripts/Shaders/bgShader.tres" id="3"]
+[ext_resource type="Shader" uid="uid://dgvo5y0x5jb0c" path="res://Scripts/Shaders/bgShader.tres" id="3"]
+[ext_resource type="Texture2D" uid="uid://dims4t3l8pc2p" path="res://Sprites/Portraits/002/OpheliaNormalTest.png" id="4_s478k"]
+[ext_resource type="Theme" uid="uid://bquomikbpvxa7" path="res://CutsceneText.tres" id="5_b2lro"]
+[ext_resource type="Theme" uid="uid://ciij5allokov1" path="res://CutsceneNames.tres" id="6_nia2h"]
 
 [sub_resource type="ShaderMaterial" id="1"]
 shader = ExtResource("3")
@@ -10,6 +13,7 @@ shader = ExtResource("3")
 [node name="Node2D" type="Node2D"]
 
 [node name="Background" type="TextureRect" parent="."]
+texture_filter = 4
 material = SubResource("1")
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -19,15 +23,71 @@ stretch_mode = 3
 
 [node name="Char1" type="TextureRect" parent="."]
 offset_left = 100.0
-offset_top = 280.0
+offset_top = 200.0
 offset_right = 500.0
-offset_bottom = 1080.0
+offset_bottom = 1000.0
+scale = Vector2(1.1, 1.1)
 texture = ExtResource("2")
 flip_h = true
 
 [node name="Char2" type="TextureRect" parent="."]
-offset_left = 1420.0
-offset_top = 280.0
-offset_right = 1820.0
-offset_bottom = 1080.0
+offset_left = 1380.0
+offset_top = 200.0
+offset_right = 1780.0
+offset_bottom = 1000.0
+scale = Vector2(1.1, 1.1)
 texture = ExtResource("2")
+
+[node name="Char3" type="TextureRect" parent="."]
+offset_left = 300.0
+offset_top = 200.0
+offset_right = 700.0
+offset_bottom = 1000.0
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("4_s478k")
+flip_h = true
+
+[node name="Char4" type="TextureRect" parent="."]
+offset_left = 1180.0
+offset_top = 200.0
+offset_right = 1580.0
+offset_bottom = 1000.0
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("2")
+
+[node name="Textbox" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 0.701961)
+polygon = PackedVector2Array(20, 1060, 1900, 1060, 1900, 860, 20, 860)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Textbox"]
+offset_left = 60.0
+offset_top = 900.0
+offset_right = 1860.0
+offset_bottom = 1020.0
+theme = ExtResource("5_b2lro")
+text = "Test text to check if this thing even fucking works lmao I gotta add more substance for it to wrap can we get to three lines let's hope we can do three lines without clipping hell yea let's fucking goooooooo"
+
+[node name="LeftName" type="Polygon2D" parent="."]
+visible = false
+color = Color(0.027451, 0.101961, 0.352941, 0.780392)
+polygon = PackedVector2Array(20, 860, 20, 780, 420, 780, 500, 860)
+
+[node name="Label" type="Label" parent="LeftName"]
+offset_left = 50.0
+offset_top = 797.0
+offset_right = 430.0
+offset_bottom = 847.0
+theme = ExtResource("6_nia2h")
+text = "Makoto Shiratori"
+
+[node name="RightName" type="Polygon2D" parent="."]
+color = Color(0.027451, 0.101961, 0.352941, 0.780392)
+polygon = PackedVector2Array(1900, 860, 1900, 780, 1500, 780, 1420, 860)
+
+[node name="Label" type="Label" parent="RightName"]
+offset_left = 1510.0
+offset_top = 797.0
+offset_right = 1890.0
+offset_bottom = 847.0
+theme = ExtResource("6_nia2h")
+text = "Makoto Shiratori"

@@ -1,11 +1,28 @@
-[gd_resource type="Shader" format=2]
+[gd_resource type="Shader" format=3 uid="uid://dgvo5y0x5jb0c"]
 
 [resource]
 code = "shader_type canvas_item;
 
-void fragment(){
-	COLOR = textureLod(TEXTURE, UV, 0.5);
-	//COLOR.b *= 0.5;
-	//COLOR.r *= 0.5;
-	//COLOR.g *= 0.5;
+const float strength = 1.0;
+const float brightness = 0.5;
+
+void fragment() {
+    vec3 col = texture(TEXTURE, UV).xyz * 0.16;
+    col += texture(TEXTURE, UV + vec2(strength * TEXTURE_PIXEL_SIZE.x, 0.0)).xyz * 0.075 * brightness;
+    col += texture(TEXTURE, UV + vec2(strength * -TEXTURE_PIXEL_SIZE.x, 0.0)).xyz * 0.075 * brightness;
+    col += texture(TEXTURE, UV + vec2(strength * 2.0 * TEXTURE_PIXEL_SIZE.x, 0.0)).xyz * 0.06 * brightness;
+    col += texture(TEXTURE, UV + vec2(strength * 2.0 * -TEXTURE_PIXEL_SIZE.x, 0.0)).xyz * 0.06 * brightness;
+    col += texture(TEXTURE, UV + vec2(strength * 3.0 * TEXTURE_PIXEL_SIZE.x, 0.0)).xyz * 0.045 * brightness;
+    col += texture(TEXTURE, UV + vec2(strength * 3.0 * -TEXTURE_PIXEL_SIZE.x, 0.0)).xyz * 0.045 * brightness;
+    col += texture(TEXTURE, UV + vec2(strength * 4.0 * TEXTURE_PIXEL_SIZE.x, 0.0)).xyz * 0.025 * brightness;
+    col += texture(TEXTURE, UV + vec2(strength * 4.0 * -TEXTURE_PIXEL_SIZE.x, 0.0)).xyz * 0.025 * brightness;
+	col += texture(TEXTURE, UV + vec2(0.0, strength * TEXTURE_PIXEL_SIZE.y)).xyz * 0.075 * brightness;
+    col += texture(TEXTURE, UV + vec2(0.0, strength * -TEXTURE_PIXEL_SIZE.y)).xyz * 0.075 * brightness;
+    col += texture(TEXTURE, UV + vec2(0.0, strength * 2.0 * TEXTURE_PIXEL_SIZE.y)).xyz * 0.06 * brightness;
+    col += texture(TEXTURE, UV + vec2(0.0, strength * 2.0 * -TEXTURE_PIXEL_SIZE.y)).xyz * 0.06 * brightness;
+    col += texture(TEXTURE, UV + vec2(0.0, strength * 3.0 * TEXTURE_PIXEL_SIZE.y)).xyz * 0.045 * brightness;
+    col += texture(TEXTURE, UV + vec2(0.0, strength * 3.0 * -TEXTURE_PIXEL_SIZE.y)).xyz * 0.045 * brightness;
+    col += texture(TEXTURE, UV + vec2(0.0, strength * 4.0 * TEXTURE_PIXEL_SIZE.y)).xyz * 0.025 * brightness;
+    col += texture(TEXTURE, UV + vec2(0.0, strength * 4.0 * -TEXTURE_PIXEL_SIZE.y)).xyz * 0.025 * brightness;
+    COLOR.xyz = col;
 }"

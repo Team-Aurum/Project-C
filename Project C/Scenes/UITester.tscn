@@ -285,9 +285,6 @@ offset_bottom = 240.0
 visible = false
 position = Vector2(785, 490)
 
-[node name="VBoxContainer" parent="TechMenu/ScrollContainer" index="0"]
-layout_mode = 2
-
 [node name="IntroLong" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16")
 script = ExtResource("15")

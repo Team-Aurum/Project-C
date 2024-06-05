@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ciij5allokov1"]
+
+[ext_resource type="FontFile" uid="uid://bw04073gwdkni" path="res://Fonts/SebastianGothicNbp-wvVw.ttf" id="1_s0fuo"]
+
+[resource]
+default_font = ExtResource("1_s0fuo")
+default_font_size = 39
