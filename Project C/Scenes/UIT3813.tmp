@@ -1,0 +1,610 @@
+[gd_scene load_steps=50 format=3 uid="uid://dst3vg100nel"]
+
+[ext_resource type="AudioStream" uid="uid://dj7fljqq1u36m" path="res://Audio/NHarbor(D).ogg" id="1"]
+[ext_resource type="AudioStream" uid="uid://dra5t2anp2nrd" path="res://Audio/NHarbor(D)Intro.ogg" id="2"]
+[ext_resource type="Script" path="res://Scripts/Battle/Audio1.gd" id="3"]
+[ext_resource type="Script" path="res://Scripts/Battle/SceneInitialize.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://6eklp7yvpl1q" path="res://Scenes/Elements/TechsMenu.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://Scenes/Elements/APBar.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://Scenes/Elements/TestButton.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://Scenes/Elements/botTestButtonR.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://Scenes/Elements/botTestButtonL.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://Scenes/Elements/BottomBorder.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://Scenes/Elements/SideBorder.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://cyeq4rrx3vo73" path="res://Scenes/Elements/charCard.tscn" id="12"]
+[ext_resource type="AudioStream" uid="uid://bhiw3w2e1bkyn" path="res://Audio/NWalla.ogg" id="14"]
+[ext_resource type="Script" path="res://Scenes/IntroLong.gd" id="15"]
+[ext_resource type="AudioStream" uid="uid://djr6xnoj4uexy" path="res://Audio/MakotoThemeIntro.ogg" id="16"]
+[ext_resource type="AudioStream" uid="uid://6dpllcxwubwy" path="res://Audio/MakotoThemeLoop.ogg" id="17"]
+[ext_resource type="PackedScene" uid="uid://bsfarl70dkkf1" path="res://Scenes/Elements/Dialog.tscn" id="18"]
+[ext_resource type="AudioStream" uid="uid://x0b4csp12rde" path="res://Audio/NHarbor(N)Intro.ogg" id="19"]
+[ext_resource type="AudioStream" uid="uid://cogdp0t0fqy8c" path="res://Audio/NHarbor(N).ogg" id="20"]
+[ext_resource type="AudioStream" uid="uid://cjgk1348eodtb" path="res://Audio/NHarbor(NA).ogg" id="21"]
+[ext_resource type="AudioStream" uid="uid://cwktdfmn8wkw0" path="res://Audio/NHarbor(NA)Intro.ogg" id="22"]
+[ext_resource type="AudioStream" uid="uid://bwkg28wuyhdhb" path="res://Audio/DWalla.ogg" id="23"]
+[ext_resource type="AudioStream" uid="uid://bbh0xdmq0f4bx" path="res://Audio/Actual Battle This Time V3 Loop.ogg" id="24"]
+
+[sub_resource type="Animation" id="2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:polygon")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(0, 0, 120, 0, 120, 20, 0, 20)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xk2mo"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cw2wv"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eb1dr"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ljny0"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2hcwc"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gga6x"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bhk5p"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i0ego"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ekrb1"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hy1vf"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xbrb5"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vbw6r"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s2tvm"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ic3lm"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_funir"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_whx1k"]
+_data = {
+"RESET": SubResource("2")
+}
+
+[sub_resource type="Animation" id="Animation_3cthq"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(40, 810), Vector2(40, 790)]
+}
+
+[sub_resource type="Animation" id="Animation_6x80w"]
+resource_name = "ShiftP1Down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(40, 790), Vector2(40, 810)]
+}
+
+[sub_resource type="Animation" id="Animation_223vh"]
+resource_name = "ShiftP2Up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(200, 810), Vector2(200, 790)]
+}
+
+[sub_resource type="Animation" id="Animation_reumu"]
+resource_name = "ShiftP2Down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(200, 790), Vector2(200, 810)]
+}
+
+[sub_resource type="Animation" id="Animation_7alpt"]
+resource_name = "ShiftP3Up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(360, 810), Vector2(360, 790)]
+}
+
+[sub_resource type="Animation" id="Animation_n5rqx"]
+resource_name = "ShiftP3Down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(360, 790), Vector2(360, 810)]
+}
+
+[sub_resource type="Animation" id="Animation_m6rb3"]
+resource_name = "ShiftP4Up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(520, 810), Vector2(520, 790)]
+}
+
+[sub_resource type="Animation" id="Animation_qdrhl"]
+resource_name = "ShiftP4Down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(520, 790), Vector2(520, 810)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y11rj"]
+_data = {
+"ShiftP1Down": SubResource("Animation_6x80w"),
+"ShiftP1Up": SubResource("Animation_3cthq"),
+"ShiftP2Down": SubResource("Animation_reumu"),
+"ShiftP2Up": SubResource("Animation_223vh"),
+"ShiftP3Down": SubResource("Animation_n5rqx"),
+"ShiftP3Up": SubResource("Animation_7alpt"),
+"ShiftP4Down": SubResource("Animation_qdrhl"),
+"ShiftP4Up": SubResource("Animation_m6rb3")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("4")
+
+[node name="Dialog" parent="." instance=ExtResource("18")]
+visible = false
+position = Vector2(210, 25)
+
+[node name="APBar" parent="." instance=ExtResource("6")]
+position = Vector2(51, 0)
+
+[node name="SideBorder" parent="." instance=ExtResource("11")]
+
+[node name="SideBorder2" parent="." instance=ExtResource("11")]
+position = Vector2(1920, 0)
+scale = Vector2(-1, 1)
+
+[node name="BottomBorder" parent="." instance=ExtResource("10")]
+
+[node name="Enemy1" parent="." instance=ExtResource("12")]
+visible = false
+position = Vector2(1730, 810)
+
+[node name="AnimationPlayer" parent="Enemy1/AnimationGroup/EPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_xk2mo")
+}
+
+[node name="AnimationPlayer" parent="Enemy1/AnimationGroup/HPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_cw2wv")
+}
+
+[node name="TextureButton" parent="Enemy1/AnimationGroup" index="9"]
+disabled = true
+
+[node name="Enemy2" parent="." instance=ExtResource("12")]
+visible = false
+position = Vector2(1570, 810)
+
+[node name="AnimationPlayer" parent="Enemy2/AnimationGroup/EPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_eb1dr")
+}
+
+[node name="AnimationPlayer" parent="Enemy2/AnimationGroup/HPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_ljny0")
+}
+
+[node name="TextureButton" parent="Enemy2/AnimationGroup" index="9"]
+disabled = true
+
+[node name="Enemy3" parent="." instance=ExtResource("12")]
+visible = false
+position = Vector2(1410, 810)
+
+[node name="AnimationPlayer" parent="Enemy3/AnimationGroup/EPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_2hcwc")
+}
+
+[node name="AnimationPlayer" parent="Enemy3/AnimationGroup/HPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_gga6x")
+}
+
+[node name="TextureButton" parent="Enemy3/AnimationGroup" index="9"]
+disabled = true
+
+[node name="Enemy4" parent="." instance=ExtResource("12")]
+visible = false
+position = Vector2(1250, 810)
+
+[node name="AnimationPlayer" parent="Enemy4/AnimationGroup/EPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_bhk5p")
+}
+
+[node name="AnimationPlayer" parent="Enemy4/AnimationGroup/HPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_i0ego")
+}
+
+[node name="TextureButton" parent="Enemy4/AnimationGroup" index="9"]
+disabled = true
+
+[node name="Player4" parent="." instance=ExtResource("12")]
+position = Vector2(520, 810)
+
+[node name="AnimationPlayer" parent="Player4/AnimationGroup/EPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_ekrb1")
+}
+
+[node name="AnimationPlayer" parent="Player4/AnimationGroup/HPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_hy1vf")
+}
+
+[node name="Player3" parent="." instance=ExtResource("12")]
+position = Vector2(360, 810)
+
+[node name="AnimationPlayer" parent="Player3/AnimationGroup/EPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_xbrb5")
+}
+
+[node name="AnimationPlayer" parent="Player3/AnimationGroup/HPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_vbw6r")
+}
+
+[node name="Player2" parent="." instance=ExtResource("12")]
+position = Vector2(200, 810)
+
+[node name="AnimationPlayer" parent="Player2/AnimationGroup/EPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_s2tvm")
+}
+
+[node name="AnimationPlayer" parent="Player2/AnimationGroup/HPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_ic3lm")
+}
+
+[node name="Player1" parent="." instance=ExtResource("12")]
+position = Vector2(40, 810)
+
+[node name="AnimationPlayer" parent="Player1/AnimationGroup/EPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_funir")
+}
+
+[node name="AnimationPlayer" parent="Player1/AnimationGroup/HPBar/reduceColor" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_whx1k")
+}
+
+[node name="ControlPalette" type="Node2D" parent="."]
+position = Vector2(40, 810)
+
+[node name="AttackButton" parent="ControlPalette" instance=ExtResource("7")]
+anchors_preset = -1
+anchor_right = 200.0
+offset_left = 820.0
+offset_top = 40.0
+offset_right = 1020.0
+offset_bottom = 140.0
+
+[node name="EscapeButton" parent="ControlPalette" instance=ExtResource("9")]
+offset_left = 820.0
+offset_top = 140.0
+offset_right = 1032.0
+offset_bottom = 246.0
+
+[node name="AnalyzeButton" parent="ControlPalette" instance=ExtResource("8")]
+offset_left = 920.0
+offset_top = 140.0
+offset_right = 1020.0
+offset_bottom = 240.0
+
+[node name="TechMenu" parent="." instance=ExtResource("5")]
+visible = false
+position = Vector2(785, 490)
+
+[node name="IntroLong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16")
+script = ExtResource("15")
+
+[node name="Loop" type="AudioStreamPlayer" parent="IntroLong"]
+stream = ExtResource("17")
+volume_db = -80.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y11rj")
+}
+
+[node name="NWalla" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14")
+autoplay = true
+
+[node name="DWalla" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23")
+autoplay = true
+
+[node name="DLayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2")
+script = ExtResource("3")
+
+[node name="Audio2" type="AudioStreamPlayer" parent="DLayer"]
+stream = ExtResource("1")
+volume_db = -80.0
+autoplay = true
+
+[node name="NLayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19")
+script = ExtResource("3")
+
+[node name="Audio2" type="AudioStreamPlayer" parent="NLayer"]
+stream = ExtResource("20")
+volume_db = -80.0
+autoplay = true
+
+[node name="NALayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22")
+script = ExtResource("3")
+
+[node name="Audio2" type="AudioStreamPlayer" parent="NALayer"]
+stream = ExtResource("21")
+volume_db = -80.0
+autoplay = true
+
+[node name="MDebugButtons" type="Node2D" parent="."]
+visible = false
+
+[node name="DayAr" type="Button" parent="MDebugButtons"]
+offset_left = 559.0
+offset_top = 266.0
+offset_right = 716.0
+offset_bottom = 413.0
+pivot_offset = Vector2(-175, 119)
+text = "Day Mode"
+
+[node name="NightAr" type="Button" parent="MDebugButtons"]
+offset_left = 744.0
+offset_top = 273.0
+offset_right = 901.0
+offset_bottom = 420.0
+pivot_offset = Vector2(-175, 119)
+text = "Night Mode"
+
+[node name="Day" type="Button" parent="MDebugButtons"]
+offset_left = 952.0
+offset_top = 262.0
+offset_right = 1109.0
+offset_bottom = 409.0
+pivot_offset = Vector2(-175, 119)
+text = "Day Mode (No Arthur)"
+
+[node name="Night" type="Button" parent="MDebugButtons"]
+offset_left = 1147.0
+offset_top = 268.0
+offset_right = 1307.0
+offset_bottom = 415.0
+pivot_offset = Vector2(-175, 119)
+text = "Night Mode (No Arthur)"
+
+[node name="Hell" type="Button" parent="MDebugButtons"]
+offset_left = 839.0
+offset_top = 452.0
+offset_right = 1020.0
+offset_bottom = 599.0
+pivot_offset = Vector2(-175, 119)
+text = "A Hell of Your Own Making"
+
+[node name="Loop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("24")
+
+[connection signal="pressed" from="Player4/AnimationGroup/TextureButton" to="." method="_on_Player4Button_pressed"]
+[connection signal="pressed" from="Player3/AnimationGroup/TextureButton" to="." method="_on_Player3Button_pressed"]
+[connection signal="pressed" from="Player2/AnimationGroup/TextureButton" to="." method="_on_Player2Button_pressed"]
+[connection signal="pressed" from="Player1/AnimationGroup/TextureButton" to="." method="_on_Player1Button_pressed"]
+[connection signal="pressed" from="ControlPalette/AttackButton" to="." method="_on_AttackButton_pressed"]
+[connection signal="pressed" from="TechMenu/Header/ExitButton" to="." method="_on_TechMenuExitButton_pressed"]
+[connection signal="pressed" from="TechMenu/RButton" to="." method="_on_RButton_pressed"]
+[connection signal="pressed" from="TechMenu/LButton" to="." method="_on_LButton_pressed"]
+[connection signal="finished" from="IntroLong" to="IntroLong" method="_on_IntroLong_finished"]
+[connection signal="finished" from="DLayer/Audio2" to="DLayer" method="_on_Audio2_finished"]
+[connection signal="finished" from="NLayer/Audio2" to="NLayer" method="_on_Audio2_finished"]
+[connection signal="finished" from="NALayer/Audio2" to="NALayer" method="_on_Audio2_finished"]
+[connection signal="pressed" from="MDebugButtons/DayAr" to="." method="_on_DayAr_pressed"]
+[connection signal="pressed" from="MDebugButtons/NightAr" to="." method="_on_NightAr_pressed"]
+[connection signal="pressed" from="MDebugButtons/Day" to="." method="_on_Day_pressed"]
+[connection signal="pressed" from="MDebugButtons/Night" to="." method="_on_Night_pressed"]
+[connection signal="pressed" from="MDebugButtons/Hell" to="." method="_on_Hell_pressed"]
+
+[editable path="Enemy1"]
+[editable path="Enemy1/AnimationGroup/EPBar"]
+[editable path="Enemy1/AnimationGroup/HPBar"]
+[editable path="Enemy1/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Enemy1/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Enemy1/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Enemy1/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Enemy1/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Enemy1/AnimationGroup/StatusEffects/StatusIcon"]
+[editable path="Enemy2"]
+[editable path="Enemy2/AnimationGroup/EPBar"]
+[editable path="Enemy2/AnimationGroup/HPBar"]
+[editable path="Enemy2/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Enemy2/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Enemy2/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Enemy2/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Enemy2/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Enemy2/AnimationGroup/StatusEffects/StatusIcon"]
+[editable path="Enemy3"]
+[editable path="Enemy3/AnimationGroup/EPBar"]
+[editable path="Enemy3/AnimationGroup/HPBar"]
+[editable path="Enemy3/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Enemy3/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Enemy3/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Enemy3/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Enemy3/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Enemy3/AnimationGroup/StatusEffects/StatusIcon"]
+[editable path="Enemy4"]
+[editable path="Enemy4/AnimationGroup/EPBar"]
+[editable path="Enemy4/AnimationGroup/HPBar"]
+[editable path="Enemy4/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Enemy4/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Enemy4/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Enemy4/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Enemy4/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Enemy4/AnimationGroup/StatusEffects/StatusIcon"]
+[editable path="Player4"]
+[editable path="Player4/AnimationGroup/EPBar"]
+[editable path="Player4/AnimationGroup/HPBar"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Player4/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Player4/AnimationGroup/StatusEffects/StatusIcon"]
+[editable path="Player3"]
+[editable path="Player3/AnimationGroup/EPBar"]
+[editable path="Player3/AnimationGroup/HPBar"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Player3/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Player3/AnimationGroup/StatusEffects/StatusIcon"]
+[editable path="Player2"]
+[editable path="Player2/AnimationGroup/EPBar"]
+[editable path="Player2/AnimationGroup/HPBar"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Player2/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Player2/AnimationGroup/StatusEffects/StatusIcon"]
+[editable path="Player1"]
+[editable path="Player1/AnimationGroup/EPBar"]
+[editable path="Player1/AnimationGroup/HPBar"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/0Icon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/1Icon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/2Icon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/3Icon"]
+[editable path="Player1/AnimationGroup/BuffDebuffBar/4Icon"]
+[editable path="Player1/AnimationGroup/StatusEffects/StatusIcon"]
+[editable path="TechMenu"]

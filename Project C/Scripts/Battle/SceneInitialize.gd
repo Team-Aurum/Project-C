@@ -306,6 +306,10 @@ func _executeTech(id):
 			$Enemy2/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemy2, currentTech, false, currentEP));
 			$Enemy3/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemy3, currentTech, false, currentEP));
 			$Enemy4/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemy4, currentTech, false, currentEP));
+			$Enemy1/AnimationGroup/TextureButton.disabled = false;
+			$Enemy2/AnimationGroup/TextureButton.disabled = false;
+			$Enemy3/AnimationGroup/TextureButton.disabled = false;
+			$Enemy4/AnimationGroup/TextureButton.disabled = false;
 		
 			$TechMenu/Header/ExitButton.disconnect("pressed", Callable(self, "_on_TechMenuExitButton_pressed"));
 			$TechMenu/Header/ExitButton.connect("pressed", Callable(self, "_cancelAction").bind(1));
@@ -424,19 +428,22 @@ func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool, cas
 			_:
 				pass
 		# Somewhere in here, extra effects should be evaluated
+		var outVal = NAN;
 		if(damageType != 6):
 			print("Final damage: " + str(rawDamage));
 			print("Target HP before damage: " + str(target.currentHP));
 			target.currentHP -= rawDamage;
 			if(target.currentHP < 0): target.currentHP = 0;
 			print("Target Current HP: " + str(target.currentHP));
-			print(playerList[currentPlayer].buffs);	
+			print(playerList[currentPlayer].buffs);
+			outVal = -1 * rawDamage;
 		elif(damageType == 6):
 			print("Final heal amount: " + str(target.maxHP * healPercent));
 			target.currentHP += int(round(target.maxHP * healPercent));
 			if(target.currentHP > target.maxHP): target.currentHP = target.maxHP;
 			print("Heal Percent: " + str(healPercent*100) + "%");
-		_updateCharCards(target, currentHP != target.currentHP, currentEP != target.currentEP, buffsChanged, statusChanged);
+			outVal = round(target.maxHP * healPercent);
+		_updateCharCards(target, currentHP != target.currentHP, currentEP != target.currentEP, buffsChanged, statusChanged, false, outVal);
 	
 	# Status Effect Evaluation (always happens after damage)
 	if(attack.status.size() != 0 && !recurse):
@@ -445,16 +452,16 @@ func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool, cas
 			match(sEffect[2][0]):
 				0: # Single-target
 					_applyStatusEffects(target, sEffect);
-					_updateCharCards(target, false, false, buffsChanged, statusChanged);
+					_updateCharCards(target, false, false, buffsChanged, statusChanged, false, NAN);
 				1: # All-target
 					if(sEffect[2][1] == 1):
 						for enemy in enemyList:
 							_applyStatusEffects(enemyList[enemy], sEffect);
-							_updateCharCards(enemyList[enemy], false, false, buffsChanged, statusChanged);
+							_updateCharCards(enemyList[enemy], false, false, buffsChanged, statusChanged, false, NAN);
 					elif(sEffect[2][1] == 2):
 						for player in playerList:
 							_applyStatusEffects(playerList[player], sEffect);
-							_updateCharCards(playerList[player], false, false, buffsChanged, statusChanged);
+							_updateCharCards(playerList[player], false, false, buffsChanged, statusChanged, false, NAN);
 						pass;
 				2: # Universal-Target (Enemy only usually)
 					pass;
@@ -463,7 +470,7 @@ func _calcFinalDamage(baseDamage, damageType, target, attack, recurse: bool, cas
 		
 	if(!recurse):
 		# This one sets the caster's EP values
-		_updateCharCards(playerList[currentPlayer], false, casterCurrentEP != playerList[currentPlayer].currentEP, buffsChanged, statusChanged);
+		_updateCharCards(playerList[currentPlayer], false, casterCurrentEP != playerList[currentPlayer].currentEP, buffsChanged, statusChanged, false, NAN);
 		_cancelAction(attack.target[1]);
 		_on_TechMenuExitButton_pressed();
 
@@ -485,7 +492,7 @@ func _applyStatusEffects(target, sEffect):
 			0: # Self
 				# If it already exists
 				for existingStatus in playerList[currentPlayer].statusEffects:
-					if(status.toString() == existingStatus.toString()):
+					if(status.id == existingStatus.id):
 						print("Overwriting status turn count!");
 						existingStatus.stackTurnNum = status.stackTurnNum;
 						return false;
@@ -495,7 +502,7 @@ func _applyStatusEffects(target, sEffect):
 			1: # Enemy
 				# If it already exists
 				for existingStatus in target.statusEffects:
-					if(status.toString() == existingStatus.toString()):
+					if(status.id == existingStatus.id):
 						print("Overwriting status turn count!");
 						existingStatus.stackTurnNum = status.stackTurnNum;
 						return false;
@@ -553,6 +560,7 @@ func calcResistanceEffects(resNum: int, baseDamage: int) -> int:
 
 # Cancels the current action by resetting all listeners
 # _calcFinalDamage() calls this as part of its routine to reset the game back to its base state
+# Also returns enemy cards to a cancelled state
 func _cancelAction(mode: int):
 	if(mode == 0):
 		$Player1/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
@@ -574,6 +582,10 @@ func _cancelAction(mode: int):
 		$Enemy2/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
 		$Enemy3/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
 		$Enemy4/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
+		$Enemy1/AnimationGroup/TextureButton.disabled = true;
+		$Enemy2/AnimationGroup/TextureButton.disabled = true;
+		$Enemy3/AnimationGroup/TextureButton.disabled = true;
+		$Enemy4/AnimationGroup/TextureButton.disabled = true;
 	$TechMenu/Header/ExitButton.disconnect("pressed", Callable(self, "_cancelAction"));
 	$TechMenu/Header/ExitButton.connect("pressed", Callable(self, "_on_TechMenuExitButton_pressed"));
 	$Dialog.visible = false;
@@ -582,22 +594,31 @@ func _cancelAction(mode: int):
 # Old: Re-code literally all of this it's so bad
 # Update: it's done. it's beautiful. I also hate it. bye.
 # Update Update: There's still a couple glitches, but overall it works properly
-func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bool, statusChanged: bool):
+func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bool, statusChanged: bool, epDrained: bool, numVal: int):
 	if(hpChanged):
 		var hpFill = 120 * (target.currentHP/target.maxHP);
 		target.HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill, 0), Vector2(hpFill, 20), Vector2(0, 20)];
-		target.HPNum.text = str(target.currentHP);
+		target.HPNum.text = str(int(target.currentHP));
 		if(target.HPBar.get_node("reduceColor").polygon[1].x > hpFill): createHPBarAnimation(target, hpFill);
 		target.HPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
+		if numVal > 0:
+			target.HPChange.text = "+" + str(int(numVal)) + " HP";
+			target.anim.play("ShowHPIncrease");
+		else:
+			target.HPChange.text = str(int(numVal)) + " HP";
+			target.anim.play("ShowHPReduce");
 	if(epChanged):
 		var epFill = 120 * (target.currentEP/target.maxEP);
 		target.EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill, 0), Vector2(epFill, 20), Vector2(0, 20)];
-		target.EPNum.text = str(target.currentEP);
+		target.EPNum.text = str(int(target.currentEP));
 		print(target.EPBar.get_node("reduceColor").polygon[1].x);
 		print(target.EPBar.get_node("color").polygon[1].x);
 		print(epFill);
 		if(target.EPBar.get_node("reduceColor").polygon[1].x > epFill): createEPBarAnimation(target, epFill);
 		target.EPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
+		if epDrained:
+			target.EPChange.text = str(int(numVal)) + " EP";
+			target.anim.play("ShowEP");
 	if(buffsChanged):
 		var bdBar = target.card.get_node("AnimationGroup/BuffDebuffBar");
 		for b in 5:
@@ -610,11 +631,19 @@ func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bo
 		var statusEffectGrid = target.card.get_node("AnimationGroup/StatusEffects");
 		var statuses = statusEffectGrid.get_children();
 		for n in statusEffectGrid.get_children():
+			#n.get_node("AnimationPlayer").stop();
 			statusEffectGrid.remove_child(n);
 			n.free();
 		
 		for status in target.statusEffects:
 			var statusEffectNode = load("res://Scenes/Elements/StatusIcon.tscn").instantiate();
+			if status.stackMode:
+				statusEffectNode.get_node("StackCount").visible = true;
+				statusEffectNode.get_node("StackCount").text = str(status.stackTurnNum);
+			elif status.stackTurnNum == 1:
+				statusEffectNode.get_node("AnimationPlayer").play("Fading")
+			else:
+				statusEffectNode.get_node("AnimationPlayer").play("RESET")
 			statusEffectNode.texture = status.icon;
 			statusEffectGrid.add_child(statusEffectNode);
 
@@ -651,37 +680,41 @@ func createEPBarAnimation(c: Character, epFill: float):
 
 # Listener for button on Player1. Shifts Player1 card up and displays their tech menu
 func _on_Player1Button_pressed():
-	$"Player1/AnimationPlayer".play("ShiftUp");
-	$"Player2/AnimationPlayer".play("ShiftDown");
-	$"Player3/AnimationPlayer".play("ShiftDown");
-	$"Player4/AnimationPlayer".play("ShiftDown");
+	if currentPlayer != 0 && currentPlayer != 1:
+		$"AnimationPlayer".set_blend_time("ShiftP" + str(currentPlayer) + "Down", "ShiftP1Up",0.1)
+		$"AnimationPlayer".play("ShiftP" + str(currentPlayer) + "Down");
+	if currentPlayer != 1:
+		$"AnimationPlayer".play("ShiftP1Up");
 	display_TechMenu(1);
 	currentPlayer = 1;
 
 # Listener for button on Player2. Shifts Player2 card up and displays their tech menu
 func _on_Player2Button_pressed():
-	$"Player1/AnimationPlayer".play("ShiftDown");
-	$"Player2/AnimationPlayer".play("ShiftUp");
-	$"Player3/AnimationPlayer".play("ShiftDown");
-	$"Player4/AnimationPlayer".play("ShiftDown");
+	if currentPlayer != 0 && currentPlayer != 2:
+		$"AnimationPlayer".set_blend_time("ShiftP" + str(currentPlayer) + "Down","ShiftP2Up",0.1)
+		$"AnimationPlayer".play("ShiftP" + str(currentPlayer) + "Down");
+	if currentPlayer != 2:
+		$"AnimationPlayer".play("ShiftP2Up");
 	display_TechMenu(2);
 	currentPlayer = 2;
 
 # Listener for button on Player3. Shifts Player3 card up and displays their tech menu
 func _on_Player3Button_pressed():
-	$"Player1/AnimationPlayer".play("ShiftDown");
-	$"Player2/AnimationPlayer".play("ShiftDown");
-	$"Player3/AnimationPlayer".play("ShiftUp");
-	$"Player4/AnimationPlayer".play("ShiftDown");
+	if currentPlayer != 0 && currentPlayer != 3:
+		$"AnimationPlayer".set_blend_time("ShiftP" + str(currentPlayer) + "Down","ShiftP3Up",0.1)
+		$"AnimationPlayer".play("ShiftP" + str(currentPlayer) + "Down");
+	if currentPlayer != 3:
+		$"AnimationPlayer".play("ShiftP3Up");
 	display_TechMenu(3);
 	currentPlayer = 3;
 
 # Listener for button on Player4. Shifts Player4 card up and displays their tech menu
 func _on_Player4Button_pressed():
-	$"Player1/AnimationPlayer".play("ShiftDown");
-	$"Player2/AnimationPlayer".play("ShiftDown");
-	$"Player3/AnimationPlayer".play("ShiftDown");
-	$"Player4/AnimationPlayer".play("ShiftUp");
+	if currentPlayer != 0 && currentPlayer != 4:
+		$"AnimationPlayer".set_blend_time("ShiftP" + str(currentPlayer) + "Down","ShiftP4Up",0.1)
+		$"AnimationPlayer".play("ShiftP" + str(currentPlayer) + "Down");
+	if currentPlayer != 4:
+		$"AnimationPlayer".play("ShiftP4Up");
 	display_TechMenu(4);
 	currentPlayer = 4;
 
@@ -690,10 +723,7 @@ func _on_TechMenuExitButton_pressed():
 	$TechMenu.visible = false;
 	$ControlPalette.visible = true;
 	$Dialog.visible = false;
-	$"Player1/AnimationPlayer".play("ShiftDown");
-	$"Player2/AnimationPlayer".play("ShiftDown");
-	$"Player3/AnimationPlayer".play("ShiftDown");
-	$"Player4/AnimationPlayer".play("ShiftDown");
+	$"AnimationPlayer".play("ShiftP" + str(currentPlayer) + "Down")
 	currentPlayer = 0;
 
 # Pans to next tab on Tech Menu

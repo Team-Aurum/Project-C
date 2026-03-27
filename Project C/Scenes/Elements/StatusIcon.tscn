@@ -1,17 +1,65 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://dme5pebemedyb"]
 
 [ext_resource type="Texture2D" uid="uid://dt8htcjrgrbf0" path="res://Sprites/StatusEffects/Missing.png" id="1"]
 [ext_resource type="Theme" uid="uid://c632qli3mpdha" path="res://UITextTheme.tres" id="2"]
 
+[sub_resource type="Animation" id="Animation_sqf83"]
+resource_name = "Fading"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_sahgm"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jk88k"]
+_data = {
+"Fading": SubResource("Animation_sqf83"),
+"RESET": SubResource("Animation_sahgm")
+}
+
 [node name="StatusIcon" type="TextureRect"]
 offset_right = 30.0
 offset_bottom = 30.0
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 
 [node name="StackCount" type="Label" parent="."]
+visible = false
+layout_mode = 0
 offset_right = 30.0
 offset_bottom = 29.0
-theme = ExtResource( 2 )
-theme_override_colors/font_color = Color( 0, 0, 0, 0.854902 )
-align = 1
-valign = 1
+theme = ExtResource("2")
+theme_override_colors/font_color = Color(1, 1, 1, 0.854902)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "99"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jk88k")
+}

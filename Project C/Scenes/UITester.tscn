@@ -1,9 +1,9 @@
-[gd_scene load_steps=44 format=3 uid="uid://dst3vg100nel"]
+[gd_scene format=3 uid="uid://dst3vg100nel"]
 
 [ext_resource type="AudioStream" uid="uid://dj7fljqq1u36m" path="res://Audio/NHarbor(D).ogg" id="1"]
 [ext_resource type="AudioStream" uid="uid://dra5t2anp2nrd" path="res://Audio/NHarbor(D)Intro.ogg" id="2"]
-[ext_resource type="Script" path="res://Scripts/Battle/Audio1.gd" id="3"]
-[ext_resource type="Script" path="res://Scripts/Battle/SceneInitialize.gd" id="4"]
+[ext_resource type="Script" uid="uid://cg0xebye51l5v" path="res://Scripts/Battle/Audio1.gd" id="3"]
+[ext_resource type="Script" uid="uid://bsa0lu0cl3gei" path="res://Scripts/Battle/SceneInitialize.gd" id="4"]
 [ext_resource type="PackedScene" uid="uid://6eklp7yvpl1q" path="res://Scenes/Elements/TechsMenu.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://Scenes/Elements/APBar.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://Scenes/Elements/TestButton.tscn" id="7"]
@@ -12,12 +12,11 @@
 [ext_resource type="PackedScene" path="res://Scenes/Elements/BottomBorder.tscn" id="10"]
 [ext_resource type="PackedScene" path="res://Scenes/Elements/SideBorder.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://cyeq4rrx3vo73" path="res://Scenes/Elements/charCard.tscn" id="12"]
-[ext_resource type="Animation" path="res://Animations/AttackPhase.tres" id="13"]
 [ext_resource type="AudioStream" uid="uid://bhiw3w2e1bkyn" path="res://Audio/NWalla.ogg" id="14"]
-[ext_resource type="Script" path="res://Scenes/IntroLong.gd" id="15"]
+[ext_resource type="Script" uid="uid://l3fcrt611w8y" path="res://Scenes/IntroLong.gd" id="15"]
 [ext_resource type="AudioStream" uid="uid://djr6xnoj4uexy" path="res://Audio/MakotoThemeIntro.ogg" id="16"]
 [ext_resource type="AudioStream" uid="uid://6dpllcxwubwy" path="res://Audio/MakotoThemeLoop.ogg" id="17"]
-[ext_resource type="PackedScene" path="res://Scenes/Elements/Dialog.tscn" id="18"]
+[ext_resource type="PackedScene" uid="uid://bsfarl70dkkf1" path="res://Scenes/Elements/Dialog.tscn" id="18"]
 [ext_resource type="AudioStream" uid="uid://x0b4csp12rde" path="res://Audio/NHarbor(N)Intro.ogg" id="19"]
 [ext_resource type="AudioStream" uid="uid://cogdp0t0fqy8c" path="res://Audio/NHarbor(N).ogg" id="20"]
 [ext_resource type="AudioStream" uid="uid://cjgk1348eodtb" path="res://Audio/NHarbor(NA).ogg" id="21"]
@@ -42,226 +41,333 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xk2mo"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cw2wv"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eb1dr"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ljny0"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2hcwc"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gga6x"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bhk5p"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i0ego"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ekrb1"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hy1vf"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xbrb5"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vbw6r"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s2tvm"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ic3lm"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_funir"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_whx1k"]
 _data = {
-"RESET": SubResource("2")
+&"RESET": SubResource("2")
 }
 
-[sub_resource type="Animation" id="1"]
-resource_name = "TestAttack"
+[sub_resource type="Animation" id="Animation_6x80w"]
+resource_name = "ShiftP1Down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(40, 790), Vector2(40, 810)]
+}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kpa0v"]
+[sub_resource type="Animation" id="Animation_3cthq"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(40, 810), Vector2(40, 790)]
+}
+
+[sub_resource type="Animation" id="Animation_reumu"]
+resource_name = "ShiftP2Down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(200, 790), Vector2(200, 810)]
+}
+
+[sub_resource type="Animation" id="Animation_223vh"]
+resource_name = "ShiftP2Up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(200, 810), Vector2(200, 790)]
+}
+
+[sub_resource type="Animation" id="Animation_n5rqx"]
+resource_name = "ShiftP3Down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(360, 790), Vector2(360, 810)]
+}
+
+[sub_resource type="Animation" id="Animation_7alpt"]
+resource_name = "ShiftP3Up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(360, 810), Vector2(360, 790)]
+}
+
+[sub_resource type="Animation" id="Animation_qdrhl"]
+resource_name = "ShiftP4Down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(520, 790), Vector2(520, 810)]
+}
+
+[sub_resource type="Animation" id="Animation_m6rb3"]
+resource_name = "ShiftP4Up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(520, 810), Vector2(520, 790)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y11rj"]
 _data = {
-"AttackPhase": ExtResource("13"),
-"TestAttack": SubResource("1")
+&"ShiftP1Down": SubResource("Animation_6x80w"),
+&"ShiftP1Up": SubResource("Animation_3cthq"),
+&"ShiftP2Down": SubResource("Animation_reumu"),
+&"ShiftP2Up": SubResource("Animation_223vh"),
+&"ShiftP3Down": SubResource("Animation_n5rqx"),
+&"ShiftP3Up": SubResource("Animation_7alpt"),
+&"ShiftP4Down": SubResource("Animation_qdrhl"),
+&"ShiftP4Up": SubResource("Animation_m6rb3")
 }
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" unique_id=440612411]
 script = ExtResource("4")
 
-[node name="Dialog" parent="." instance=ExtResource("18")]
+[node name="Dialog" parent="." unique_id=252516697 instance=ExtResource("18")]
 visible = false
 position = Vector2(210, 25)
 
-[node name="APBar" parent="." instance=ExtResource("6")]
+[node name="APBar" parent="." unique_id=92643877 instance=ExtResource("6")]
 position = Vector2(51, 0)
 
-[node name="SideBorder" parent="." instance=ExtResource("11")]
+[node name="SideBorder" parent="." unique_id=75603993 instance=ExtResource("11")]
 
-[node name="SideBorder2" parent="." instance=ExtResource("11")]
+[node name="SideBorder2" parent="." unique_id=1000173991 instance=ExtResource("11")]
 position = Vector2(1920, 0)
 scale = Vector2(-1, 1)
 
-[node name="BottomBorder" parent="." instance=ExtResource("10")]
+[node name="BottomBorder" parent="." unique_id=752642139 instance=ExtResource("10")]
 
-[node name="Enemy1" parent="." instance=ExtResource("12")]
+[node name="Enemy1" parent="." unique_id=335355957 instance=ExtResource("12")]
 visible = false
 position = Vector2(1730, 810)
 
 [node name="AnimationPlayer" parent="Enemy1/AnimationGroup/EPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_xk2mo")
-}
+libraries/ = SubResource("AnimationLibrary_xk2mo")
 
 [node name="AnimationPlayer" parent="Enemy1/AnimationGroup/HPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_cw2wv")
-}
+libraries/ = SubResource("AnimationLibrary_cw2wv")
 
-[node name="Enemy2" parent="." instance=ExtResource("12")]
+[node name="TextureButton" parent="Enemy1/AnimationGroup" parent_id_path=PackedInt32Array(335355957, 1906646073) index="9" unique_id=503665525]
+disabled = true
+
+[node name="Enemy2" parent="." unique_id=1257447243 instance=ExtResource("12")]
 visible = false
 position = Vector2(1570, 810)
 
 [node name="AnimationPlayer" parent="Enemy2/AnimationGroup/EPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_eb1dr")
-}
+libraries/ = SubResource("AnimationLibrary_eb1dr")
 
 [node name="AnimationPlayer" parent="Enemy2/AnimationGroup/HPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_ljny0")
-}
+libraries/ = SubResource("AnimationLibrary_ljny0")
 
-[node name="Enemy3" parent="." instance=ExtResource("12")]
+[node name="TextureButton" parent="Enemy2/AnimationGroup" parent_id_path=PackedInt32Array(1257447243, 1906646073) index="9" unique_id=503665525]
+disabled = true
+
+[node name="Enemy3" parent="." unique_id=638909159 instance=ExtResource("12")]
 visible = false
 position = Vector2(1410, 810)
 
 [node name="AnimationPlayer" parent="Enemy3/AnimationGroup/EPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_2hcwc")
-}
+libraries/ = SubResource("AnimationLibrary_2hcwc")
 
 [node name="AnimationPlayer" parent="Enemy3/AnimationGroup/HPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_gga6x")
-}
+libraries/ = SubResource("AnimationLibrary_gga6x")
 
-[node name="Enemy4" parent="." instance=ExtResource("12")]
+[node name="TextureButton" parent="Enemy3/AnimationGroup" parent_id_path=PackedInt32Array(638909159, 1906646073) index="9" unique_id=503665525]
+disabled = true
+
+[node name="Enemy4" parent="." unique_id=480774519 instance=ExtResource("12")]
 visible = false
 position = Vector2(1250, 810)
 
 [node name="AnimationPlayer" parent="Enemy4/AnimationGroup/EPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_bhk5p")
-}
+libraries/ = SubResource("AnimationLibrary_bhk5p")
 
 [node name="AnimationPlayer" parent="Enemy4/AnimationGroup/HPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_i0ego")
-}
+libraries/ = SubResource("AnimationLibrary_i0ego")
 
-[node name="Player4" parent="." instance=ExtResource("12")]
-visible = false
+[node name="TextureButton" parent="Enemy4/AnimationGroup" parent_id_path=PackedInt32Array(480774519, 1906646073) index="9" unique_id=503665525]
+disabled = true
+
+[node name="Player4" parent="." unique_id=132793012 instance=ExtResource("12")]
 position = Vector2(520, 810)
 
 [node name="AnimationPlayer" parent="Player4/AnimationGroup/EPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_ekrb1")
-}
+libraries/ = SubResource("AnimationLibrary_ekrb1")
 
 [node name="AnimationPlayer" parent="Player4/AnimationGroup/HPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_hy1vf")
-}
+libraries/ = SubResource("AnimationLibrary_hy1vf")
 
-[node name="Player3" parent="." instance=ExtResource("12")]
-visible = false
+[node name="Player3" parent="." unique_id=2040121348 instance=ExtResource("12")]
 position = Vector2(360, 810)
 
 [node name="AnimationPlayer" parent="Player3/AnimationGroup/EPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_xbrb5")
-}
+libraries/ = SubResource("AnimationLibrary_xbrb5")
 
 [node name="AnimationPlayer" parent="Player3/AnimationGroup/HPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_vbw6r")
-}
+libraries/ = SubResource("AnimationLibrary_vbw6r")
 
-[node name="Player2" parent="." instance=ExtResource("12")]
-visible = false
+[node name="Player2" parent="." unique_id=300347637 instance=ExtResource("12")]
 position = Vector2(200, 810)
 
 [node name="AnimationPlayer" parent="Player2/AnimationGroup/EPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_s2tvm")
-}
+libraries/ = SubResource("AnimationLibrary_s2tvm")
 
 [node name="AnimationPlayer" parent="Player2/AnimationGroup/HPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_ic3lm")
-}
+libraries/ = SubResource("AnimationLibrary_ic3lm")
 
-[node name="Player1" parent="." instance=ExtResource("12")]
+[node name="Player1" parent="." unique_id=2010476020 instance=ExtResource("12")]
 position = Vector2(40, 810)
 
 [node name="AnimationPlayer" parent="Player1/AnimationGroup/EPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_funir")
-}
+libraries/ = SubResource("AnimationLibrary_funir")
 
 [node name="AnimationPlayer" parent="Player1/AnimationGroup/HPBar/reduceColor" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_whx1k")
-}
+libraries/ = SubResource("AnimationLibrary_whx1k")
 
-[node name="ControlPalette" type="Node2D" parent="."]
+[node name="ControlPalette" type="Node2D" parent="." unique_id=883477601]
 position = Vector2(40, 810)
 
-[node name="AttackButton" parent="ControlPalette" instance=ExtResource("7")]
+[node name="AttackButton" parent="ControlPalette" unique_id=544186058 instance=ExtResource("7")]
 anchors_preset = -1
 anchor_right = 200.0
 offset_left = 820.0
@@ -269,74 +375,72 @@ offset_top = 40.0
 offset_right = 1020.0
 offset_bottom = 140.0
 
-[node name="EscapeButton" parent="ControlPalette" instance=ExtResource("9")]
+[node name="EscapeButton" parent="ControlPalette" unique_id=109671888 instance=ExtResource("9")]
 offset_left = 820.0
 offset_top = 140.0
 offset_right = 1032.0
 offset_bottom = 246.0
 
-[node name="AnalyzeButton" parent="ControlPalette" instance=ExtResource("8")]
+[node name="AnalyzeButton" parent="ControlPalette" unique_id=2129234004 instance=ExtResource("8")]
 offset_left = 920.0
 offset_top = 140.0
 offset_right = 1020.0
 offset_bottom = 240.0
 
-[node name="TechMenu" parent="." instance=ExtResource("5")]
+[node name="TechMenu" parent="." unique_id=289687622 instance=ExtResource("5")]
 visible = false
 position = Vector2(785, 490)
 
-[node name="IntroLong" type="AudioStreamPlayer" parent="."]
+[node name="IntroLong" type="AudioStreamPlayer" parent="." unique_id=1203737479]
 stream = ExtResource("16")
 script = ExtResource("15")
 
-[node name="Loop" type="AudioStreamPlayer" parent="IntroLong"]
+[node name="Loop" type="AudioStreamPlayer" parent="IntroLong" unique_id=1097252582]
 stream = ExtResource("17")
 volume_db = -80.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_kpa0v")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=951788999]
+libraries/ = SubResource("AnimationLibrary_y11rj")
 
-[node name="NWalla" type="AudioStreamPlayer" parent="."]
+[node name="NWalla" type="AudioStreamPlayer" parent="." unique_id=813946521]
 stream = ExtResource("14")
 autoplay = true
 
-[node name="DWalla" type="AudioStreamPlayer" parent="."]
+[node name="DWalla" type="AudioStreamPlayer" parent="." unique_id=1199742262]
 stream = ExtResource("23")
 autoplay = true
 
-[node name="DLayer" type="AudioStreamPlayer" parent="."]
+[node name="DLayer" type="AudioStreamPlayer" parent="." unique_id=1639139588]
 stream = ExtResource("2")
 script = ExtResource("3")
 
-[node name="Audio2" type="AudioStreamPlayer" parent="DLayer"]
+[node name="Audio2" type="AudioStreamPlayer" parent="DLayer" unique_id=139430250]
 stream = ExtResource("1")
 volume_db = -80.0
 autoplay = true
 
-[node name="NLayer" type="AudioStreamPlayer" parent="."]
+[node name="NLayer" type="AudioStreamPlayer" parent="." unique_id=1095786477]
 stream = ExtResource("19")
 script = ExtResource("3")
 
-[node name="Audio2" type="AudioStreamPlayer" parent="NLayer"]
+[node name="Audio2" type="AudioStreamPlayer" parent="NLayer" unique_id=1550084958]
 stream = ExtResource("20")
 volume_db = -80.0
 autoplay = true
 
-[node name="NALayer" type="AudioStreamPlayer" parent="."]
+[node name="NALayer" type="AudioStreamPlayer" parent="." unique_id=1680653097]
 stream = ExtResource("22")
 script = ExtResource("3")
 
-[node name="Audio2" type="AudioStreamPlayer" parent="NALayer"]
+[node name="Audio2" type="AudioStreamPlayer" parent="NALayer" unique_id=587687301]
 stream = ExtResource("21")
 volume_db = -80.0
 autoplay = true
 
-[node name="MDebugButtons" type="Node2D" parent="."]
+[node name="MDebugButtons" type="Node2D" parent="." unique_id=253320563]
 visible = false
 
-[node name="DayAr" type="Button" parent="MDebugButtons"]
+[node name="DayAr" type="Button" parent="MDebugButtons" unique_id=561618090]
 offset_left = 559.0
 offset_top = 266.0
 offset_right = 716.0
@@ -344,7 +448,7 @@ offset_bottom = 413.0
 pivot_offset = Vector2(-175, 119)
 text = "Day Mode"
 
-[node name="NightAr" type="Button" parent="MDebugButtons"]
+[node name="NightAr" type="Button" parent="MDebugButtons" unique_id=2070254172]
 offset_left = 744.0
 offset_top = 273.0
 offset_right = 901.0
@@ -352,7 +456,7 @@ offset_bottom = 420.0
 pivot_offset = Vector2(-175, 119)
 text = "Night Mode"
 
-[node name="Day" type="Button" parent="MDebugButtons"]
+[node name="Day" type="Button" parent="MDebugButtons" unique_id=1970464325]
 offset_left = 952.0
 offset_top = 262.0
 offset_right = 1109.0
@@ -360,7 +464,7 @@ offset_bottom = 409.0
 pivot_offset = Vector2(-175, 119)
 text = "Day Mode (No Arthur)"
 
-[node name="Night" type="Button" parent="MDebugButtons"]
+[node name="Night" type="Button" parent="MDebugButtons" unique_id=2122778516]
 offset_left = 1147.0
 offset_top = 268.0
 offset_right = 1307.0
@@ -368,7 +472,7 @@ offset_bottom = 415.0
 pivot_offset = Vector2(-175, 119)
 text = "Night Mode (No Arthur)"
 
-[node name="Hell" type="Button" parent="MDebugButtons"]
+[node name="Hell" type="Button" parent="MDebugButtons" unique_id=851889607]
 offset_left = 839.0
 offset_top = 452.0
 offset_right = 1020.0
@@ -376,7 +480,7 @@ offset_bottom = 599.0
 pivot_offset = Vector2(-175, 119)
 text = "A Hell of Your Own Making"
 
-[node name="Loop" type="AudioStreamPlayer" parent="."]
+[node name="Loop" type="AudioStreamPlayer" parent="." unique_id=1660474513]
 stream = ExtResource("24")
 
 [connection signal="pressed" from="Player4/AnimationGroup/TextureButton" to="." method="_on_Player4Button_pressed"]

@@ -7,10 +7,12 @@ var id: int;
 # var name: String;
 var type: int;
 var stackTurnNum: int;
+var stackMode: bool;
 
-func _init(turnNum: int, p=Texture2D):
+func _init(turnNum: int, s: bool, p=Texture2D):
 	stackTurnNum = turnNum;
 	icon = p;
+	stackMode = s;
 	if(icon == null):
 		icon = load("res://Sprites/StatusEffects/Missing.png");
 

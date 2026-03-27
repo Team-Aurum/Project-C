@@ -5,7 +5,7 @@ class_name Rage
 var p = load("res://Sprites/StatusEffects/Rage.png");
 
 func _init(turnNum: int):
-	super(turnNum, p)
+	super(turnNum, false, p)
 	id = 0;
 	type = 1;
 	name = "Rage";

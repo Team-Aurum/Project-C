@@ -1,34 +1,51 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bsfarl70dkkf1"]
 
-[ext_resource path="res://Fonts/SebastianGothicNbp-wvVw.ttf" type="FontFile" id=1]
+[ext_resource type="FontFile" uid="uid://bw04073gwdkni" path="res://Fonts/SebastianGothicNbp-wvVw.ttf" id="1"]
 
-[sub_resource type="FontFile" id=1]
-size = 51
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 1 )
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("1")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
+cache/0/40/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/40/0 = Vector2(0, 0)
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Background" type="Polygon2D" parent="."]
-color = Color( 1, 1, 1, 0.498039 )
-polygon = PackedVector2Array( 0, 0, 0, 70, 1500, 70, 1500, 0 )
+color = Color(1, 1, 1, 0.498039)
+polygon = PackedVector2Array(0, 0, 0, 70, 1500, 70, 1500, 0)
 
 [node name="ElementColor1" type="Polygon2D" parent="Background"]
-color = Color( 1, 1, 1, 0.498039 )
-polygon = PackedVector2Array( 0, 0, 80, 0, 0, 70, 0, 70, 1490, 0, 1500, 70, 1420, 70, 10, 70, 1500, 0 )
-polygons = [ PackedInt32Array( 0, 1, 7, 2 ), PackedInt32Array( 4, 8, 5, 6 ) ]
+color = Color(1, 1, 1, 0.498039)
+polygon = PackedVector2Array(0, 0, 80, 0, 0, 70, 0, 70, 1490, 0, 1500, 70, 1420, 70, 10, 70, 1500, 0)
+polygons = [PackedInt32Array(0, 1, 7, 2), PackedInt32Array(4, 8, 5, 6)]
 
 [node name="ElementColor2" type="Polygon2D" parent="Background"]
-color = Color( 0.815686, 0.262745, 0.262745, 0.498039 )
-polygon = PackedVector2Array( 80, 0, 130, 0, 60, 70, 10, 70, 1440, 0, 1490, 0, 1420, 70, 1370, 70 )
-polygons = [ PackedInt32Array( 0, 1, 2, 3 ), PackedInt32Array( 4, 5, 6, 7 ) ]
+color = Color(0.815686, 0.262745, 0.262745, 0.498039)
+polygon = PackedVector2Array(80, 0, 130, 0, 60, 70, 10, 70, 1440, 0, 1490, 0, 1420, 70, 1370, 70)
+polygons = [PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7)]
 
 [node name="Label" type="Label" parent="."]
 offset_left = 70.0
 offset_top = 5.0
 offset_right = 1430.0
 offset_bottom = 70.0
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = SubResource( 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("1")
+theme_override_font_sizes/font_size = 40
 text = "Someone's about to get Fucked"
-align = 1
+horizontal_alignment = 1
+vertical_alignment = 1
