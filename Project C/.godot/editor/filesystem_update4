@@ -1,6 +1,0 @@
-res://default_env.tres
-res://Scenes/Elements/charCard.tscn
-res://Scripts/Shaders/bgShader.tres
-res://Scripts/Battle/Generics/Character.gd
-res://Scenes/UITester.tscn
-res://Scripts/Battle/SceneInitialize.gd
