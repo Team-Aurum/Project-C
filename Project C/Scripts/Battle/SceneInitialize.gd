@@ -1,10 +1,12 @@
 extends Node2D
 
-var play1: Character; var play2: Character; var play3: Character; var play4: Character; var playerList: Dictionary;
-var enemy1: Character; var enemy2: Character; var enemy3: Character; var enemy4: Character; var enemyList: Dictionary;
+var playerList: Dictionary;
+var enemyList: Dictionary;
 
 var techOptions: Array;
 var currentMenu: int = 0; var currentPlayer: int;
+
+var statusEffects: Dictionary;
 
 var dwalla;
 var nwalla;
@@ -23,29 +25,27 @@ var naLayerFadeIn: bool = false; var naLayerFadeOut: bool = false;
 # With the playerList that should make it easier I think
 func _ready(): 
 	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-	#TODO: make this declaration a little shorter ya?
-	play1 = Frederick.new($Player1, 100);
-	play2 = Zurine.new($Player2, 100);
-	play3 = Oskar.new($Player3, 100);
-	play4 = Makoto.new($Player4, 100);
-	enemy1 = Zurine.new($Enemy1, 20);
-	enemy2 = Makoto.new($Enemy2, 50);
-	enemy3 = Oskar.new($Enemy3, 40);
-	enemy4 = Makoto.new($Enemy4, 70);
+	playerList[1] = Frederick.new($Player1, 100);
+	playerList[2] = Zurine.new($Player2, 100);
+	playerList[3] = Oskar.new($Player3, 100);
+	playerList[4] = Makoto.new($Player4, 100);
+	enemyList[1] = Zurine.new($Enemy1, 20);
+	enemyList[2] = Makoto.new($Enemy2, 50);
+	enemyList[3] = Oskar.new($Enemy3, 40);
+	enemyList[4] = Makoto.new($Enemy4, 70);
 	
-	print(play1.EPBar.get_node("reduceColor").polygon[1].x)
-	print(play2.EPBar.get_node("reduceColor").polygon[1].x)
-	print(play3.EPBar.get_node("reduceColor").polygon[1].x)
-	print(play4.EPBar.get_node("reduceColor").polygon[1].x)
+	playerList[1].statusEffects.append(Rage.new(1))
+	_updateCharCards(playerList[1], false, false, false, true, false, 0)
+	enemyList[3].statusEffects.append(Targeted.new(1))
+	_updateCharCards(enemyList[3], false, false, false, true, false, 0)
 	
-	playerList[1] = play1;
-	playerList[2] = play2;
-	playerList[3] = play3;
-	playerList[4] = play4;
-	enemyList[1] = enemy1;
-	enemyList[2] = enemy2;
-	enemyList[3] = enemy3;
-	enemyList[4] = enemy4;
+	loadStatusEffects();
+	
+	#print(playerList[1].EPBar.get_node("reduceColor").polygon[1].x)
+	#print(playerList[2].EPBar.get_node("reduceColor").polygon[1].x)
+	#print(playerList[3].EPBar.get_node("reduceColor").polygon[1].x)
+	#print(playerList[4].EPBar.get_node("reduceColor").polygon[1].x)
+	
 	dwalla = $DWalla;
 	nwalla = $NWalla;
 	nlayer = $NLayer;
@@ -132,6 +132,17 @@ func _on_AttackButton_pressed():
 	print("Attacking");
 	$AnimationPlayer.play("AttackPhase");
 
+# TODO: Continue Adding Status Effects
+func loadStatusEffects():
+	statusEffects[19001] = Rage;
+	statusEffects[19002] = Targeted;
+	#statusEffects[19003] = Disrupted;
+	#statusEffects[19004] = Poison;
+	#statusEffects[19005] = Burn;
+	#statusEffects[19006] = Freeze;
+	#statusEffects[19007] = Charmed;
+	#statusEffects[19008] = Sleep;
+
 # Displays the tech menu. Cycles between Techs, Magic, and Items tabs
 func display_TechMenu(p=0):
 	$TechMenu.visible = true;
@@ -163,17 +174,7 @@ func set_TechButton_details(p=0):
 	
 	# Get the required information for each player's techs. 
 	# TODO: May change this later to just an arraylist accessor instead of a match statement
-	match(p):
-		1:
-			data = play1.getTags(currentMenu);
-		2:
-			data = play2.getTags(currentMenu);
-		3:
-			data = play3.getTags(currentMenu);
-		4:
-			data = play4.getTags(currentMenu);
-		_:
-			pass
+	data = playerList[p].getTags(currentMenu);
 	
 	# Creates an instance of a TechMenuOption for each action that the player has in their tags
 	# Each instance is then added to the parent VBoxContainer 
@@ -184,17 +185,7 @@ func set_TechButton_details(p=0):
 		match(d[1]):
 			0: #Special case for Hybrid/Techs
 				var colors;
-				match(p): #Getting colors directly from a function that is unique to each tech using its id
-					1:
-						colors = play1.getColors(d[0]);
-					2:
-						colors = play2.getColors(d[0]);
-					3:
-						colors = play3.getColors(d[0]);
-					4:
-						colors = play4.getColors(d[0]);
-					_:
-						pass
+				colors = playerList[p].getColors(d[0]); #Getting colors directly from a function that is unique to each tech using its id
 				node.get_node("MainBody/ElementColor1").color = colors[0];
 				node.get_node("MainBody/ElementColor2").color = colors[1];
 			1: #Fire
@@ -241,6 +232,8 @@ func _executeTech(id):
 	var baseMagic = executingPlayer.magic;
 	var baseDamage: int; var currentTech;
 	var currentEP;
+	var pTargetable;
+	var eTargetable;
 	
 	# Determines whether the given tech is in the techs or magicTechs array
 	# The first digit of an ID determines whether it's a tech or magic, so id/10000 pulls off just that digit
@@ -278,38 +271,58 @@ func _executeTech(id):
 		if(currentTech.target[1] == 0):
 			$Dialog.visible = true;
 			$Dialog/Label.text = "Choose an ally";
+			pTargetable = [true,true,true,true];
+			
+			# Check if allies are at max HP and if the skill is primarily for healing
+			if currentTech.type == 6:
+				for p in playerList:
+					if playerList[p].currentHP == playerList[p].maxHP:
+						pTargetable[p-1] = false;
 			
 			#Connecting/disconnecting listeners
-			$Player1/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player1Button_pressed"));
-			$Player2/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player2Button_pressed"));
-			$Player3/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player3Button_pressed"));
-			$Player4/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player4Button_pressed"));
-			
-			$Player1/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, play1, currentTech, false, currentEP));
-			$Player2/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, play2, currentTech, false, currentEP));
-			$Player3/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, play3, currentTech, false, currentEP));
-			$Player4/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, play4, currentTech, false, currentEP));
+			for p in playerList:
+				playerList[p].card.find_child("AnimationGroup").find_child("TextureButton").disconnect("pressed", Callable(self, "_on_Player" + str(p) + "Button_pressed"));
+				# Check if allies are at max HP
+				if pTargetable[p-1]:
+					playerList[p].card.find_child("AnimationGroup").find_child("TextureButton").connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, playerList[p], currentTech, false, currentEP));
+				else:
+					playerList[p].card.find_child("AnimationGroup").find_child("TextureButton").disabled = true;
 			
 			$TechMenu/Header/ExitButton.disconnect("pressed", Callable(self, "_on_TechMenuExitButton_pressed"));
 			$TechMenu/Header/ExitButton.connect("pressed", Callable(self, "_cancelAction").bind(0));
 		elif(currentTech.target[1] == 1):
 			$Dialog.visible = true;
 			$Dialog/Label.text = "Choose an enemy";
+			eTargetable = [true,true,true,true];
+			
+			# Check for Rage on the ally
+			for effect in executingPlayer.statusEffects:
+				if effect.id == 19001:
+					# Allies with Rage can only attack enemies with Targeted
+					eTargetable = [false,false,false,false];
+					for i in range(4):
+						for effectE in enemyList[i+1].statusEffects:
+							if effectE.id == 19002:
+								eTargetable[i] = true;
+					break;
 			
 			# Connecting/disconnecting listeners
-			$Player1/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player1Button_pressed"));
-			$Player2/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player2Button_pressed"));
-			$Player3/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player3Button_pressed"));
-			$Player4/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_on_Player4Button_pressed"));
-		
-			$Enemy1/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemy1, currentTech, false, currentEP));
-			$Enemy2/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemy2, currentTech, false, currentEP));
-			$Enemy3/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemy3, currentTech, false, currentEP));
-			$Enemy4/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemy4, currentTech, false, currentEP));
-			$Enemy1/AnimationGroup/TextureButton.disabled = false;
-			$Enemy2/AnimationGroup/TextureButton.disabled = false;
-			$Enemy3/AnimationGroup/TextureButton.disabled = false;
-			$Enemy4/AnimationGroup/TextureButton.disabled = false;
+			for p in playerList:
+				playerList[p].card.find_child("AnimationGroup").find_child("TextureButton").disconnect("pressed", Callable(self, "_on_Player" + str(p) + "Button_pressed"));
+				playerList[p].card.find_child("AnimationGroup").find_child("TextureButton").disabled = true;
+			
+			for e in enemyList:
+				if eTargetable[e-1]:
+					enemyList[e].card.find_child("AnimationGroup").find_child("TextureButton").connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemyList[e], currentTech, false, currentEP));
+					enemyList[e].card.find_child("AnimationGroup").find_child("TextureButton").disabled = false;
+			#$Enemy1/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemyList[1], currentTech, false, currentEP));
+			#$Enemy2/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemyList[2], currentTech, false, currentEP));
+			#$Enemy3/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemyList[3], currentTech, false, currentEP));
+			#$Enemy4/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemyList[4], currentTech, false, currentEP));
+			#$Enemy1/AnimationGroup/TextureButton.disabled = false;
+			#$Enemy2/AnimationGroup/TextureButton.disabled = false;
+			#$Enemy3/AnimationGroup/TextureButton.disabled = false;
+			#$Enemy4/AnimationGroup/TextureButton.disabled = false;
 		
 			$TechMenu/Header/ExitButton.disconnect("pressed", Callable(self, "_on_TechMenuExitButton_pressed"));
 			$TechMenu/Header/ExitButton.connect("pressed", Callable(self, "_cancelAction").bind(1));
@@ -480,13 +493,7 @@ func _applyStatusEffects(target, sEffect):
 	# Does the status effect land?
 	if((randi() % 101) <= sEffect[1]):
 		# Loading the correct Status Effect object
-		var status;
-		match(sEffect[0]):
-			19001: # Rage
-				status = Rage.new(sEffect[3]);
-			_:
-				pass;
-		
+		var status = statusEffects[sEffect[0]].new(sEffect[3]);
 		# Targeting type
 		match(sEffect[2][1]):
 			0: # Self
@@ -494,7 +501,7 @@ func _applyStatusEffects(target, sEffect):
 				for existingStatus in playerList[currentPlayer].statusEffects:
 					if(status.id == existingStatus.id):
 						print("Overwriting status turn count!");
-						existingStatus.stackTurnNum = status.stackTurnNum;
+						existingStatus.stackTurnNum = max(existingStatus.stackTurnNum, status.stackTurnNum);
 						return false;
 				
 				playerList[currentPlayer].statusEffects.append(status);
@@ -504,7 +511,7 @@ func _applyStatusEffects(target, sEffect):
 				for existingStatus in target.statusEffects:
 					if(status.id == existingStatus.id):
 						print("Overwriting status turn count!");
-						existingStatus.stackTurnNum = status.stackTurnNum;
+						existingStatus.stackTurnNum = max(existingStatus.stackTurnNum, status.stackTurnNum);
 						return false;
 				
 				target.statusEffects.append(status);
@@ -572,11 +579,19 @@ func _cancelAction(mode: int):
 		$Player2/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player2Button_pressed"));
 		$Player3/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player3Button_pressed"));
 		$Player4/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player4Button_pressed"));
+		$Player1/AnimationGroup/TextureButton.disabled = false;
+		$Player2/AnimationGroup/TextureButton.disabled = false;
+		$Player3/AnimationGroup/TextureButton.disabled = false;
+		$Player4/AnimationGroup/TextureButton.disabled = false;
 	elif(mode == 1):
 		$Player1/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player1Button_pressed"));
 		$Player2/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player2Button_pressed"));
 		$Player3/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player3Button_pressed"));
 		$Player4/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_on_Player4Button_pressed"));
+		$Player1/AnimationGroup/TextureButton.disabled = false;
+		$Player2/AnimationGroup/TextureButton.disabled = false;
+		$Player3/AnimationGroup/TextureButton.disabled = false;
+		$Player4/AnimationGroup/TextureButton.disabled = false;
 		
 		$Enemy1/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));
 		$Enemy2/AnimationGroup/TextureButton.disconnect("pressed", Callable(self, "_calcFinalDamage"));

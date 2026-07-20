@@ -1,14 +1,14 @@
 extends StatusEffect
 
-class_name Rage
+class_name Targeted
 
-var p = load("res://Sprites/StatusEffects/Rage.png");
+var p = load("res://Sprites/StatusEffects/Targeted.png");
 
 func _init(turnNum: int):
 	super(turnNum, false, p)
-	id = 19001;
+	id = 19002;
 	type = 1;
-	name = "Rage";
+	name = "Targeted";
 
 func effect(c=Character):
 	return c;

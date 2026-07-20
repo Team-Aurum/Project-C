@@ -3,3 +3,8 @@ res://Scenes/UITester.tscn
 res://Scripts/Shaders/bgShader.tres
 res://Scripts/Battle/Generics/Character.gd
 res://Scripts/Battle/SceneInitialize.gd
+res://Scripts/Battle/CharacterData/Frederick.gd
+res://Scripts/Battle/AttackData/Techs/FrederickTech1.gd
+res://Scripts/Battle/StatusEffectData/Rage.gd
+res://Scripts/Battle/StatusEffectData/Targeted.gd
+res://Scripts/Battle/CharacterData/Makoto.gd

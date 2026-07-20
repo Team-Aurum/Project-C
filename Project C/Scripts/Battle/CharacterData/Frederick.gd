@@ -10,7 +10,7 @@ func _init(c=Node2D, l=1):
 	loadTechs();
 	calcStats();
 	currentHP = 100;
-	currentEP = -1; # Temp override to see max HP values
+	currentEP = -1; # Temp override to see max HP/EP values
 	applyCardDetails();
 	statPrintout();
 	#maxHP = 100.0;
