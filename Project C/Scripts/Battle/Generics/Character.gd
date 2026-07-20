@@ -9,7 +9,7 @@ var HPNum:Label; var EPNum:Label;
 var HPChange:Label; var EPChange:Label;
 var rawMaxHP:Array; var rawMaxEP: Array;
 var anim:AnimationPlayer;
-var maxHP:float; var currentHP:float; var maxEP:float; var currentEP:float;
+var maxHP:int; var currentHP:int; var maxEP:int; var currentEP:int;
 var level:int;
 var buffs:Array; var debuffs:Array;
 var statusEffects:Array;
@@ -48,11 +48,11 @@ func applyCardDetails():
 	if currentEP == -1:
 		currentEP = maxEP;
 	sprite.texture = portrait;
-	var hpFill = 120 * (currentHP/maxHP);
+	var hpFill = 120 * (currentHP/float(maxHP));
 	HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
 	HPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(hpFill,0), Vector2(hpFill,20), Vector2(0, 20)];
 	HPNum.text = str(currentHP);
-	var epFill = 120 * (currentEP/maxEP);
+	var epFill = 120 * (currentEP/float(maxEP));
 	EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
 	EPBar.get_node("reduceColor").polygon = [Vector2(0,0), Vector2(epFill,0), Vector2(epFill,20), Vector2(0, 20)];
 	EPNum.text = str(currentEP);

@@ -22,7 +22,7 @@ var naLayerFadeIn: bool = false; var naLayerFadeOut: bool = false;
 # TODO: Lots of this is still like test code and stuff, will have to eventually change it. 
 # With the playerList that should make it easier I think
 func _ready(): 
-	get_window().size = Vector2(1920, 1080);
+	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	#TODO: make this declaration a little shorter ya?
 	play1 = Frederick.new($Player1, 100);
 	play2 = Zurine.new($Player2, 100);
@@ -596,7 +596,7 @@ func _cancelAction(mode: int):
 # Update Update: There's still a couple glitches, but overall it works properly
 func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bool, statusChanged: bool, epDrained: bool, numVal: int):
 	if(hpChanged):
-		var hpFill = 120 * (target.currentHP/target.maxHP);
+		var hpFill = 120 * (target.currentHP/float(target.maxHP));
 		target.HPBar.get_node("color").polygon = [Vector2(0,0), Vector2(hpFill, 0), Vector2(hpFill, 20), Vector2(0, 20)];
 		target.HPNum.text = str(int(target.currentHP));
 		if(target.HPBar.get_node("reduceColor").polygon[1].x > hpFill): createHPBarAnimation(target, hpFill);
@@ -608,7 +608,7 @@ func _updateCharCards(target, hpChanged: bool, epChanged: bool, buffsChanged: bo
 			target.HPChange.text = str(int(numVal)) + " HP";
 			target.anim.play("ShowHPReduce");
 	if(epChanged):
-		var epFill = 120 * (target.currentEP/target.maxEP);
+		var epFill = 120 * (target.currentEP/float(target.maxEP));
 		target.EPBar.get_node("color").polygon = [Vector2(0,0), Vector2(epFill, 0), Vector2(epFill, 20), Vector2(0, 20)];
 		target.EPNum.text = str(int(target.currentEP));
 		print(target.EPBar.get_node("reduceColor").polygon[1].x);
