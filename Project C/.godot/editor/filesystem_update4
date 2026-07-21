@@ -8,3 +8,4 @@ res://Scripts/Battle/AttackData/Techs/FrederickTech1.gd
 res://Scripts/Battle/StatusEffectData/Rage.gd
 res://Scripts/Battle/StatusEffectData/Targeted.gd
 res://Scripts/Battle/CharacterData/Makoto.gd
+res://Scenes/Elements/charCard.tscn

@@ -305,24 +305,26 @@ func _executeTech(id):
 							if effectE.id == 19002:
 								eTargetable[i] = true;
 					break;
+					
+			# Check if target has 0 HP
+			for i in range(4):
+				if enemyList[i+1].currentHP == 0:
+					eTargetable[i] = false;
 			
 			# Connecting/disconnecting listeners
 			for p in playerList:
 				playerList[p].card.find_child("AnimationGroup").find_child("TextureButton").disconnect("pressed", Callable(self, "_on_Player" + str(p) + "Button_pressed"));
 				playerList[p].card.find_child("AnimationGroup").find_child("TextureButton").disabled = true;
+				playerList[p].card.find_child("AnimationGroup").find_child("Disabled").visible = true;
+				playerList[p].card.find_child("AnimationGroup").find_child("Disabled").color = "#00000080"
 			
 			for e in enemyList:
 				if eTargetable[e-1]:
 					enemyList[e].card.find_child("AnimationGroup").find_child("TextureButton").connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemyList[e], currentTech, false, currentEP));
 					enemyList[e].card.find_child("AnimationGroup").find_child("TextureButton").disabled = false;
-			#$Enemy1/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemyList[1], currentTech, false, currentEP));
-			#$Enemy2/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemyList[2], currentTech, false, currentEP));
-			#$Enemy3/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemyList[3], currentTech, false, currentEP));
-			#$Enemy4/AnimationGroup/TextureButton.connect("pressed", Callable(self, "_calcFinalDamage").bind(baseDamage, damageType, enemyList[4], currentTech, false, currentEP));
-			#$Enemy1/AnimationGroup/TextureButton.disabled = false;
-			#$Enemy2/AnimationGroup/TextureButton.disabled = false;
-			#$Enemy3/AnimationGroup/TextureButton.disabled = false;
-			#$Enemy4/AnimationGroup/TextureButton.disabled = false;
+				else:
+					enemyList[e].card.find_child("AnimationGroup").find_child("Disabled").visible = true;
+					enemyList[e].card.find_child("AnimationGroup").find_child("Disabled").color = "#00000080"
 		
 			$TechMenu/Header/ExitButton.disconnect("pressed", Callable(self, "_on_TechMenuExitButton_pressed"));
 			$TechMenu/Header/ExitButton.connect("pressed", Callable(self, "_cancelAction").bind(1));
@@ -601,6 +603,15 @@ func _cancelAction(mode: int):
 		$Enemy2/AnimationGroup/TextureButton.disabled = true;
 		$Enemy3/AnimationGroup/TextureButton.disabled = true;
 		$Enemy4/AnimationGroup/TextureButton.disabled = true;
+	$Player1/AnimationGroup/Disabled.visible = false;
+	$Player2/AnimationGroup/Disabled.visible = false;
+	$Player3/AnimationGroup/Disabled.visible = false;
+	$Player4/AnimationGroup/Disabled.visible = false;
+	$Enemy1/AnimationGroup/Disabled.visible = false;
+	$Enemy2/AnimationGroup/Disabled.visible = false;
+	$Enemy3/AnimationGroup/Disabled.visible = false;
+	$Enemy4/AnimationGroup/Disabled.visible = false;
+	
 	$TechMenu/Header/ExitButton.disconnect("pressed", Callable(self, "_cancelAction"));
 	$TechMenu/Header/ExitButton.connect("pressed", Callable(self, "_on_TechMenuExitButton_pressed"));
 	$Dialog.visible = false;

@@ -282,6 +282,11 @@ vertical_alignment = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationGroup" unique_id=1221310805]
 libraries/ = SubResource("AnimationLibrary_raskx")
 
+[node name="Disabled" type="Polygon2D" parent="AnimationGroup" unique_id=2043040936]
+visible = false
+color = Color(0.52156866, 0, 0, 0.5019608)
+polygon = PackedVector2Array(0, 0, 60, 0, 70, 20, 150, 20, 150, 240, 105, 240, 95, 220, 0, 220)
+
 [editable path="AnimationGroup/EPBar"]
 [editable path="AnimationGroup/HPBar"]
 [editable path="AnimationGroup/BuffDebuffBar/0Icon"]
